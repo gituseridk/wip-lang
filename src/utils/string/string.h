@@ -8,6 +8,6 @@
 
 char* getSubstring(const char* str, int start, int end);
 
-const Array* splitString(const char* str, const char* sepparator);
+Array splitString(const char* str, const char* sepparator);
 
 #endif

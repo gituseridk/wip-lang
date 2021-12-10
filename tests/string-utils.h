@@ -21,5 +21,13 @@ void testStringUtils() {
   assert(!strcmp(sub_string, "kcerubehc lol kek"));
   free(sub_string);
 
+  printf("\t- split string:\n");
+  Array strings = splitString("123 , 345 , 567, 444", " , ");
+  assert(getArrayLength(&strings) == 3);
+  assert(!strcmp((char*)getElementAt(&strings, 0), "123"));
+  assert(!strcmp((char*)getElementAt(&strings, 1), "345"));
+  assert(!strcmp((char*)getElementAt(&strings, 2), "567, 444"));
+  freeArray(&strings);
+
   printf("Test string utils: OK\n");
 }

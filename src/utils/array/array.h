@@ -14,6 +14,6 @@ void freeArray(Array *self);
 void* getElementAt(Array *self, unsigned index);
 const unsigned getArrayLength(const Array *self);
 void* pop(Array *self);
-void push(Array *self, void *element);
+void push(Array *self, const void *element);
 
 #endif

@@ -43,7 +43,7 @@ void* pop(Array *self) {
   return self->value + (self->el_size * self->length);
 }
 
-void push(Array *self, void *element) {
+void push(Array *self, const void *element) {
   if (self->length < self->allocated) {
     ++self->length;
     memcpy(self->value + (self->length * self->el_size), element, self->el_size);

@@ -31,5 +31,27 @@ char* getSubstring(const char* str, int first_index, int last_index) {
   return _getSubstring(str, strlen(str), first_index, last_index);
 }
 
-const Array* splitString(const char* str, const char* sepparator);
+Array splitString(const char* str, const char* sepparator) {
+  int sepparator_length = strlen(sepparator);
+  Array result = newArray(0, sizeof(char*), NULL);
+  const char *part_start = str;
+  while (true) {
+    char *part_end = strstr(part_start, sepparator);
+    if (part_end == NULL) {
+      push(&result, part_start);
+      break;
+    }
+    int len = part_end - part_start;
+    char *part = malloc(len + 1);
+    memcpy(part, part_start, len);
+    part[len] = '\0';
+
+    push(&result, part);
+
+    free(part);
+
+    part_start = part_end + sepparator_length;
+  }
+  return result;
+}
 
