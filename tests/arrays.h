@@ -69,6 +69,7 @@ void testArrays() {
   assert(getArrayLength(arr) == 1);
   freeArray(arr);
 
+  printf("\t- map array\n");
   arr = newArray(10, sizeof(int), (int[10]){0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
   Array *mappedArr = arrMap(arr, sizeof(int), mapHandler);
   freeArray(arr);
