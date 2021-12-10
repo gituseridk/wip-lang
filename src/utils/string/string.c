@@ -1,38 +1,35 @@
-#include <string.h>
-#include <assert.h>
-#include <stdio.h>
+#include <stdlib.h>
+
 #include "./string.h"
 
-const String newString(const char* value) {
-  return (String) {
-    .value = value,
-    .length = strlen(value),
-  };
-}
-
-const char *getStringValue(const String *self) {
-  return self->value;
-}
-
-const unsigned getStringLength(const String *self) {
-  return self->length;
-}
-
-const int findSubstring(const String *self, String substring) {
-  char *start = strstr(self->value, substring.value);
-  if (start == NULL) {
-    return -1;
+int _processPosition(int len, int pos) {
+  int offset = pos >= 0 ? pos : len - pos;
+  if (offset < 0) {
+    return 0;
   }
-  return start - self->value;
+  if (offset >= len) {
+    return len-1;
+  }
+  return offset;
 }
 
-const bool isStringsEq(String a, String b) {
-  return !strcmp(a.value, b.value);
+char* _getSubstring(const char* str, int len, int first, int last) {
+  int offset = _processPosition(len, first);
+  int size = _processPosition(len, last) - offset;
+  bool isReversed = size < 0;
+  size = (size < 0 ? -size : size) + 1;
+
+  char *newString = (char*)malloc(size+1);
+  for (int i = 0; i != size; ++i) {
+    newString[i] = str[offset + (isReversed ? -i : i)];
+  }
+  newString[size] = '\0';
+  return newString;
 }
 
-const Array splitString(const String *self, const String separator) {
-  // !TODO implementation
-  assert(0);
-  Array result = newArray(1, sizeof(String), (const String[]){*self});
-  return result;
+char* getSubstring(const char* str, int first_index, int last_index) {
+  return _getSubstring(str, strlen(str), first_index, last_index);
 }
+
+const Array* splitString(const char* str, const char* sepparator);
+

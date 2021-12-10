@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "./arrays.h"
-#include "./strings.h"
+#include "./string-utils.h"
 
 int main() {
   testArrays();
-  testStrings();
+  testStringUtils();
   return 0;
 }
