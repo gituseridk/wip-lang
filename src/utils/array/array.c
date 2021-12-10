@@ -5,22 +5,31 @@
 
 #define ALLOC_MULT 2
 
-const Array newArray(unsigned length, unsigned el_size, const void *data) {
+struct Array {
+  unsigned el_size;
+  unsigned length;
+  unsigned allocated;
+  void *value;
+};
+
+Array* newArray(unsigned length, unsigned el_size, const void *data) {
   unsigned dataSize = el_size * length;
   void *value = malloc(el_size * length);
   memcpy(value, data, dataSize);
-  
-  return (Array) {
-    .el_size = el_size,
-    .length = length,
-    .allocated = length,
-    .value = value,
-  };
+
+  Array *result = malloc(sizeof(struct Array));
+  result->el_size = el_size;
+  result->length = length;
+  result->allocated = length;
+  result->value = value;
+
+  return result;
 }
 void freeArray(Array *self) {
   self->allocated = 0;
   self->length = 0;
   free(self->value);
+  free(self);
 }
 
 void* getElementAt(Array *self, unsigned index) {

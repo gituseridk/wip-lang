@@ -1,14 +1,9 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
-typedef struct {
-  unsigned el_size;
-  unsigned length;
-  unsigned allocated;
-  void *value;
-} Array;
+typedef struct Array Array;
 
-const Array newArray(unsigned length, unsigned el_size, const void *data);
+Array* newArray(unsigned length, unsigned el_size, const void *data);
 void freeArray(Array *self);
 
 void* getElementAt(Array *self, unsigned index);
