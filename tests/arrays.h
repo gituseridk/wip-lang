@@ -3,6 +3,14 @@
 
 #include "utils/array/array.h"
 
+void mapHandler(int *result, int *el, int index, Array *self) {
+  *result = 10000 + (*el) * 100 + index;
+}
+
+void forEachHandler(int *el, int index, Array *self) {
+  assert(*el == 10000 + index);
+}
+
 void testArrays() {
   printf("Test arrays:\n");
 
@@ -15,7 +23,13 @@ void testArrays() {
   printf("\t- get length\n");
   assert(getArrayLength(arr) == 3);
 
-  int val = 10;
+  printf("\t- set array elements\n");
+  int val = 999;
+  assert(setElementAt(arr, 1, &val));
+  printf("\t- check set element\n");
+  assert(*(int*)getElementAt(arr, 1) == val);
+
+  val = 10;
   printf("\t- push element to array\n");
   push(arr, &val);
 
@@ -39,6 +53,28 @@ void testArrays() {
 
   printf("\t- delete array\n");
   freeArray(arr);
+
+  printf("\t- create empty array\n");
+  arr = newEmptyArray(0, sizeof(int));
+  assert(arr);
+
+  printf("\t- delete empty array\n");
+  freeArray(arr);
+
+  printf("\t- push to empty array\n");
+  arr = newEmptyArray(0, sizeof(int));
+  val = -69;
+  push(arr, &val);
+  assert((*(int*)getElementAt(arr, 0)) == -69);
+  assert(getArrayLength(arr) == 1);
+  freeArray(arr);
+
+  arr = newArray(10, sizeof(int), (int[10]){0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+  Array *mappedArr = arrMap(arr, sizeof(int), mapHandler);
+  freeArray(arr);
+  assert(getArrayLength(mappedArr) == 10);
+  arrForEach(mappedArr, forEachHandler);
+  freeArray(mappedArr);
 
   printf("Test arrays: OK\n");
 }

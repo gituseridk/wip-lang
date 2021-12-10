@@ -50,7 +50,7 @@ char* trimString(const char *str) {
 
 Array* splitString(const char* str, const char* sepparator) {
   int sepparator_length = strlen(sepparator);
-  Array *result = newArray(0, sizeof(char*), NULL);
+  Array *result = newEmptyArray(1, sizeof(char*));
   const char *part_start = str;
   while (true) {
     char *part_end = strstr(part_start, sepparator);

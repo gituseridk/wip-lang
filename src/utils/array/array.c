@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "./array.h"
 
@@ -11,6 +12,18 @@ struct Array {
   unsigned allocated;
   void *value;
 };
+
+Array *newEmptyArray(unsigned reserved, unsigned el_size) {
+  void *value = malloc(el_size * reserved);
+
+  Array *result = malloc(sizeof(struct Array));
+  result->el_size = el_size;
+  result->length = 0;
+  result->allocated = reserved;
+  result->value = value;
+
+  return result;
+}
 
 Array* newArray(unsigned length, unsigned el_size, const void *data) {
   unsigned dataSize = el_size * length;
@@ -39,6 +52,14 @@ void* getElementAt(Array *self, unsigned index) {
   return self->value + (self->el_size * index);
 }
 
+bool setElementAt(Array *self, unsigned index, const void *newValue) {
+  if (index >= self->length) {
+    return false;
+  }
+  memcpy(self->value + index * self->el_size, newValue, self->el_size);
+  return true;
+}
+
 const unsigned getArrayLength(const Array *self) {
   return self->length;
 }
@@ -54,12 +75,27 @@ void* pop(Array *self) {
 
 void push(Array *self, const void *element) {
   if (self->length < self->allocated) {
-    ++self->length;
     memcpy(self->value + (self->length * self->el_size), element, self->el_size);
+    ++self->length;
     return;
   }
   self->value = realloc(self->value, self->el_size * self->length * ALLOC_MULT);
   memcpy(self->value + self->length * self->el_size, element, self->el_size);
   self->allocated = self->length * ALLOC_MULT;
   ++self->length;
+}
+
+Array* arrMap(Array *self, unsigned new_el_size, MapHandler handler) {
+  Array *result = newEmptyArray(self->length, new_el_size);
+  result->length = self->length;
+  for (int i = 0; i != self->length; ++i) {
+    handler(result->value + i * new_el_size, getElementAt(self, i), i, self);
+  }
+  return result;
+}
+
+void arrForEach(Array *self, ForEachHandler handler) {
+  for (int i = 0; i != self->length; ++i) {
+    handler(getElementAt(self, i), i, self);
+  }
 }
