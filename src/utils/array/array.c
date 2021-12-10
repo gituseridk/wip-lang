@@ -5,7 +5,7 @@
 
 #define ALLOC_MULT 2
 
-Array newArray(unsigned length, unsigned el_size, void *data) {
+const Array newArray(unsigned length, unsigned el_size, const void *data) {
   unsigned dataSize = el_size * length;
   void *value = malloc(el_size * length);
   memcpy(value, data, dataSize);
@@ -30,7 +30,7 @@ void* getElementAt(Array *self, unsigned index) {
   return self->value + (self->el_size * index);
 }
 
-unsigned getArrayLength(Array *self) {
+const unsigned getArrayLength(const Array *self) {
   return self->length;
 }
 

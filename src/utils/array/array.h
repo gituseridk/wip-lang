@@ -8,11 +8,11 @@ typedef struct {
   void *value;
 } Array;
 
-Array newArray(unsigned length, unsigned el_size, void *data);
+const Array newArray(unsigned length, unsigned el_size, const void *data);
 void freeArray(Array *self);
 
 void* getElementAt(Array *self, unsigned index);
-unsigned getArrayLength(Array *self);
+const unsigned getArrayLength(const Array *self);
 void* pop(Array *self);
 void push(Array *self, void *element);
 
