@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "./string.h"
 
@@ -29,6 +30,22 @@ char* _getSubstring(const char* str, int len, int first, int last) {
 
 char* getSubstring(const char* str, int first_index, int last_index) {
   return _getSubstring(str, strlen(str), first_index, last_index);
+}
+
+int _getTrimmedStringStart(const char *str) {
+  int result = 0;
+  while(isspace(str[result])) ++result;
+  return result;
+}
+
+int _getTrimmedStringEnd(const char *str) {
+  int result = strlen(str);
+  while (isspace(str[--result]));
+  return result;
+}
+
+char* trimString(const char *str) {
+  return getSubstring(str, _getTrimmedStringStart(str), _getTrimmedStringEnd(str));
 }
 
 Array* splitString(const char* str, const char* sepparator) {

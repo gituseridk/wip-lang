@@ -21,6 +21,16 @@ void testStringUtils() {
   assert(!strcmp(sub_string, "kcerubehc lol kek"));
   free(sub_string);
 
+  printf("\t- trim string\n");
+  sub_string = trimString(" \t\r\n\v\fqwe   thb 3erwd3e \t\r\n\v\f");
+  assert(!strcmp(sub_string, "qwe   thb 3erwd3e"));
+  free(sub_string);
+
+  printf("\t- trim string without whitespaces\n");
+  sub_string = trimString("kek lol chebureck");
+  assert(!strcmp(sub_string, "kek lol chebureck"));
+  free(sub_string);
+
   printf("\t- split string\n");
   Array *strings = splitString("123 , 345 , 567, 444", " , ");
   assert(getArrayLength(strings) == 3);
