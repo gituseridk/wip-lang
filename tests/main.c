@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "./arrays/arrays.h"
+#include "./arrays.h"
 
 int main() {
   testArrays();
