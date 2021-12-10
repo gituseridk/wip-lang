@@ -49,11 +49,8 @@ void push(Array *self, void *element) {
     memcpy(self->value + (self->length * self->el_size), element, self->el_size);
     return;
   }
-  void *newValue = malloc(self->el_size * self->length * ALLOC_MULT);
-  memcpy(newValue, self->value, self->length * self->el_size);
-  memcpy(newValue + self->length * self->el_size, element, self->el_size);
-  free(self->value);
-  self->value = newValue;
+  self->value = realloc(self->value, self->el_size * self->length * ALLOC_MULT);
+  memcpy(self->value + self->length * self->el_size, element, self->el_size);
   self->allocated = self->length * ALLOC_MULT;
   ++self->length;
 }
