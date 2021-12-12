@@ -1,0 +1,3 @@
+CheckIf(separator, token) {
+  
+}

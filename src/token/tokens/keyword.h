@@ -1,0 +1,3 @@
+CheckIf(keyword, token) {
+
+}

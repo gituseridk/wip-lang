@@ -1,0 +1,3 @@
+CheckIf(identifier, token) {
+
+}
