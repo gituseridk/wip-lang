@@ -46,7 +46,7 @@ char* stringTrim(const char *self) {
 
 Array* stringSplit(const char* self, const char* sepparator) {
   int sepparator_length = strlen(sepparator);
-  Array *result = newEmptyArray(1, sizeof(char*));
+  Array *result = createEmptyArray(1, sizeof(char*));
   const char *part_start = self;
   while (true) {
     char *part_end = strstr(part_start, sepparator);

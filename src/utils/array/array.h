@@ -7,8 +7,9 @@ typedef struct Array Array;
 typedef void (*MapHandler)(void *result, void *el, int index, Array *self);
 typedef void (*ForEachHandler)(void *el, int index, Array *self);
 
-Array *newEmptyArray(unsigned reserved, unsigned el_size);
-Array* newArray(unsigned length, unsigned el_size, const void *data);
+Array *createEmptyArray(unsigned reserved, unsigned el_size);
+Array* createArray(unsigned length, unsigned el_size, const void *data);
+
 void arrayFree(Array *self);
 
 const unsigned arrayGetLength(const Array *self);

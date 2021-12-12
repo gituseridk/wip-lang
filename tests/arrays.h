@@ -14,7 +14,7 @@ void forEachHandler(void *el, int index, Array *self) {
 void testArrays() {
   printf("Test arrays:\n");
 
-  Array *arr = newArray(3, sizeof(int), (int[]){ 0, 1, -19 });
+  Array *arr = createArray(3, sizeof(int), (int[]){ 0, 1, -19 });
 
   printf("\t- get array elements\n");
   assert(*(int*)arrayGetElementAt(arr, 0) == 0);
@@ -55,14 +55,14 @@ void testArrays() {
   arrayFree(arr);
 
   printf("\t- create empty array\n");
-  arr = newEmptyArray(0, sizeof(int));
+  arr = createEmptyArray(0, sizeof(int));
   assert(arr);
 
   printf("\t- delete empty array\n");
   arrayFree(arr);
 
   printf("\t- push to empty array\n");
-  arr = newEmptyArray(0, sizeof(int));
+  arr = createEmptyArray(0, sizeof(int));
   val = -69;
   arrayPush(arr, &val);
   assert((*(int*)arrayGetElementAt(arr, 0)) == -69);
@@ -70,7 +70,7 @@ void testArrays() {
   arrayFree(arr);
 
   printf("\t- map array\n");
-  arr = newArray(10, sizeof(int), (int[10]){0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+  arr = createArray(10, sizeof(int), (int[]){0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
   Array *mappedArr = arrayMap(arr, sizeof(int), mapHandler);
   arrayFree(arr);
   assert(arrayGetLength(mappedArr) == 10);
