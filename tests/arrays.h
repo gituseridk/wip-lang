@@ -70,7 +70,7 @@ void testArrays() {
   arrayFree(arr);
 
   printf("\t- map array\n");
-  arr = createArray(10, sizeof(int), (int[]){0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+  arr = newArray(int, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   Array *mappedArr = arrayMap(arr, sizeof(int), mapHandler);
   arrayFree(arr);
   assert(arrayGetLength(mappedArr) == 10);

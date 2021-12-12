@@ -10,6 +10,9 @@ typedef void (*ForEachHandler)(void *el, int index, Array *self);
 Array *createEmptyArray(unsigned reserved, unsigned el_size);
 Array* createArray(unsigned length, unsigned el_size, const void *data);
 
+#define NUMARGS(type, ...)  (sizeof((type[]){__VA_ARGS__})/sizeof(type))
+#define newArray(type, ...) createArray(NUMARGS(type, __VA_ARGS__), sizeof(type), (type[]){__VA_ARGS__})
+
 void arrayFree(Array *self);
 
 const unsigned arrayGetLength(const Array *self);
