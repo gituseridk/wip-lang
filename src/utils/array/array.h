@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 typedef struct Array Array;
-typedef void (*MapHandler)(void *result, void *el, int index, Array *self);
-typedef void (*ForEachHandler)(void *el, int index, Array *self);
+typedef void (*MapHandler)(void *result, const void *el, int index, const Array *self);
+typedef void (*ForEachHandler)(const void *el, int index, const Array *self);
 
 Array *createEmptyArray(unsigned reserved, unsigned el_size);
 Array* createArray(unsigned length, unsigned el_size, const void *data);

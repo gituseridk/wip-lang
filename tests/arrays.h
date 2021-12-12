@@ -3,11 +3,11 @@
 
 #include "utils/array/array.h"
 
-void mapHandler(void *result, void *el, int index, Array *self) {
+void mapHandler(void *result, const void *el, int index, const Array *self) {
   *(int*)result = 10000 + (*(int*)el) * 100 + index;
 }
 
-void forEachHandler(void *el, int index, Array *self) {
+void forEachHandler(const void *el, int index, const Array *self) {
   assert(*(int*)el == 10000 + index);
 }
 
