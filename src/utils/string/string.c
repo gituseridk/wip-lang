@@ -24,13 +24,13 @@ static char* getSubstringWithLen(const char* str, int len, int first, int last) 
   return newString;
 }
 
-char* getSubstring(const char* str, int first_index, int last_index) {
-  return getSubstringWithLen(str, strlen(str), first_index, last_index);
+char* stringGetSubstring(const char* self, int first_index, int last_index) {
+  return getSubstringWithLen(self, strlen(self), first_index, last_index);
 }
 
-static int getTrimmedStringStart(const char *str) {
+static int getTrimmedStringStart(const char *self) {
   int result = 0;
-  while(isspace(str[result])) ++result;
+  while(isspace(self[result])) ++result;
   return result;
 }
 
@@ -40,18 +40,18 @@ static int getTrimmedStringEnd(const char *str) {
   return result;
 }
 
-char* trimString(const char *str) {
-  return getSubstring(str, getTrimmedStringStart(str), getTrimmedStringEnd(str));
+char* stringTrim(const char *self) {
+  return stringGetSubstring(self, getTrimmedStringStart(self), getTrimmedStringEnd(self));
 }
 
-Array* splitString(const char* str, const char* sepparator) {
+Array* stringSplit(const char* self, const char* sepparator) {
   int sepparator_length = strlen(sepparator);
   Array *result = newEmptyArray(1, sizeof(char*));
-  const char *part_start = str;
+  const char *part_start = self;
   while (true) {
     char *part_end = strstr(part_start, sepparator);
     if (part_end == NULL) {
-      push(result, part_start);
+      arrayPush(result, part_start);
       break;
     }
     int len = part_end - part_start;
@@ -59,7 +59,7 @@ Array* splitString(const char* str, const char* sepparator) {
     memcpy(part, part_start, len);
     part[len] = '\0';
 
-    push(result, part);
+    arrayPush(result, part);
 
     free(part);
 

@@ -9,17 +9,17 @@ typedef void (*ForEachHandler)(void *el, int index, Array *self);
 
 Array *newEmptyArray(unsigned reserved, unsigned el_size);
 Array* newArray(unsigned length, unsigned el_size, const void *data);
-void freeArray(Array *self);
+void arrayFree(Array *self);
 
-const unsigned getArrayLength(const Array *self);
+const unsigned arrayGetLength(const Array *self);
 
-void* getElementAt(Array *self, unsigned index);
-bool setElementAt(Array *self, unsigned index, const void *newValue);
+void* arrayGetElementAt(Array *self, unsigned index);
+bool arraySetElementAt(Array *self, unsigned index, const void *newValue);
 
-void* pop(Array *self);
-void push(Array *self, const void *element);
+void* arrayPop(Array *self);
+void arrayPush(Array *self, const void *element);
 
-Array* arrMap(Array *self, unsigned new_el_size, MapHandler handler);
-void arrForEach(Array *self, ForEachHandler handler);
+Array* arrayMap(Array *self, unsigned new_el_size, MapHandler handler);
+void arrayForEach(Array *self, ForEachHandler handler);
 
 #endif

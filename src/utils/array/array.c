@@ -38,21 +38,21 @@ Array* newArray(unsigned length, unsigned el_size, const void *data) {
 
   return result;
 }
-void freeArray(Array *self) {
+void arrayFree(Array *self) {
   self->allocated = 0;
   self->length = 0;
   free(self->value);
   free(self);
 }
 
-void* getElementAt(Array *self, unsigned index) {
+void* arrayGetElementAt(Array *self, unsigned index) {
   if (index >= self->length) {
     return NULL;
   }
   return self->value + (self->el_size * index);
 }
 
-bool setElementAt(Array *self, unsigned index, const void *newValue) {
+bool arraySetElementAt(Array *self, unsigned index, const void *newValue) {
   if (index >= self->length) {
     return false;
   }
@@ -60,12 +60,12 @@ bool setElementAt(Array *self, unsigned index, const void *newValue) {
   return true;
 }
 
-const unsigned getArrayLength(const Array *self) {
+const unsigned arrayGetLength(const Array *self) {
   return self->length;
 }
 
 // !TODO free mem when more than half is unused
-void* pop(Array *self) {
+void* arrayPop(Array *self) {
   if (self->length == 0) {
     return NULL;
   }
@@ -73,7 +73,7 @@ void* pop(Array *self) {
   return self->value + (self->el_size * self->length);
 }
 
-void push(Array *self, const void *element) {
+void arrayPush(Array *self, const void *element) {
   if (self->length < self->allocated) {
     memcpy(self->value + (self->length * self->el_size), element, self->el_size);
     ++self->length;
@@ -85,17 +85,17 @@ void push(Array *self, const void *element) {
   ++self->length;
 }
 
-Array* arrMap(Array *self, unsigned new_el_size, MapHandler handler) {
+Array* arrayMap(Array *self, unsigned new_el_size, MapHandler handler) {
   Array *result = newEmptyArray(self->length, new_el_size);
   result->length = self->length;
   for (int i = 0; i != self->length; ++i) {
-    handler(result->value + i * new_el_size, getElementAt(self, i), i, self);
+    handler(result->value + i * new_el_size, arrayGetElementAt(self, i), i, self);
   }
   return result;
 }
 
-void arrForEach(Array *self, ForEachHandler handler) {
+void arrayForEach(Array *self, ForEachHandler handler) {
   for (int i = 0; i != self->length; ++i) {
-    handler(getElementAt(self, i), i, self);
+    handler(arrayGetElementAt(self, i), i, self);
   }
 }

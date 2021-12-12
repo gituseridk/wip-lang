@@ -6,10 +6,10 @@
 
 #include "utils/array/array.h"
 
-char* getSubstring(const char* str, int start, int end);
+char* stringGetSubstring(const char* self, int start, int end);
 
-char* trimString(const char* str);
+char* stringTrim(const char* self);
 
-Array* splitString(const char* str, const char* sepparator);
+Array* stringSplit(const char* self, const char* sepparator);
 
 #endif
