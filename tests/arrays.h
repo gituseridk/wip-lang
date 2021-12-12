@@ -2,6 +2,7 @@
 #include <assert.h>
 
 #include "utils/array/array.h"
+
 void mapHandler(void *result, void *el, int index, Array *self) {
   *(int*)result = 10000 + (*(int*)el) * 100 + index;
 }
