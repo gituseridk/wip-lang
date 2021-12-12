@@ -2,13 +2,12 @@
 #include <assert.h>
 
 #include "utils/array/array.h"
-
-void mapHandler(int *result, int *el, int index, Array *self) {
-  *result = 10000 + (*el) * 100 + index;
+void mapHandler(void *result, void *el, int index, Array *self) {
+  *(int*)result = 10000 + (*(int*)el) * 100 + index;
 }
 
-void forEachHandler(int *el, int index, Array *self) {
-  assert(*el == 10000 + index);
+void forEachHandler(void *el, int index, Array *self) {
+  assert(*(int*)el == 10000 + index);
 }
 
 void testArrays() {

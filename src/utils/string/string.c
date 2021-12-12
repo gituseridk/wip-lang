@@ -3,20 +3,16 @@
 
 #include "./string.h"
 
-int _processPosition(int len, int pos) {
+static int processPosition(int len, int pos) {
   int offset = pos >= 0 ? pos : len - pos;
-  if (offset < 0) {
-    return 0;
-  }
-  if (offset >= len) {
-    return len-1;
-  }
+  if (offset < 0) return 0;
+  if (offset >= len) return len-1;
   return offset;
 }
 
-char* _getSubstring(const char* str, int len, int first, int last) {
-  int offset = _processPosition(len, first);
-  int size = _processPosition(len, last) - offset;
+static char* getSubstringWithLen(const char* str, int len, int first, int last) {
+  int offset = processPosition(len, first);
+  int size = processPosition(len, last) - offset;
   bool isReversed = size < 0;
   size = (size < 0 ? -size : size) + 1;
 
@@ -29,23 +25,23 @@ char* _getSubstring(const char* str, int len, int first, int last) {
 }
 
 char* getSubstring(const char* str, int first_index, int last_index) {
-  return _getSubstring(str, strlen(str), first_index, last_index);
+  return getSubstringWithLen(str, strlen(str), first_index, last_index);
 }
 
-int _getTrimmedStringStart(const char *str) {
+static int getTrimmedStringStart(const char *str) {
   int result = 0;
   while(isspace(str[result])) ++result;
   return result;
 }
 
-int _getTrimmedStringEnd(const char *str) {
+static int getTrimmedStringEnd(const char *str) {
   int result = strlen(str);
   while (isspace(str[--result]));
   return result;
 }
 
 char* trimString(const char *str) {
-  return getSubstring(str, _getTrimmedStringStart(str), _getTrimmedStringEnd(str));
+  return getSubstring(str, getTrimmedStringStart(str), getTrimmedStringEnd(str));
 }
 
 Array* splitString(const char* str, const char* sepparator) {
