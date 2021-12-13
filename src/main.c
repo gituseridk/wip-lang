@@ -19,13 +19,13 @@ int main() {
     " \t lol=kek + 10.0;\n"
     "str=\" kek lol\"   ;\n"
     "str=\"0.3465\" \"\"\" \"   ;\n"
-    "\"\n \\n \\0 ";
+    "\"\n \\n \\0 \"";
   printf("===src===\n%s\n===SRC===\n\n", src);
   Array *tokens = tokenize(src);
 
   if (tokens == NULL) {
     printf("failed to tokenize sources\n");
-    return 0;
+    return 1;
   }
 
   printf("==tokens==\n");
