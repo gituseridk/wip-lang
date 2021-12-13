@@ -8,7 +8,7 @@
 
 typedef struct {
   int id;
-  bool (*testString)(const char *token, int token_size);
+  int (*checkTokenStr)(const char *token, int token_size);
 } Token;
 
 Array *getTokens();

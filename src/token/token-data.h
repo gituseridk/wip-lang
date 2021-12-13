@@ -7,7 +7,6 @@ typedef struct {
   int id;
   char *value;
 
-  // ?? maybe the wrong place
   int row;
   int col;
   int size;

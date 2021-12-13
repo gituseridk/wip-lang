@@ -12,7 +12,7 @@ typedef struct {
 static bool checkTocken(void *_self, const void *_token, int index, const Array *array) {
   TokenCheckProps *self = (TokenCheckProps*) _self;
   Token *token = (Token*)_token;
-  return token->testString(self->token_str, self->size);
+  return token->checkTokenStr(self->token_str, self->size);
 }
 
 Array* tokenize(char *src) {
@@ -38,7 +38,7 @@ Array* tokenize(char *src) {
     ++col;
     if (*token_end == '\n') {
       ++row;
-      col = 0;
+      col = 1;
     }
     int token_size = token_end - token_start + 1;
     char *token_str = stringGetSubstring(token_start, 0, token_size - 1);
