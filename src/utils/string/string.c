@@ -65,13 +65,20 @@ Array* stringSplit(const char* self, const char* sepparator) {
     memcpy(part, part_start, len);
     part[len] = '\0';
 
-    arrayPush(result, part);
-
-    free(part);
+    arrayPush(result, &part);
 
     part_start = part_end + sepparator_length;
   }
   return result;
+}
+
+static void freeSplittedStringElement(void *self, void *element, int index, const Array *arr) {
+  free(*(char**)element);
+}
+
+void freeSplittedString(Array *array) {
+  arrayForEach(array, freeSplittedStringElement, NULL);
+  arrayFree(array);
 }
 
 bool stringContainsChar(const char* self, char c) {

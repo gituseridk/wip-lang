@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "token/token-data.h"
 
-void printToken(void *self, const void *_token, int index, const Array *tokens) {
+void printToken(void *self, void *_token, int index, const Array *tokens) {
   TokenData *token = (TokenData*)_token;
   printf(
     "tokens[%d]: { name: '%s', value: '%s', row: %d, col: %d }\n",

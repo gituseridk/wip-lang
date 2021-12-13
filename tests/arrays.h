@@ -3,19 +3,19 @@
 
 #include "utils/array/array.h"
 
-void mapHandler(void *self, void *result, const void *el, int index, const Array *array) {
+void mapHandler(void *self, void *result, void *el, int index, const Array *array) {
   *(int*)result = 10000 + (*(int*)el) * 100 + index;
 }
 
-void forEachHandler(void *self, const void *el, int index, const Array *array) {
+void forEachHandler(void *self, void *el, int index, const Array *array) {
   assert(*(int*)el == 10000 + index);
 }
 
-bool filterNegative(void *self, const void *el, int index, const Array *array) {
+bool filterNegative(void *self, void *el, int index, const Array *array) {
   return *(int*)el < 0;
 }
 
-bool findRound(void *self, const void *el, int index, const Array *array) {
+bool findRound(void *self, void *el, int index, const Array *array) {
   int val = *(int*)el;
   return (val % 100 == 0 ) && (val != 0);
 }

@@ -14,4 +14,6 @@ Array* stringSplit(const char* self, const char* sepparator);
 
 bool stringContainsChar(const char* self, char c);
 
+void freeSplittedString(Array *array);
+
 #endif

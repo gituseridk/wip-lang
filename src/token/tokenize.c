@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "utils/string/string.h"
+#include "utils/logger/log-src-error.h"
+
 #include "./token-data.h"
 #include "./tokens.h"
 
@@ -9,7 +12,7 @@ typedef struct {
   char* result_token_end;
 } HandlerProps;
 
-static bool findTokenHandler(void *_self, const void *_token, int index, const Array *array) {
+static bool findTokenHandler(void *_self, void *_token, int index, const Array *array) {
   Token token = *(Token*) _token;
   HandlerProps *self = (HandlerProps*) _self;
   char *token_end = token.chopToken(self->token_start);
@@ -38,7 +41,7 @@ Array* tokenize(char *src) {
     Token *token = arrayFind(getTokens(), findTokenHandler, &props);
 
     if (token == NULL) {
-      printf("unknown token '%c' (%d) at %d:%d\n", *token_start, *token_start, row, col);
+      printSourceError(src, "Unknow token", row, col);
       arrayFree(result);
       return NULL;
     }

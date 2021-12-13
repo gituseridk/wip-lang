@@ -5,12 +5,12 @@
 
 typedef struct Array Array;
 
-typedef void (*MapHandler)(void *self, void *result, const void *el, int index, const Array *array);
-typedef void (*ForEachHandler)(void *self, const void *el, int index, const Array *array);
-typedef bool (*FindHandler)(void *self, const void *el, int index, const Array *array);
-typedef bool (*CountHandler)(void *self, const void *el, int index, const Array *array);
-typedef bool (*FilterHandler)(void *self, const void *el, int index, const Array *array);
-typedef void* (*ReduceHandler)(void *self, void *acc, const void *el, int index, const Array *array);
+typedef void (*MapHandler)(void *self, void *result, void *el, int index, const Array *array);
+typedef void (*ForEachHandler)(void *self, void *el, int index, const Array *array);
+typedef bool (*FindHandler)(void *self, void *el, int index, const Array *array);
+typedef bool (*CountHandler)(void *self, void *el, int index, const Array *array);
+typedef bool (*FilterHandler)(void *self, void *el, int index, const Array *array);
+typedef void* (*ReduceHandler)(void *self, void *acc, void *el, int index, const Array *array);
 
 Array *createEmptyArray(unsigned reserved, unsigned el_size);
 Array* createArray(unsigned length, unsigned el_size, const void *data);
