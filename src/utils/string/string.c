@@ -51,8 +51,12 @@ Array* stringSplit(const char* self, const char* sepparator) {
   while (true) {
     char *part_end = strstr(part_start, sepparator);
     if (part_end == NULL) {
-      if (strlen(part_start) != 0) {
-        arrayPush(result, part_start);
+      int len = strlen(part_start);
+      if (len != 0) {
+        char *part = malloc(len + 1);
+        memcpy(part, part_start, len);
+        part[len] = '\0';
+        arrayPush(result, &part);
       }
       break;
     }
