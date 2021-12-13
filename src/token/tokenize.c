@@ -51,9 +51,6 @@ Array* tokenize(char *src) {
 
   char *token_start = src;
 
-  int start_col = 1;
-  int start_row = 1;
-
   int col = 1;
   int row = 1;
 
