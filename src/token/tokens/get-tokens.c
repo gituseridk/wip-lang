@@ -5,6 +5,7 @@
 #include "./parsers/white-space.h"
 #include "./parsers/separator.h"
 #include "./parsers/operator.h"
+#include "./parsers/literal-string.h"
 #include "./parsers/literal-float.h"
 #include "./parsers/literal-int.h"
 #include "./parsers/comment.h"
@@ -16,13 +17,14 @@ Array *getTokens() {
     return tokens;
   }
   tokens = newArray(Token, 
-    createToken(literal_float, 5),
-    createToken(literal_int, 5),
-    createToken(identifier, 0),
-    createToken(white_space, 1),
-    createToken(separator, 2),
-    createToken(operator, 3),
-    createToken(comment, 6),
+    createToken(literal_string, 0),
+    createToken(literal_float, 1),
+    createToken(literal_int, 2),
+    createToken(identifier, 3),
+    createToken(white_space, 4),
+    createToken(separator, 5),
+    createToken(operator, 6),
+    createToken(comment, 7),
   );
 
   return tokens;
