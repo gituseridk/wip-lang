@@ -99,3 +99,24 @@ void arrayForEach(Array *self, ForEachHandler handler) {
     handler(arrayGetElementAt(self, i), i, self);
   }
 }
+
+Array* arrayFilter(Array *self, FilterHandler handler) {
+  Array *result = createEmptyArray(0, self->el_size);
+  for (int i = 0; i != self->length; ++i) {
+    void *el = arrayGetElementAt(self, i);
+    if (handler(el, i, self)) {
+      arrayPush(result, el);
+    }
+  }
+  return result;
+}
+
+void* arrayFind(Array *self, FindHandler handler) {
+  for (int i = 0; i != self->length; ++i) {
+    void *el = arrayGetElementAt(self, i);
+    if (handler(el, i, self)) {
+      return el;
+    }
+  }
+  return NULL;
+}

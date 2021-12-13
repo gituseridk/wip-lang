@@ -11,6 +11,15 @@ void forEachHandler(const void *el, int index, const Array *self) {
   assert(*(int*)el == 10000 + index);
 }
 
+bool filterNegative(const void *el, int index, const Array *self) {
+  return *(int*)el < 0;
+}
+
+bool findRound(const void *el, int index, const Array *self) {
+  int val = *(int*)el;
+  return (val % 100 == 0 ) && (val != 0);
+}
+
 void testArrays() {
   printf("Test arrays:\n");
 
@@ -76,6 +85,21 @@ void testArrays() {
   assert(arrayGetLength(mappedArr) == 10);
   arrayForEach(mappedArr, forEachHandler);
   arrayFree(mappedArr);
+
+
+  arr = newArray(int, 196, -3, 22, 4, 0, 7, 6, 10000, -245);
+
+  printf("\t- filter array\n");
+  Array *filteredArray = arrayFilter(arr, filterNegative);
+  assert(arrayGetLength(filteredArray) == 2);
+  assert(*(int*)arrayGetElementAt(filteredArray, 0) == -3);
+  assert(*(int*)arrayGetElementAt(filteredArray, 1) == -245);
+  arrayFree(filteredArray);
+
+  printf("\t- find\n");
+  assert( *(int*)arrayFind(arr, findRound) == 10000);
+
+  arrayFree(arr);
 
   printf("Test arrays: OK\n");
 }
