@@ -3,19 +3,19 @@
 
 #include "utils/array/array.h"
 
-void mapHandler(void *result, const void *el, int index, const Array *self) {
+void mapHandler(void *self, void *result, const void *el, int index, const Array *array) {
   *(int*)result = 10000 + (*(int*)el) * 100 + index;
 }
 
-void forEachHandler(const void *el, int index, const Array *self) {
+void forEachHandler(void *self, const void *el, int index, const Array *array) {
   assert(*(int*)el == 10000 + index);
 }
 
-bool filterNegative(const void *el, int index, const Array *self) {
+bool filterNegative(void *self, const void *el, int index, const Array *array) {
   return *(int*)el < 0;
 }
 
-bool findRound(const void *el, int index, const Array *self) {
+bool findRound(void *self, const void *el, int index, const Array *array) {
   int val = *(int*)el;
   return (val % 100 == 0 ) && (val != 0);
 }
@@ -80,27 +80,27 @@ void testArrays() {
 
   printf("\t- map array\n");
   arr = newArray(int, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  Array *mappedArr = arrayMap(arr, sizeof(int), mapHandler);
+  Array *mappedArr = arrayMap(arr, sizeof(int), mapHandler, NULL);
   arrayFree(arr);
   assert(arrayGetLength(mappedArr) == 10);
-  arrayForEach(mappedArr, forEachHandler);
+  arrayForEach(mappedArr, forEachHandler, NULL);
   arrayFree(mappedArr);
 
 
   arr = newArray(int, 196, -3, 22, 4, 0, 7, 6, 10000, -245);
 
   printf("\t- filter array\n");
-  Array *filteredArray = arrayFilter(arr, filterNegative);
+  Array *filteredArray = arrayFilter(arr, filterNegative, NULL);
   assert(arrayGetLength(filteredArray) == 2);
   assert(*(int*)arrayGetElementAt(filteredArray, 0) == -3);
   assert(*(int*)arrayGetElementAt(filteredArray, 1) == -245);
   arrayFree(filteredArray);
 
   printf("\t- find\n");
-  assert( *(int*)arrayFind(arr, findRound) == 10000);
+  assert(*(int*)arrayFind(arr, findRound, NULL) == 10000);
 
   printf("\t- count negative\n");
-  assert(arrayCount(arr, filterNegative) == 2);
+  assert(arrayCount(arr, filterNegative, NULL) == 2);
 
   arrayFree(arr);
 

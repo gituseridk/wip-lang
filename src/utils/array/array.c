@@ -85,47 +85,47 @@ void arrayPush(Array *self, const void *element) {
   ++self->length;
 }
 
-Array* arrayMap(Array *self, unsigned new_el_size, MapHandler handler) {
-  Array *result = createEmptyArray(self->length, new_el_size);
-  result->length = self->length;
-  for (int i = 0; i != self->length; ++i) {
-    handler(result->value + i * new_el_size, arrayGetElementAt(self, i), i, self);
+Array* arrayMap(Array *array, unsigned new_el_size, MapHandler handler, void *self) {
+  Array *result = createEmptyArray(array->length, new_el_size);
+  result->length = array->length;
+  for (int i = 0; i != array->length; ++i) {
+    handler(self, result->value + i * new_el_size, arrayGetElementAt(array, i), i, array);
   }
   return result;
 }
 
-void arrayForEach(Array *self, ForEachHandler handler) {
-  for (int i = 0; i != self->length; ++i) {
-    handler(arrayGetElementAt(self, i), i, self);
+void arrayForEach(Array *array, ForEachHandler handler, void *self) {
+  for (int i = 0; i != array->length; ++i) {
+    handler(self, arrayGetElementAt(array, i), i, array);
   }
 }
 
-Array* arrayFilter(Array *self, FilterHandler handler) {
-  Array *result = createEmptyArray(0, self->el_size);
-  for (int i = 0; i != self->length; ++i) {
-    void *el = arrayGetElementAt(self, i);
-    if (handler(el, i, self)) {
+Array* arrayFilter(Array *array, FilterHandler handler, void *self) {
+  Array *result = createEmptyArray(0, array->el_size);
+  for (int i = 0; i != array->length; ++i) {
+    void *el = arrayGetElementAt(array, i);
+    if (handler(self, el, i, array)) {
       arrayPush(result, el);
     }
   }
   return result;
 }
 
-void* arrayFind(Array *self, FindHandler handler) {
-  for (int i = 0; i != self->length; ++i) {
-    void *el = arrayGetElementAt(self, i);
-    if (handler(el, i, self)) {
+void* arrayFind(Array *array, FindHandler handler, void *self) {
+  for (int i = 0; i != array->length; ++i) {
+    void *el = arrayGetElementAt(array, i);
+    if (handler(self, el, i, array)) {
       return el;
     }
   }
   return NULL;
 }
 
-int arrayCount(Array *self, CountHandler handler) {
+int arrayCount(Array *array, CountHandler handler, void *self) {
   int result = 0;
-  for (int i = 0; i != self->length; ++i) {
-    void *el = arrayGetElementAt(self, i);
-    if (handler(el, i, self)) {
+  for (int i = 0; i != array->length; ++i) {
+    void *el = arrayGetElementAt(array, i);
+    if (handler(self, el, i, array)) {
       ++result;
     }
   }

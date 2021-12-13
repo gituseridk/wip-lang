@@ -5,12 +5,12 @@
 
 typedef struct Array Array;
 
-typedef void (*MapHandler)(void *result, const void *el, int index, const Array *self);
-typedef void (*ForEachHandler)(const void *el, int index, const Array *self);
-typedef bool (*FindHandler)(const void *el, int index, const Array *self);
-typedef bool (*CountHandler)(const void *el, int index, const Array *self);
-typedef bool (*FilterHandler)(const void *el, int index, const Array *self);
-typedef void* (*ReduceHandler)(void *acc, const void *el, int index, const Array *self);
+typedef void (*MapHandler)(void *self, void *result, const void *el, int index, const Array *array);
+typedef void (*ForEachHandler)(void *self, const void *el, int index, const Array *array);
+typedef bool (*FindHandler)(void *self, const void *el, int index, const Array *array);
+typedef bool (*CountHandler)(void *self, const void *el, int index, const Array *array);
+typedef bool (*FilterHandler)(void *self, const void *el, int index, const Array *array);
+typedef void* (*ReduceHandler)(void *self, void *acc, const void *el, int index, const Array *array);
 
 Array *createEmptyArray(unsigned reserved, unsigned el_size);
 Array* createArray(unsigned length, unsigned el_size, const void *data);
@@ -29,13 +29,13 @@ void* arrayPop(Array *self);
 void arrayPush(Array *self, const void *element);
 
 // js-like iterators
-Array* arrayMap(Array *self, unsigned new_el_size, MapHandler handler);
-void arrayForEach(Array *self, ForEachHandler handler);
-void* arrayFind(Array *self, FindHandler handler);
-int arrayCount(Array *self, CountHandler handler);
-Array* arrayFilter(Array *self, FilterHandler handler);
+Array* arrayMap(Array *array, unsigned new_el_size, MapHandler handler, void *self);
+void arrayForEach(Array *array, ForEachHandler handler, void *self);
+void* arrayFind(Array *array, FindHandler handler, void *self);
+int arrayCount(Array *array, CountHandler handler, void *self);
+Array* arrayFilter(Array *array, FilterHandler handler, void *self);
 
 // !TODO not impimented yet
-void* arrayReduce(Array *self, ReduceHandler handler);
+void* arrayReduce(Array *array, ReduceHandler handler, void *self);
 
 #endif
