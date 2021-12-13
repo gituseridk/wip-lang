@@ -1,18 +1,8 @@
-#include <stdio.h>
-#include <string.h>
+#include "utils/string/string.h"
 
-const char *OPERATORS = "+-/*=";
-
-bool isOperatorChar(char c) {
-  return c != 0 && strchr(OPERATORS, c) != NULL;
-}
-
-CheckIf(operator, token, size) {
-  if (isOperatorChar(token[size - 1])) {
-    return TOKEN_CHECK_RESULT_VALID;
+ChopToken(operator, token_start) {
+  if (!stringContainsChar(OPERATORS, *token_start)) {
+    return NULL;
   }
-  if (size > 1 && isOperatorChar(token[size - 2])) {
-    return TOKEN_CHECK_RESULT_ENDED;
-  }
-  return TOKEN_CHECK_RESULT_INVALID;
+  return token_start + 1;
 }

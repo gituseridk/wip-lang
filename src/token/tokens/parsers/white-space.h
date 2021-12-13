@@ -1,11 +1,13 @@
 #include <ctype.h>
+#include "utils/string/string.h"
 
-CheckIf(white_space, token, size) {
-  if (isspace(token[size - 1])) {
-    return TOKEN_CHECK_RESULT_VALID;
+ChopToken(white_space, token_start) {
+  if (!isspace(*token_start)) {
+    return NULL;
   }
-  if (size > 1 && isspace(token[size - 2])) {
-    return TOKEN_CHECK_RESULT_ENDED;
-  }
-  return TOKEN_CHECK_RESULT_INVALID;
+
+  char *token_end = token_start;
+  while (isspace(*++token_end));
+
+  return token_end;
 }

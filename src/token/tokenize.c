@@ -5,130 +5,64 @@
 #include "./tokens.h"
 
 typedef struct {
-  const char *token_str;
-  int size;
-} TokenCheckProps;
+  char *token_start;
+  char* result_token_end;
+} HandlerProps;
 
-typedef struct {
-  int id;
-  int result;
-} TokenCheckResult;
-
-static void checkToken(void *_self, void *result, const void *_token, int index, const Array *array) {
-  TokenCheckProps *self = (TokenCheckProps*) _self;
-  Token *token = (Token*)_token;
-  ((TokenCheckResult*)result)->result = token->checkTokenStr(self->token_str, self->size);
-  ((TokenCheckResult*)result)->id = token->id;
-
-  // printf("[%s]: %d\n", token->name, ((TokenCheckResult*)result)->result);
-}
-
-static bool isTokenValid(void *self, const void *token_check_result, int index, const Array *array) {
-  return ((TokenCheckResult*)token_check_result)->result == TOKEN_CHECK_RESULT_VALID;
-}
-
-static bool isTokenEnded(void *self, const void *token_check_result, int index, const Array *array) {
-  return ((TokenCheckResult*)token_check_result)->result == TOKEN_CHECK_RESULT_ENDED;
-}
-
-static void getTokenByCheckResult(
-  void *_self,
-  void *result,
-  const void *_token_check_result,
-  int index,
-  const Array *array
-) {
-  TokenCheckResult *token_check_result = (TokenCheckResult*) _token_check_result;
-  *(Token*) result = *(Token*) arrayGetElementAt(getTokens(), token_check_result->id);
+static bool findTokenHandler(void *_self, const void *_token, int index, const Array *array) {
+  Token token = *(Token*) _token;
+  HandlerProps *self = (HandlerProps*) _self;
+  char *token_end = token.chopToken(self->token_start);
+  if (token_end == NULL) {
+    return false;
+  }
+  self->result_token_end = token_end;
+  return true;
 }
 
 Array* tokenize(char *src) {
   Array *result = createEmptyArray(1, sizeof(TokenData));
 
   char *token_start = src;
-  char *token_end = src;
 
   int start_col = 1;
   int start_row = 1;
-  bool cursor_already_moved = false;
 
-  int col = 0;
+  int col = 1;
   int row = 1;
 
-  bool need_free_lt = false;
-  Array *last_tokens = getTokens();
-
-  for (;;) {
-    if (!cursor_already_moved) {
-      ++col;
-      if (*token_end == '\n') {
-        ++row;
-        col = 1;
-      }
-      cursor_already_moved = true;
-    }
-    int token_size = token_end - token_start + 1;
-    char *token_str = stringGetSubstring(token_start, 0, token_size - 1);
-    // printf("token: '%s'\n", token_str);
-
-    TokenCheckProps props = (TokenCheckProps) {
-      .token_str = token_str,
-      .size = token_size,
+  while (*token_start != '\0') {
+    HandlerProps props = (HandlerProps) {
+      .token_start = token_start,
     };
-    Array *token_checks = arrayMap(last_tokens, sizeof(TokenCheckResult), checkToken, &props);
+    Token *token = arrayFind(getTokens(), findTokenHandler, &props);
 
-    Array *valid_tokens_results = arrayFilter(token_checks, isTokenValid, NULL);
-    Array *valid_tokens = arrayMap(valid_tokens_results, sizeof(Token), getTokenByCheckResult, NULL);
-    arrayFree(valid_tokens_results);
-    Array *ended_tokens_results = arrayFilter(token_checks, isTokenEnded, NULL);
-    Array *ended_tokens = arrayMap(ended_tokens_results, sizeof(Token), getTokenByCheckResult, NULL);
-    arrayFree(ended_tokens_results);
-
-    arrayFree(token_checks);
-
-    if (arrayGetLength(valid_tokens) == 0 && arrayGetLength(ended_tokens) == 0) {
-      printf("Unexpected token '%*.*s' at %d:%d\n", token_size, token_size, token_start, start_row, start_col);
+    if (token == NULL) {
+      printf("unknown token '%c' (%d) at %d:%d\n", *token_start, *token_start, row, col);
       arrayFree(result);
-      arrayFree(valid_tokens);
-      arrayFree(ended_tokens);
-      free(token_str);
       return NULL;
     }
+    char *token_end = props.result_token_end;
+    int size = token_end - token_start;
 
-    if (arrayGetLength(ended_tokens) != 0) {
-      Token token = *(Token*) arrayGetElementAt(ended_tokens, 0);
-      token_str[token_size - 1] = '\0';
-      TokenData data = (TokenData) {
-        .token = token,
-        .value = token_str,
-        .col = start_col,
-        .row = start_row,
-        .size = token_size - 1,
-      };
-      // printf("Token '%s' (size: %d) parsed at %d:%d\n", token_str, data.size, data.row, data.col);
-      start_row = row;
-      start_col = col;
-      token_start = token_end;
-      arrayPush(result, &data);
-      arrayFree(valid_tokens);
-      arrayFree(ended_tokens);
-      if (need_free_lt) {
-        free(last_tokens);
-        need_free_lt = false;
+    char *token_value = stringGetSubstring(token_start, 0, size - 1);
+    TokenData token_data = (TokenData) {
+      .token = *token,
+      .size = size,
+      .value = token_value,
+      .row = row,
+      .col = col,
+    };
+    arrayPush(result, &token_data);
+
+    for (char *i = token_start; i != token_end; ++i) {
+      ++col;
+      if (*i == '\n') {
+        col = 1;
+        ++row;
       }
-      last_tokens = getTokens();
-      continue;
     }
-
-    last_tokens = valid_tokens;
-    need_free_lt = true;
-    arrayFree(ended_tokens);
-    free(token_str);
-    if (*token_end == '\0') {
-      break;
-    }
-    ++token_end;
-    cursor_already_moved = false;
+    token_start = token_end;
   }
 
   return result;

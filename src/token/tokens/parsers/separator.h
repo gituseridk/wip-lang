@@ -1,18 +1,7 @@
-#include <stdio.h>
-#include <string.h>
 
-const char *SEPARATOR = ",.;:";
-
-bool isSeparatorChar(char c) {
-  return c != 0 && strchr(SEPARATOR, c) != NULL;
-}
-
-CheckIf(separator, token, size) {
-  if (isSeparatorChar(token[size - 1])) {
-    return TOKEN_CHECK_RESULT_VALID;
+ChopToken(separator, token_start) {
+  if (!stringContainsChar(SEPARATORS, *token_start)) {
+    return NULL;
   }
-  if (size > 1 && isSeparatorChar(token[size - 2])) {
-    return TOKEN_CHECK_RESULT_ENDED;
-  }
-  return TOKEN_CHECK_RESULT_INVALID;
+  return token_start + 1;
 }

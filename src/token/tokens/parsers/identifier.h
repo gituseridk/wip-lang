@@ -1,15 +1,19 @@
-#include <stdio.h>
+#include "utils/string/string.h"
 
-static bool isIdentifierChar(char c) {
-  return (c > 64 && c < 91) || (c >  96 && c < 123);
+bool checkIfLetterOrDigit(char c) {
+  return stringContainsChar(UPPER_CASE_LETTERS, c) ||
+         stringContainsChar(LOWER_CASE_LETTERS, c) ||
+         stringContainsChar(ZERO_DIGIT, c) ||
+         stringContainsChar(NOT_ZERO_DIGITS, c);
 }
 
-CheckIf(identifier, token, size) {
-  if (isIdentifierChar(token[size - 1])) {
-    return TOKEN_CHECK_RESULT_VALID;
+ChopToken(identifier, token_start) {
+  if (!stringContainsChar(UPPER_CASE_LETTERS, *token_start) && !stringContainsChar(LOWER_CASE_LETTERS, *token_start)) {
+    return NULL;
   }
-  if (size > 1 && isIdentifierChar(token[size - 2])) {
-    return TOKEN_CHECK_RESULT_ENDED;
-  }
-  return TOKEN_CHECK_RESULT_INVALID;
+
+  char *token_end = token_start + 1;
+  while (checkIfLetterOrDigit(*token_end)) ++token_end;
+
+  return token_end;
 }

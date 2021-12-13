@@ -74,3 +74,6 @@ Array* stringSplit(const char* self, const char* sepparator) {
   return result;
 }
 
+bool stringContainsChar(const char* self, char c) {
+  return c != 0 && strchr(self, c) != NULL;
+}

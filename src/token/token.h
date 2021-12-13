@@ -4,7 +4,7 @@
 typedef struct {
   int id;
   char *name;
-  int (*checkTokenStr)(const char *token, int token_size);
+  char* (*chopToken)(char *token_start);
 } Token;
 
 #endif
