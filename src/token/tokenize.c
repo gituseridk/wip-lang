@@ -45,8 +45,6 @@ static void getTokenByCheckResult(
 Array* tokenize(char *src) {
   Array *result = createEmptyArray(1, sizeof(TokenData));
 
-  int iterations_limit = 100;
-
   char *token_start = src;
   char *token_end = src;
 
@@ -56,14 +54,10 @@ Array* tokenize(char *src) {
   int col = 0;
   int row = 1;
 
-  // !TODO free last_tokens after reassigning
+  bool need_free_lt = false;
   Array *last_tokens = getTokens();
 
-  while (*token_end != '\0') {
-    if (--iterations_limit == 0) {
-      break;
-    }
-
+  for (;;) {
     ++col;
     if (*token_end == '\n') {
       ++row;
@@ -71,7 +65,7 @@ Array* tokenize(char *src) {
     }
     int token_size = token_end - token_start + 1;
     char *token_str = stringGetSubstring(token_start, 0, token_size - 1);
-    // printf("%d token: '%s'\n", iterations_limit, token_str);
+    // printf("token: '%s'\n", token_str);
 
     TokenCheckProps props = (TokenCheckProps) {
       .token_str = token_str,
@@ -101,28 +95,36 @@ Array* tokenize(char *src) {
       Token token = *(Token*) arrayGetElementAt(ended_tokens, 0);
       token_str[token_size - 1] = '\0';
       TokenData data = (TokenData) {
-        .id = token.id,
+        .token = token,
         .value = token_str,
         .col = start_col,
         .row = start_row,
         .size = token_size - 1,
       };
-      printf("Token '%s' (size: %d) parsed at %d:%d\n", token_str, data.size, data.row, data.col);
+      // printf("Token '%s' (size: %d) parsed at %d:%d\n", token_str, data.size, data.row, data.col);
       start_row = row;
       start_col = col;
       token_start = token_end;
       arrayPush(result, &data);
       arrayFree(valid_tokens);
       arrayFree(ended_tokens);
+      if (need_free_lt) {
+        free(last_tokens);
+        need_free_lt = false;
+      }
       last_tokens = getTokens();
       continue;
     }
 
     last_tokens = valid_tokens;
-    ++token_end;
-
+    need_free_lt = true;
     arrayFree(ended_tokens);
     free(token_str);
+    if (*token_end == '\0') {
+      break;
+    }
+    ++token_end;
+
   }
 
   return result;

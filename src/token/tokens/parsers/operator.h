@@ -4,7 +4,7 @@
 const char *OPERATORS = "+-/*=";
 
 bool isOperatorChar(char c) {
-  return strchr(OPERATORS, c) != NULL;
+  return c != 0 && strchr(OPERATORS, c) != NULL;
 }
 
 CheckIf(operator, token, size) {

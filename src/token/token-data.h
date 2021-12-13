@@ -1,10 +1,11 @@
-#ifndef TOKEN_H
-#define TOKEN_H
+#ifndef TOKEN_DATA_H
+#define TOKEN_DATA_H
 
 #include "utils/array/array.h"
+#include "./token.h"
 
 typedef struct {
-  int id;
+  Token token;
   char *value;
 
   int row;

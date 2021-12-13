@@ -4,7 +4,7 @@
 const char *SEPARATOR = ",.;:";
 
 bool isSeparatorChar(char c) {
-  return strchr(SEPARATOR, c) != NULL;
+  return c != 0 && strchr(SEPARATOR, c) != NULL;
 }
 
 CheckIf(separator, token, size) {

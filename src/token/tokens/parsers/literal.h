@@ -4,7 +4,7 @@
 const char *LITERAL_CHARS = "0123456789";
 
 bool isLiteralChar(char c) {
-  return strchr(LITERAL_CHARS, c) != NULL;
+  return c != 0 && strchr(LITERAL_CHARS, c) != NULL;
 }
 
 CheckIf(literal, token, size) {

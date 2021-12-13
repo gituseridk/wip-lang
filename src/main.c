@@ -3,13 +3,14 @@
 
 void printToken(void *self, const void *_token, int index, const Array *tokens) {
   TokenData *token = (TokenData*)_token;
-  printf("tokens[%d]: { id: \"%d\", value: \"%s\" }\n", index, token->id, token->value);
+  printf("tokens[%d]: { name: '%s', value: '%s' }\n", index, token->token.name, token->value);
 }
 
 int main() {
   char *src =
-    "kek = 1+2;\n"
-    "lol=kek + 10;\n";
+    "kek = 1+2   ;     \n"
+    " \t lol=kek + 10.0;\n"
+    "str=;";
   printf("===src===\n%s\n===SRC===\n\n", src);
   Array *tokens = tokenize(src);
 
