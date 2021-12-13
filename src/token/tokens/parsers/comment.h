@@ -1,3 +1,3 @@
 CheckIf(comment, token, size) {
-  return false;
+  return TOKEN_CHECK_RESULT_INVALID;
 }

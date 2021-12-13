@@ -1,3 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+
+const char *OPERATORS = "+-/*=";
+
+bool isOperatorChar(char c) {
+  return strchr(OPERATORS, c) != NULL;
+}
+
 CheckIf(operator, token, size) {
-  return false;
+  if (isOperatorChar(token[size - 1])) {
+    return TOKEN_CHECK_RESULT_VALID;
+  }
+  if (size > 1 && isOperatorChar(token[size - 2])) {
+    return TOKEN_CHECK_RESULT_ENDED;
+  }
+  return TOKEN_CHECK_RESULT_INVALID;
 }

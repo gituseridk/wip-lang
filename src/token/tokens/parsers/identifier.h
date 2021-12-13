@@ -1,8 +1,15 @@
 #include <stdio.h>
 
+static bool isIdentifierChar(char c) {
+  return (c > 64 && c < 91) || (c >  96 && c < 123);
+}
+
 CheckIf(identifier, token, size) {
-  if ((token[size-1] < 65 || token[size-1] > 90) && (token[size-1] < 97 || token[size-1] > 122)) {
-    return false;
+  if (isIdentifierChar(token[size - 1])) {
+    return TOKEN_CHECK_RESULT_VALID;
   }
-  return true;
+  if (size > 1 && isIdentifierChar(token[size - 2])) {
+    return TOKEN_CHECK_RESULT_ENDED;
+  }
+  return TOKEN_CHECK_RESULT_INVALID;
 }

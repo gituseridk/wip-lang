@@ -13,6 +13,11 @@ int main() {
   printf("===src===\n%s\n===SRC===\n\n", src);
   Array *tokens = tokenize(src);
 
+  if (tokens == NULL) {
+    printf("failed to tokenize sources\n");
+    return 0;
+  }
+
   printf("==tokens==\n");
   arrayForEach(tokens, printToken, NULL);
   printf("==TOKENS==\n");
