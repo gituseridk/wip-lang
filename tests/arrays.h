@@ -99,6 +99,9 @@ void testArrays() {
   printf("\t- find\n");
   assert( *(int*)arrayFind(arr, findRound) == 10000);
 
+  printf("\t- count negative\n");
+  assert(arrayCount(arr, filterNegative) == 2);
+
   arrayFree(arr);
 
   printf("Test arrays: OK\n");

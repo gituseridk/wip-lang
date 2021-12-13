@@ -120,3 +120,14 @@ void* arrayFind(Array *self, FindHandler handler) {
   }
   return NULL;
 }
+
+int arrayCount(Array *self, CountHandler handler) {
+  int result = 0;
+  for (int i = 0; i != self->length; ++i) {
+    void *el = arrayGetElementAt(self, i);
+    if (handler(el, i, self)) {
+      ++result;
+    }
+  }
+  return result;
+}
