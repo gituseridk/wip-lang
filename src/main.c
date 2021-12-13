@@ -15,7 +15,7 @@ void printToken(void *self, const void *_token, int index, const Array *tokens) 
 
 int main() {
   char *src =
-    "kek = 100+20130001 - 124f + 123.00423f + 0.0 +  .0124 + .9235  ;     \n"
+    "kek = 100+20130001 - 124f + +0.0 +  .0124 + .9235  ;     \n"
     " \t lol=kek + 10.0;\n";
   printf("===src===\n%s\n===SRC===\n\n", src);
   Array *tokens = tokenize(src);
