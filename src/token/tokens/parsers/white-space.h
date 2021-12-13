@@ -1,7 +1,7 @@
 #include <ctype.h>
 #include "utils/string/string.h"
 
-ChopToken(white_space, token_start) {
+ChopToken(white_space, token_start, error) {
   if (!isspace(*token_start)) {
     return NULL;
   }

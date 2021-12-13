@@ -1,6 +1,6 @@
 #include "utils/string/string.h"
 
-ChopToken(operator, token_start) {
+ChopToken(operator, token_start, error) {
   if (!stringContainsChar(OPERATORS, *token_start)) {
     return NULL;
   }

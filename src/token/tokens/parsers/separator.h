@@ -1,5 +1,5 @@
 
-ChopToken(separator, token_start) {
+ChopToken(separator, token_start, error) {
   if (!stringContainsChar(SEPARATORS, *token_start)) {
     return NULL;
   }

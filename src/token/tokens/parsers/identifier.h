@@ -7,7 +7,7 @@ bool checkIfLetterOrDigit(char c) {
          stringContainsChar(NOT_ZERO_DIGITS, c);
 }
 
-ChopToken(identifier, token_start) {
+ChopToken(identifier, token_start, error) {
   if (!stringContainsChar(UPPER_CASE_LETTERS, *token_start) && !stringContainsChar(LOWER_CASE_LETTERS, *token_start)) {
     return NULL;
   }

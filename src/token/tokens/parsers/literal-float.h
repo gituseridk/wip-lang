@@ -20,7 +20,7 @@ char* chopFloatTail(char *token_start) {
 
 // !TODO parse exponential floats
 
-ChopToken(literal_float, token_start) {
+ChopToken(literal_float, token_start, error) {
   char *token_end = token_start;
 
   if (stringContainsChar(ZERO_DIGIT, *token_end)) {

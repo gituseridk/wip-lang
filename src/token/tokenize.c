@@ -12,15 +12,38 @@ typedef struct {
   char* result_token_end;
 } HandlerProps;
 
-static bool findTokenHandler(void *_self, void *_token, int index, const Array *array) {
+typedef struct {
+  char *error;
+  char *token_end;
+  Token token;
+} TokenChopResult;
+
+static void findTokenHandler(void *_self, void *_result, void *_token, int index, const Array *array) {
   Token token = *(Token*) _token;
-  HandlerProps *self = (HandlerProps*) _self;
-  char *token_end = token.chopToken(self->token_start);
+  TokenChopResult *result = (TokenChopResult*) _result;
+  result->error = NULL;
+  result->token_end = NULL;
+  result->token = token;
+
+  char *token_start = (char*) _self;
+  char* tokenization_error = NULL;
+  char *token_end = token.chopToken(token_start, &tokenization_error);
   if (token_end == NULL) {
-    return false;
+    result->error = tokenization_error;
+    return;
   }
-  self->result_token_end = token_end;
-  return true;
+  result->token_end = token_end;
+  return;
+}
+
+static bool hasError(void *self, void *_chop_result, int index, const Array *array) {
+  TokenChopResult *chop_result = (TokenChopResult*) _chop_result;
+  return chop_result->error != NULL;
+}
+
+static bool hasResult(void *self, void *_chop_result, int index, const Array *array) {
+  TokenChopResult *chop_result = (TokenChopResult*) _chop_result;
+  return chop_result->token_end != NULL;
 }
 
 Array* tokenize(char *src) {
@@ -38,19 +61,31 @@ Array* tokenize(char *src) {
     HandlerProps props = (HandlerProps) {
       .token_start = token_start,
     };
-    Token *token = arrayFind(getTokens(), findTokenHandler, &props);
 
-    if (token == NULL) {
-      printSourceError(src, "Unknow token", row, col);
-      arrayFree(result);
+    Array *token_chop_results = arrayMap(getTokens(), sizeof(TokenChopResult), findTokenHandler, token_start);
+    TokenChopResult *error_result = (TokenChopResult*) arrayFind(token_chop_results, hasError, NULL);
+
+    if (error_result != NULL) {
+      printSourceError(src, error_result->error, row, col);
+      arrayFree(token_chop_results);
       return NULL;
     }
-    char *token_end = props.result_token_end;
+
+    TokenChopResult *token_result = (TokenChopResult*) arrayFind(token_chop_results, hasResult, NULL);
+
+    if (token_result == NULL) {
+      printSourceError(src, "Unknow token", row, col);
+      arrayFree(token_chop_results);
+      return NULL;
+    }
+
+    Token token = token_result->token;
+    char *token_end = token_result->token_end;
     int size = token_end - token_start;
 
     char *token_value = stringGetSubstring(token_start, 0, size - 1);
     TokenData token_data = (TokenData) {
-      .token = *token,
+      .token = token,
       .size = size,
       .value = token_value,
       .row = row,
