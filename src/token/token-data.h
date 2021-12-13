@@ -8,8 +8,9 @@ typedef struct {
   char *value;
 
   // ?? maybe the wrong place
-  unsigned row;
-  unsigned col;
+  int row;
+  int col;
+  int size;
 } TokenData;
 
 Array* tokenize(char *src);

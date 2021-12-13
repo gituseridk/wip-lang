@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include "token/tokens.h"
 #include "./helpers.h"
-#include "./identifier.h"
-#include "./keyword.h"
-#include "./separator.h"
-#include "./operator.h"
-#include "./literal.h"
-#include "./comment.h"
+#include "./parsers/identifier.h"
+#include "./parsers/white-space.h"
+#include "./parsers/separator.h"
+#include "./parsers/operator.h"
+#include "./parsers/literal.h"
+#include "./parsers/comment.h"
 
 Array *tokens;
 
@@ -16,7 +16,7 @@ Array *getTokens() {
   }
   tokens = newArray(Token, 
     createToken(identifier, 0),
-    createToken(keyword, 1),
+    createToken(white_space, 1),
     createToken(separator, 2),
     createToken(operator, 3),
     createToken(literal, 4),
