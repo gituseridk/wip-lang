@@ -15,7 +15,7 @@ char* chopFloatTail(char *token_start) {
     stringContainsChar(ZERO_DIGIT, *token_end)
   ) ++token_end;
 
-  return token_end + 1;
+  return token_end;
 }
 
 ChopToken(literal_float, token_start) {
