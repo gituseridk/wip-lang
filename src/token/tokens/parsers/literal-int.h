@@ -1,3 +1,5 @@
+// !TODO parse binary, hex, etc.
+
 ChopToken(literal_int, token_start) {
   if (stringContainsChar(ZERO_DIGIT, token_start[0])) {
     if (stringContainsChar(ZERO_DIGIT, token_start[1]) || stringContainsChar(NOT_ZERO_DIGITS, token_start[1])) {
