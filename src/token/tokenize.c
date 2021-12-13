@@ -63,18 +63,16 @@ Array* tokenize(char *src) {
     };
 
     Array *token_chop_results = arrayMap(getTokens(), sizeof(TokenChopResult), findTokenHandler, token_start);
-    TokenChopResult *error_result = (TokenChopResult*) arrayFind(token_chop_results, hasError, NULL);
-
-    if (error_result != NULL) {
-      printSourceError(src, error_result->error, row, col);
-      arrayFree(token_chop_results);
-      return NULL;
-    }
 
     TokenChopResult *token_result = (TokenChopResult*) arrayFind(token_chop_results, hasResult, NULL);
 
     if (token_result == NULL) {
-      printSourceError(src, "Unknow token", row, col);
+      TokenChopResult *error_result = (TokenChopResult*) arrayFind(token_chop_results, hasError, NULL);
+      if (error_result != NULL) {
+        printSourceError(src, error_result->error, row, col);
+      } else {
+        printSourceError(src, "Unknow token", row, col);
+      }
       arrayFree(token_chop_results);
       return NULL;
     }
