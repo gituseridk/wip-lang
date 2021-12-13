@@ -50,6 +50,7 @@ Array* tokenize(char *src) {
 
   int start_col = 1;
   int start_row = 1;
+  bool cursor_already_moved = false;
 
   int col = 0;
   int row = 1;
@@ -58,10 +59,13 @@ Array* tokenize(char *src) {
   Array *last_tokens = getTokens();
 
   for (;;) {
-    ++col;
-    if (*token_end == '\n') {
-      ++row;
-      col = 1;
+    if (!cursor_already_moved) {
+      ++col;
+      if (*token_end == '\n') {
+        ++row;
+        col = 1;
+      }
+      cursor_already_moved = true;
     }
     int token_size = token_end - token_start + 1;
     char *token_str = stringGetSubstring(token_start, 0, token_size - 1);
@@ -124,7 +128,7 @@ Array* tokenize(char *src) {
       break;
     }
     ++token_end;
-
+    cursor_already_moved = false;
   }
 
   return result;

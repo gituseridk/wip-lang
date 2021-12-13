@@ -3,7 +3,14 @@
 
 void printToken(void *self, const void *_token, int index, const Array *tokens) {
   TokenData *token = (TokenData*)_token;
-  printf("tokens[%d]: { name: '%s', value: '%s' }\n", index, token->token.name, token->value);
+  printf(
+    "tokens[%d]: { name: '%s', value: '%s', row: %d, col: %d }\n",
+    index,
+    token->token.name,
+    token->value,
+    token->row,
+    token->col
+  );
 }
 
 int main() {
