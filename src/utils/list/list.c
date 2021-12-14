@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "./list.h"
 
@@ -10,7 +11,8 @@ struct List {
 };
 
 List *createList(void *value, int element_size) {
-  List *result = malloc(element_size);
+  List *result = malloc(sizeof(List));
+  result->value = malloc(element_size);
   memcpy(result->value, value, element_size);
   result->next = NULL;
   result->prev = NULL;
@@ -46,6 +48,9 @@ void listPop(List *self, void *result, int element_size) {
 }
 
 List *listPushAfter(List *self, void *value, int element_size) {
+  if (self == NULL) {
+    return createList(value, element_size);
+  }
   List *next = self->next;
   List *newEl = malloc(sizeof(List));
   newEl->prev = self;
@@ -58,6 +63,9 @@ List *listPushAfter(List *self, void *value, int element_size) {
 }
 
 List *listPushBefore(List *self, void *value, int element_size) {
+  if (self == NULL) {
+    return createList(value, element_size);
+  }
   List *prev = self->prev;
   List *newEl = malloc(sizeof(List));
   newEl->next = self;
