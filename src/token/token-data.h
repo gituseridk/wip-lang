@@ -1,7 +1,8 @@
 #ifndef TOKEN_DATA_H
 #define TOKEN_DATA_H
 
-#include "utils/array/array.h"
+#include "utils/list/list.h"
+
 #include "./token.h"
 
 typedef struct {
@@ -13,6 +14,6 @@ typedef struct {
   int size;
 } TokenData;
 
-Array* tokenize(char *src);
+List* tokenize(char *src);
 
 #endif

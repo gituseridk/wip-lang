@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "token/token-data.h"
 
-void printToken(void *self, void *_token, int index, const Array *tokens) {
-  TokenData *token = (TokenData*)_token;
+void printToken(TokenData *token, int index) {
   printf(
     "tokens[%d]: { name: '%s', value: '%s', row: %d, col: %d }\n",
     index,
@@ -15,13 +14,9 @@ void printToken(void *self, void *_token, int index, const Array *tokens) {
 
 int main() {
   char *src =
-    "kek = 100+20130001 - 124f + +0.0 +  .0124 + .9235  ;     \n"
-    " \t lol=kek + 10.0;\n"
-    "str=\" kek lol\"   ;\n"
-    "str=\"0.3465\" \"\"\" \"   ;\n"
-    "\"\n \\n \\0 \"";
+    "int kek = 6.9 + 42.0;\n";
   printf("===src===\n%s\n===SRC===\n\n", src);
-  Array *tokens = tokenize(src);
+  List *tokens = tokenize(src);
 
   if (tokens == NULL) {
     printf("failed to tokenize sources\n");
@@ -29,8 +24,13 @@ int main() {
   }
 
   printf("==tokens==\n");
-  arrayForEach(tokens, printToken, NULL);
+  int i = 0;
+  for (List *token = tokens; token != NULL; token = listNext(token)) {
+    printToken((TokenData*) listGetValue(token), i);
+    ++i;
+  }
   printf("==TOKENS==\n");
+  listFree(tokens);
 
   return 0;
 }

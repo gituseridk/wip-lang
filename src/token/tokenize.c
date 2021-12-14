@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "utils/array/array.h"
 #include "utils/string/string.h"
 #include "utils/logger/log-src-error.h"
 
@@ -46,8 +47,9 @@ static bool hasResult(void *self, void *_chop_result, int index, const Array *ar
   return chop_result->token_end != NULL;
 }
 
-Array* tokenize(char *src) {
-  Array *result = createEmptyArray(1, sizeof(TokenData));
+List* tokenize(char *src) {
+  List *result = NULL;
+  List *last_token_result = NULL;
 
   char *token_start = src;
 
@@ -86,7 +88,10 @@ Array* tokenize(char *src) {
       .row = row,
       .col = col,
     };
-    arrayPush(result, &token_data);
+    last_token_result = listPushAfter(last_token_result, &token_data, sizeof(TokenData));
+    if (result == NULL) {
+      result = last_token_result;
+    }
 
     for (char *i = token_start; i != token_end; ++i) {
       ++col;
