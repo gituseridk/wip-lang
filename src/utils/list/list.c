@@ -54,6 +54,7 @@ List *listPushAfter(List *self, void *value, int element_size) {
   List *next = self->next;
   List *newEl = malloc(sizeof(List));
   newEl->prev = self;
+  newEl->value = malloc(element_size);
   memcpy(newEl->value, value, element_size);
   newEl->next = next;
   if (next != NULL) {
@@ -68,6 +69,7 @@ List *listPushBefore(List *self, void *value, int element_size) {
   }
   List *prev = self->prev;
   List *newEl = malloc(sizeof(List));
+  newEl->value = malloc(element_size);
   newEl->next = self;
   memcpy(newEl->value, value, element_size);
   newEl->prev = prev;
