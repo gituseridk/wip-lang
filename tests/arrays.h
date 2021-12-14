@@ -26,9 +26,9 @@ void testArrays() {
   Array *arr = createArray(3, sizeof(int), (int[]){ 0, 1, -19 });
 
   printf("\t- get array elements\n");
-  assert(*(int*)arrayGetElementAt(arr, 0) == 0);
-  assert(*(int*)arrayGetElementAt(arr, 1) == 1);
-  assert(*(int*)arrayGetElementAt(arr, 2) == -19);
+  assert(*(int*)arrayAt(arr, 0) == 0);
+  assert(*(int*)arrayAt(arr, 1) == 1);
+  assert(*(int*)arrayAt(arr, 2) == -19);
   printf("\t- get length\n");
   assert(arrayGetLength(arr) == 3);
 
@@ -36,7 +36,7 @@ void testArrays() {
   int val = 999;
   assert(arraySetElementAt(arr, 1, &val));
   printf("\t- check set element\n");
-  assert(*(int*)arrayGetElementAt(arr, 1) == val);
+  assert(*(int*)arrayAt(arr, 1) == val);
 
   val = 10;
   printf("\t- push element to array\n");
@@ -46,10 +46,10 @@ void testArrays() {
   assert(arrayGetLength(arr) == 4);
   
   printf("\t- check if new element exists\n");
-  assert(arrayGetElementAt(arr, 3) != NULL);
+  assert(arrayAt(arr, 3) != NULL);
 
   printf("\t- get new element value\n");
-  assert(*(int*)arrayGetElementAt(arr, 3) == val);
+  assert(*(int*)arrayAt(arr, 3) == val);
 
   printf("\t- pop element\n");
   assert(*(int*)arrayPop(arr) == val);
@@ -58,7 +58,7 @@ void testArrays() {
   assert(arrayGetLength(arr) == 3);
 
   printf("\t- check if element is no longer exists in array\n");
-  assert(arrayGetElementAt(arr, 3) == NULL);
+  assert(arrayAt(arr, 3) == NULL);
 
   printf("\t- delete array\n");
   arrayFree(arr);
@@ -74,7 +74,7 @@ void testArrays() {
   arr = createEmptyArray(0, sizeof(int));
   val = -69;
   arrayPush(arr, &val);
-  assert((*(int*)arrayGetElementAt(arr, 0)) == -69);
+  assert((*(int*)arrayAt(arr, 0)) == -69);
   assert(arrayGetLength(arr) == 1);
   arrayFree(arr);
 
@@ -92,8 +92,8 @@ void testArrays() {
   printf("\t- filter array\n");
   Array *filteredArray = arrayFilter(arr, filterNegative, NULL);
   assert(arrayGetLength(filteredArray) == 2);
-  assert(*(int*)arrayGetElementAt(filteredArray, 0) == -3);
-  assert(*(int*)arrayGetElementAt(filteredArray, 1) == -245);
+  assert(*(int*)arrayAt(filteredArray, 0) == -3);
+  assert(*(int*)arrayAt(filteredArray, 1) == -245);
   arrayFree(filteredArray);
 
   printf("\t- find\n");
