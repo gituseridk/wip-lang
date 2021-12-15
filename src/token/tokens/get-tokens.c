@@ -2,6 +2,7 @@
 #include "token/tokens.h"
 #include "./helpers.h"
 #include "./parsers/identifier.h"
+#include "./parsers/keyword.h"
 #include "./parsers/white-space.h"
 #include "./parsers/separator.h"
 #include "./parsers/operator.h"
@@ -20,11 +21,12 @@ Array *getTokens() {
     createToken(literal_string, 0),
     createToken(literal_float, 1),
     createToken(literal_int, 2),
-    createToken(identifier, 3),
-    createToken(white_space, 4),
-    createToken(separator, 5),
-    createToken(operator, 6),
-    createToken(comment, 7),
+    createToken(keyword, 3),
+    createToken(identifier, 4),
+    createToken(white_space, 5),
+    createToken(separator, 6),
+    createToken(operator, 7),
+    createToken(comment, 8),
   );
 
   return tokens;
