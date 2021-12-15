@@ -88,3 +88,14 @@ void freeSplittedString(Array *array) {
 bool stringContainsChar(const char* self, char c) {
   return c != 0 && strchr(self, c) != NULL;
 }
+
+int stringComparePrefix(const char *self, const char *prefix) {
+  while(*prefix) {
+    if(*prefix != *self) {
+      return *self - *prefix;
+    }
+    ++prefix;
+    ++self;
+  }
+  return 0;
+}

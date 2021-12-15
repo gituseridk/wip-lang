@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -112,7 +111,7 @@ static void rotateRight(Map *self, MapNode *node) {
 }
 
 // resturn -1 if found key eles return depth of last node
-static int findNode(MapNode *start_node, MapNode **result, char *key, int depth) {
+static int findNode(MapNode *start_node, MapNode **result, const char *key, int depth) {
   *result = start_node;
   if (start_node->key == NULL) {
     return depth;
@@ -129,7 +128,26 @@ static int findNode(MapNode *start_node, MapNode **result, char *key, int depth)
   );
 }
 
+static int findNodePrefix(MapNode *start_node, MapNode **result, const char *key) {
+  *result = start_node;
+  if (start_node->key == NULL) {
+    return 0;
+  }
+  int r = stringComparePrefix(key, start_node->key);
+  if (r == 0) {
+    return strlen(start_node->key);
+  }
+  return findNodePrefix(
+    r < 0 ? start_node->left : start_node->right,
+    result,
+    key
+  );
+}
+
 static void setNodeValue(MapNode *node, const void *value, int element_size) {
+  if (element_size == 0) {
+    return;
+  }
   if (node->value != NULL) {
     free(node->value);
   }
@@ -199,7 +217,7 @@ static void insertCase5(Map *self, MapNode *node) {
   rotateLeft(self, g);
 }
 
-void mapSet(Map *self, char *key, const void *value) {
+void mapSet(Map *self, const char *key, const void *value) {
   if (self->size == 0) {
     self->root_node->key = stringGetSubstring(key, 0, -1);
     self->root_node->value = malloc(self->element_size);
@@ -227,13 +245,25 @@ void mapSet(Map *self, char *key, const void *value) {
   ++(self->size);
 }
 
-void *mapGet(Map *self, char *key) {
+void *mapGet(Map *self, const char *key) {
   MapNode *result;
   int depth = findNode(self->root_node, &result, key, 0);
   if (depth == -1) {
     return result->value;
   }
   return NULL;
+}
+
+bool mapHasKey(Map *self, const char *key) {
+  MapNode *result;
+  int depth = findNode(self->root_node, &result, key, 0);
+  return depth == -1;
+}
+
+int mapGetFirstPrefixKeySize(Map *self, const char *key) {
+  MapNode *result;
+  int size = findNodePrefix(self->root_node, &result, key);
+  return size;
 }
 
 int mapSize(Map *self) {

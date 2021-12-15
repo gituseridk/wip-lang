@@ -16,4 +16,7 @@ bool stringContainsChar(const char* self, char c);
 
 void freeSplittedString(Array *array);
 
+// works similarly to strcmp, but will return 0 if the prefix is the beginning of self
+int stringComparePrefix(const char *self, const char *prefix);
+
 #endif

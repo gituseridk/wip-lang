@@ -39,5 +39,12 @@ void testStringUtils() {
   assert(!strcmp(*(char**)arrayAt(strings, 2), "567, 444"));
   arrayFree(strings);
 
+
+  printf("\t- check if string starts with another string\n");
+  assert(stringComparePrefix("123456789", "123") == 0);
+  assert(stringComparePrefix("123456789", "234") == (int)'1' - (int)'2');
+  assert(stringComparePrefix("123456789", "1235") == (int)'4' - (int)'5');
+  assert(stringComparePrefix("123456789", "1234567890aaa") == -(int)'0');
+
   printf("Test string utils: OK\n");
 }

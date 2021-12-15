@@ -44,5 +44,10 @@ void testMaps() {
   assert(4 == *(int*) mapGet(map, "aaCd"));
   assert(5 == *(int*) mapGet(map, "abcd"));
 
+  printf("\t- get first prefix key's size\n");
+  assert(mapGetFirstPrefixKeySize(map, "abcdefg") == 4);
+  assert(mapGetFirstPrefixKeySize(map, "zzz") == 0);
+  assert(mapGetFirstPrefixKeySize(map, "abc") == 0);
+
   printf("Test maps: OK\n");
 }
