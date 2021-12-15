@@ -5,6 +5,7 @@
 static Map *keywords;
 static Map *getKeywords() {
   if (keywords == NULL) {
+    // map with element-size = 0 - essentially is a set of strings
     keywords = createMap(0);
     mapSet(keywords, "const", NULL);
     mapSet(keywords, "var", NULL);
