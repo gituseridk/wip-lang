@@ -35,6 +35,10 @@ List *parseInitialization(List *token, SyntaxNode *result, char **error) {
   }
 
   token = trimTokensLeft(listNext(token));
+  if (token == NULL) {
+    *error = "Failed to parse initialization, end of program";
+    return token;
+  }
   TokenData *name_token = (TokenData*) listGetValue(token);
 
   if (name_token->token.id != TOKEN_IDENTIFIER) {

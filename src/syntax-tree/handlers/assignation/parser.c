@@ -36,6 +36,10 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   };
 
   List *start_token = trimTokensLeft(tokens);
+  if (start_token == NULL) {
+    *error = "Failed to parse assignation, end of program";
+    return start_token;
+  }
 
   SyntaxNode left_syntax_node;
   Array *left_expression = getLeftExpressions();
@@ -52,6 +56,10 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   }
 
   start_token = trimTokensLeft(start_token);
+  if (start_token == NULL) {
+    *error = "Failed to parse assignation, end of program";
+    return start_token;
+  }
 
   TokenData *middle_token = (TokenData*) listGetValue(start_token);
 
@@ -60,6 +68,10 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
     return start_token;
   }
   start_token = trimTokensLeft(listNext(start_token));
+  if (start_token == NULL) {
+    *error = "Failed to parse assignation, end of program";
+    return start_token;
+  }
   
   SyntaxNode right_syntax_node;
   start_token = parseExpression(start_token, &right_syntax_node, error);

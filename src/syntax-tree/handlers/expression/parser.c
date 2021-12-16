@@ -32,7 +32,7 @@ List *parseExpression(List *first_token, SyntaxNode *result, char **error) {
     return first_token;
   }
 
-  TokenData *token_data = (TokenData*) listGetValue(first_token);
+  tokenDataPrint(listGetValue(first_token));
 
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(expressions, i);
@@ -42,7 +42,7 @@ List *parseExpression(List *first_token, SyntaxNode *result, char **error) {
       return token_end;
     }
   }
-  *error = "Failed to parse expression";
+  *error = "Failed to parse expression, unknown token";
 
   return first_token;
 }

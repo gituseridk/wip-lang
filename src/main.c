@@ -4,11 +4,6 @@
 #include "token/token-data.h"
 #include "syntax-tree/syntax-tree.h"
 
-void printToken(TokenData *token, int index) {
-  printf("tokens[%d]: ", index);
-  tokenDataPrint(token);
-}
-
 int main() {
   char *file_name = "./src.wip";
   FILE *file = fopen(file_name, "r"); // read mode
@@ -38,13 +33,19 @@ int main() {
   printf("==tokens==\n");
   int i = 0;
   for (List *token = tokens; token != NULL; token = listNext(token)) {
-    printToken((TokenData*) listGetValue(token), i);
-    ++i;
+    printf("tokens[%d]: ", i++);
+    tokenDataPrint(listGetValue(token));
   }
   printf("==TOKENS==\n");
 
-  SyntaxTree tree = createSyntaxTree(tokens);
-  printSyntaxTree(&tree);
+  SyntaxTree *tree = createSyntaxTree(tokens, src);
+  if (tree == NULL) {
+    printf("failed to parse syntax tree\n");
+    return 1;
+  }
+  printf("===ast===\n");
+  printSyntaxTree(tree);
+  printf("===AST===\n");
 
   listFree(tokens);
   free(src);
