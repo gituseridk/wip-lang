@@ -4,9 +4,9 @@
 #include "./syntax-node.h"
 
 typedef struct {
-  SyntaxNode *nodes;
+  SyntaxNode root_node;
 } SyntaxTree;
 
-SyntaxTree *createSyntaxTree(TokenData *tokens);
+SyntaxTree createSyntaxTree(List *tokens);
 
 #endif

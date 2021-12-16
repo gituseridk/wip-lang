@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "token/token-data.h"
+#include "syntax-tree/syntax-tree.h"
 
 void printToken(TokenData *token, int index) {
   printf(
@@ -49,6 +50,8 @@ int main() {
   printf("==TOKENS==\n");
   listFree(tokens);
   free(src);
+
+  SyntaxTree tree = createSyntaxTree(tokens);
 
   return 0;
 }
