@@ -7,4 +7,6 @@ typedef struct {
   Array *nodes;
 } SyntaxProgramData;
 
+void printSyntaxProgramData(SyntaxProgramData *data);
+
 #endif

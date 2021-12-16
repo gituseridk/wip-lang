@@ -8,4 +8,6 @@ typedef struct {
   SyntaxNode right;
 } SyntaxAssignationData;
 
+void printSyntaxAssignationData(SyntaxAssignationData *data);
+
 #endif

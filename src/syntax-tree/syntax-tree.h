@@ -8,5 +8,6 @@ typedef struct {
 } SyntaxTree;
 
 SyntaxTree createSyntaxTree(List *tokens);
+void printSyntaxTree(SyntaxTree *tree);
 
 #endif

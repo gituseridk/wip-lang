@@ -15,28 +15,34 @@ static Array *getLeftExpressions() {
     left_expression = newArray(
       ChopExpression,
       &parseInitialization,
-      &parseLiteral,
+      // !TODO add identifire
     );
   }
   return left_expression;
 }
 
+void printAssignationNode(SyntaxNode *self) {
+  printf("{assignation:");
+  printSyntaxAssignationData(self->data);
+  printf("}");
+}
+
 List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
-  printf("parse assignation\n");
   *error = NULL;
   *result = (SyntaxNode) {
     .id = SYNTAX_ASSIGNATION,
     .data = NULL,
+    .print = printAssignationNode,
   };
 
-  List *start_token = tokens;
+  List *start_token = trimTokensLeft(tokens);
 
   SyntaxNode left_syntax_node;
   Array *left_expression = getLeftExpressions();
   for (int i = 0; i != arrayGetLength(left_expression); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(left_expression, i);
     List *token_end = chopExpression(start_token, &left_syntax_node, error);
-    if (error == NULL) {
+    if (*error == NULL) {
       start_token = token_end;
       break;
     }
@@ -46,16 +52,18 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   }
 
   start_token = trimTokensLeft(start_token);
+
   TokenData *middle_token = (TokenData*) listGetValue(start_token);
 
   if (middle_token->token.id != TOKEN_OPERATOR || middle_token->value[0] != '=') {
     *error = "Failed to parse assignation, missing '=' sign";
     return start_token;
   }
+  start_token = trimTokensLeft(listNext(start_token));
   
   SyntaxNode right_syntax_node;
   start_token = parseExpression(start_token, &right_syntax_node, error);
-  if (error != NULL) {
+  if (*error != NULL) {
     return start_token;
   }
 

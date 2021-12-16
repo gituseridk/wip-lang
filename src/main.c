@@ -5,14 +5,8 @@
 #include "syntax-tree/syntax-tree.h"
 
 void printToken(TokenData *token, int index) {
-  printf(
-    "tokens[%d]: { name: '%s', value: '%s', row: %d, col: %d }\n",
-    index,
-    token->token.name,
-    token->value,
-    token->row,
-    token->col
-  );
+  printf("tokens[%d]: ", index);
+  tokenDataPrint(token);
 }
 
 int main() {
@@ -48,10 +42,12 @@ int main() {
     ++i;
   }
   printf("==TOKENS==\n");
-  listFree(tokens);
-  free(src);
 
   SyntaxTree tree = createSyntaxTree(tokens);
+  printSyntaxTree(&tree);
+
+  listFree(tokens);
+  free(src);
 
   return 0;
 }

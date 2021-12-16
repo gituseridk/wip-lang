@@ -15,5 +15,6 @@ typedef struct {
 } TokenData;
 
 List* tokenize(char *src);
+void tokenDataPrint(TokenData *self);
 
 #endif

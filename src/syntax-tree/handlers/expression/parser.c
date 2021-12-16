@@ -23,16 +23,22 @@ static Array *getExpressions() {
 }
 
 List *parseExpression(List *first_token, SyntaxNode *result, char **error) {
-  printf("parse expression\n");
   *error = NULL;
   Array *expressions = getExpressions();
 
   first_token = trimTokensLeft(first_token);
+  if (first_token == NULL) {
+    *error = "Failed to parse expression, programm ended";
+    return first_token;
+  }
+
+  TokenData *token_data = (TokenData*) listGetValue(first_token);
 
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(expressions, i);
+    *error = NULL;
     List *token_end = chopExpression(first_token, result, error);
-    if (error == NULL) {
+    if (*error == NULL) {
       return token_end;
     }
   }

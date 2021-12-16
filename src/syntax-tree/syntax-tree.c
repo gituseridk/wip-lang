@@ -13,3 +13,8 @@ SyntaxTree createSyntaxTree(List *tokens) {
     .root_node = node,
   };
 }
+
+void printSyntaxTree(SyntaxTree *tree) {
+  tree->root_node.print(&(tree->root_node));
+  printf("\n");
+}

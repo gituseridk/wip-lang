@@ -7,25 +7,31 @@
 #include "./parser.h"
 #include "./data.h"
 
+static void printLiteralNode(SyntaxNode *self) {
+  printf("{literal:");
+  printSyntaxLiteralData(self->data);
+  printf("}");
+}
+
 List* parseLiteral(List *token, SyntaxNode *result, char **error) {
-  printf("parse literal\n");
   *error = NULL;
   *result = (SyntaxNode) {
     .id = SYNTAX_LITERAL,
     .data = NULL,
+    .print = printLiteralNode,
   };
 
   TokenData *token_data = listGetValue(token);
   SyntaxLiteralData *data = malloc(sizeof(SyntaxLiteralData));
   if (token_data->token.id == TOKEN_LITERAL_FLOAT) {
-    data->type_id = TOKEN_LITERAL_FLOAT;
+    data->type_id = SYNTAX_TYPE_ID_FLOAT;
     data->value = malloc(sizeof(float));
     (*(float*) data->value) = atof(token_data->value);
     result->data = data;
     return listNext(token);
   }
   if (token_data->token.id == TOKEN_LITERAL_INT) {
-    data->type_id = TOKEN_LITERAL_INT;
+    data->type_id = SYNTAX_TYPE_ID_INT;
     data->value = malloc(sizeof(int));
     (*(int*) data->value) = atoi(token_data->value);
     result->data = data;

@@ -9,4 +9,6 @@ typedef struct {
   char *identifier;
 } SyntaxInitializationData;
 
+void printSyntaxInitializationData(SyntaxInitializationData *data);
+
 #endif

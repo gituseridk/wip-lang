@@ -9,4 +9,6 @@ typedef struct {
   void *value;
 } SyntaxLiteralData;
 
+void printSyntaxLiteralData(SyntaxLiteralData *data);
+
 #endif

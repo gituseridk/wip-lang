@@ -8,13 +8,16 @@
 #define SYNTAX_INITIALIZATION 2
 #define SYNTAX_LITERAL 3
 
-#define SYNTAX_TYPE_ID_INT = 0
-#define SYNTAX_TYPE_ID_FLOAT = 1
-#define SYNTAX_TYPE_ID_STRING = 2
+#define SYNTAX_TYPE_ID_INT 0
+#define SYNTAX_TYPE_ID_FLOAT 1
+#define SYNTAX_TYPE_ID_STRING 2
 
-typedef struct {
+typedef struct SyntaxNode SyntaxNode;
+
+struct SyntaxNode {
   int id;
   void *data;
-} SyntaxNode;
+  void (*print)(SyntaxNode *self);
+};
 
 #endif

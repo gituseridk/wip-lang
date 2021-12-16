@@ -6,12 +6,18 @@
 #include "./data.h"
 #include "./parser.h"
 
+static void printProgramNode(SyntaxNode *self) {
+  printf("{program:");
+  printSyntaxProgramData(self->data);
+  printf("}");
+}
+
 List *parseProgram(List *tokens, SyntaxNode *result, char **error) {
-  printf("parse program\n");
   *error = NULL;
   SyntaxProgramData *data = (SyntaxProgramData*) malloc(sizeof(SyntaxProgramData));
   result->data = data;
   result->id = SYNTAX_PROGRAM;
+  result->print = printProgramNode;
 
   data->nodes = newArray(SyntaxNode);
 
@@ -22,6 +28,7 @@ List *parseProgram(List *tokens, SyntaxNode *result, char **error) {
     if (*error != NULL) {
       return start_token;
     }
+    arrayPush(data->nodes, &node);
   }
 
   return start_token;
