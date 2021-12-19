@@ -3,6 +3,7 @@
 
 #include "./handlers/scope/data.h"
 #include "./handlers/assignation/data.h"
+#include "./handlers/operation/data.h"
 #include "./handlers/initialization/data.h"
 #include "./handlers/literal/data.h"
 #include "./handlers/identifier/data.h"
@@ -23,6 +24,11 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_ASSIGNATION,
       .name = "assignation",
       .printData = (PrintData) printSyntaxAssignationData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_OPERATION,
+      .name = "operation",
+      .printData = (PrintData) printSyntaxOperationData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_INITIALIZATION,
@@ -46,7 +52,7 @@ static Array *getSyntaxNodeHandlers() {
 SyntaxNodeHandler *getSyntaxNodeHandler(int id) {
   SyntaxNodeHandler *result = arrayAt(getSyntaxNodeHandlers(), id);
   if (result == NULL) {
-    printf("failed to find syntax handler wih id %d\n", id);
+    printf("failed to find syntax  id %d\n", id);
   }
   return result;
 }

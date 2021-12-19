@@ -9,7 +9,7 @@
 #define UPPER_CASE_LETTERS "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #define NOT_ZERO_DIGITS "123456789"
 #define ZERO_DIGIT "0"
-#define OPERATORS "+-*/="
+#define OPERATIONS "+-*/"
 #define SEPARATORS_EXPRESSION ";\n"
 #define SEPARATORS ".,:"
 #define OPEN_BRACKETS "([{"

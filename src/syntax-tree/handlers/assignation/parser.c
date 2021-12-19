@@ -56,7 +56,7 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
 
   TokenData *middle_token = (TokenData*) listGetValue(current_token);
 
-  if (middle_token->token.id != TOKEN_OPERATOR || middle_token->value[0] != '=') {
+  if (middle_token->token.id != TOKEN_OPERATOR_ASSIGNITION) {
     *error = "Failed to parse assignation, missing '=' sign";
     return current_token;
   }
@@ -67,7 +67,7 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error);
+  current_token = parseExpression(current_token, &right_syntax_node, error, false);
   if (*error != NULL) {
     return current_token;
   }

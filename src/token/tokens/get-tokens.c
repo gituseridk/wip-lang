@@ -9,7 +9,8 @@
 #include "./parsers/white-space.h"
 #include "./parsers/separator-expression.h"
 #include "./parsers/separator.h"
-#include "./parsers/operator.h"
+#include "./parsers/operator-operations.h"
+#include "./parsers/operator-assignation.h"
 #include "./parsers/literal-string.h"
 #include "./parsers/literal-float.h"
 #include "./parsers/literal-int.h"
@@ -33,7 +34,8 @@ Array *getTokens() {
     createToken(separator_expression, TOKEN_SEPARATOR_EXPRESSION),
     createToken(white_space, TOKEN_WHITE_SPACE),
     createToken(separator, TOKEN_SEPARATOR),
-    createToken(operator, TOKEN_OPERATOR),
+    createToken(operator_assignation, TOKEN_OPERATOR_ASSIGNITION),
+    createToken(operator_operations, TOKEN_OPERATOR_OPERATIONS),
     createToken(comment, TOKEN_COMMENT),
   );
 

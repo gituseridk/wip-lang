@@ -5,9 +5,10 @@
 
 #define SYNTAX_SCOPE 0
 #define SYNTAX_ASSIGNATION 1
-#define SYNTAX_INITIALIZATION 2
-#define SYNTAX_LITERAL 3
-#define SYNTAX_IDENTIFIER 4
+#define SYNTAX_OPERATION 2
+#define SYNTAX_INITIALIZATION 3
+#define SYNTAX_LITERAL 4
+#define SYNTAX_IDENTIFIER 5
 
 typedef void (*PrintData)(void *data);
 

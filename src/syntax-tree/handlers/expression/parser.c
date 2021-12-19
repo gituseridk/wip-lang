@@ -3,6 +3,7 @@
 
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/assignation/parser.h"
+#include "syntax-tree/handlers/operation/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
 #include "syntax-tree/handlers/identifier/parser.h"
@@ -16,6 +17,7 @@ static Array *getExpressions() {
     expressions = newArray(
       ChopExpression,
       &parseAssignation,
+      &parseOperation,
       &parseInitialization,
       &parseLiteral,
       &parseIdentifier,
@@ -24,7 +26,7 @@ static Array *getExpressions() {
   return expressions;
 }
 
-List *parseExpression(List *first_token, SyntaxNode *result, char **error) {
+List *parseExpression(List *first_token, SyntaxNode *result, char **error, bool without_operation) {
   *error = NULL;
   Array *expressions = getExpressions();
 
@@ -36,6 +38,9 @@ List *parseExpression(List *first_token, SyntaxNode *result, char **error) {
 
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(expressions, i);
+    if (without_operation && chopExpression == parseOperation) {
+      continue;
+    }
     *error = NULL;
     List *token_end = chopExpression(current_token, result, error);
     if (*error == NULL) {
