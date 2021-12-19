@@ -9,18 +9,11 @@
 #include "./parser.h"
 #include "./data.h"
 
-void printInitializationNode(SyntaxNode *self) {
-  printf("{initialization:");
-  printSyntaxInitializationData(self->data);
-  printf("}");
-}
-
 List *parseInitialization(List *token, SyntaxNode *result, char **error) {
   *error = NULL;
   *result = (SyntaxNode) {
-    .id = SYNTAX_INITIALIZATION,
     .data = NULL,
-    .print = printInitializationNode,
+    .handler = getSyntaxNodeHandler(SYNTAX_INITIALIZATION), 
   };
 
   TokenData *initialization_type = (TokenData*) listGetValue(token);
@@ -36,7 +29,7 @@ List *parseInitialization(List *token, SyntaxNode *result, char **error) {
 
   token = trimTokensLeft(listNext(token));
   if (token == NULL) {
-    *error = "Failed to parse initialization, end of program";
+    *error = "Failed to parse initialization, end of scope";
     return token;
   }
   TokenData *name_token = (TokenData*) listGetValue(token);

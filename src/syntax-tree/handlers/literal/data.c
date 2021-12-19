@@ -2,7 +2,7 @@
 #include "./data.h"
 
 void printSyntaxLiteralData(SyntaxLiteralData *data) {
-  printf("{type_id:%d,value:", data->type_id);
+  printf("{\"type_id\":%d,\"value\":", data->type_id);
   if (data->type_id == SYNTAX_TYPE_ID_INT) {
     printf("%d}", *(int*) data->value);
     return;

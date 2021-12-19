@@ -4,15 +4,19 @@
 #include "utils/logger/log-src-error.h"
 
 #include "./syntax-tree.h"
-#include "./handlers/program/parser.h"
+#include "./handlers/scope/parser.h"
 #include "./syntax-node.h"
 
 SyntaxTree* createSyntaxTree(List *tokens, char *src) {
   char *error = NULL;
   SyntaxNode node;
-  List *last_loken = parseProgram(tokens, &node, &error);
+  List *last_loken = parseScope(tokens, &node, &error);
 
   if (error != NULL) {
+    if (last_loken == NULL) {
+      printf("%s\n", error);
+      return NULL;
+    }
     TokenData *token_data = (TokenData*) listGetValue(last_loken);
     printSourceError(src, error, token_data->row, token_data->col);
     return NULL;
@@ -25,6 +29,6 @@ SyntaxTree* createSyntaxTree(List *tokens, char *src) {
 }
 
 void printSyntaxTree(SyntaxTree *tree) {
-  tree->root_node.print(&(tree->root_node));
+  syntaxNodePrint(&(tree->root_node));
   printf("\n");
 }

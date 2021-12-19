@@ -5,6 +5,7 @@
 #include "syntax-tree/handlers/assignation/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
+#include "syntax-tree/handlers/identifier/parser.h"
 #include "syntax-tree/syntax-helpers.h"
 
 #include "./parser.h"
@@ -17,6 +18,7 @@ static Array *getExpressions() {
       &parseAssignation,
       &parseInitialization,
       &parseLiteral,
+      &parseIdentifier,
     );
   }
   return expressions;
@@ -26,23 +28,21 @@ List *parseExpression(List *first_token, SyntaxNode *result, char **error) {
   *error = NULL;
   Array *expressions = getExpressions();
 
-  first_token = trimTokensLeft(first_token);
-  if (first_token == NULL) {
-    *error = "Failed to parse expression, programm ended";
-    return first_token;
+  List *current_token = trimTokensLeft(first_token);
+  if (current_token == NULL) {
+    *error = "Failed to parse expression, scope ended";
+    return current_token;
   }
-
-  tokenDataPrint(listGetValue(first_token));
 
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(expressions, i);
     *error = NULL;
-    List *token_end = chopExpression(first_token, result, error);
+    List *token_end = chopExpression(current_token, result, error);
     if (*error == NULL) {
       return token_end;
     }
   }
   *error = "Failed to parse expression, unknown token";
 
-  return first_token;
+  return current_token;
 }

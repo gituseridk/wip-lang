@@ -21,62 +21,55 @@ static Array *getLeftExpressions() {
   return left_expression;
 }
 
-void printAssignationNode(SyntaxNode *self) {
-  printf("{assignation:");
-  printSyntaxAssignationData(self->data);
-  printf("}");
-}
-
 List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   *error = NULL;
   *result = (SyntaxNode) {
-    .id = SYNTAX_ASSIGNATION,
     .data = NULL,
-    .print = printAssignationNode,
+    .handler = getSyntaxNodeHandler(SYNTAX_ASSIGNATION),
   };
 
-  List *start_token = trimTokensLeft(tokens);
-  if (start_token == NULL) {
-    *error = "Failed to parse assignation, end of program";
-    return start_token;
+  List *current_token = trimTokensLeft(tokens);
+  if (current_token == NULL) {
+    *error = "Failed to parse assignation, end of scope";
+    return current_token;
   }
 
   SyntaxNode left_syntax_node;
   Array *left_expression = getLeftExpressions();
   for (int i = 0; i != arrayGetLength(left_expression); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(left_expression, i);
-    List *token_end = chopExpression(start_token, &left_syntax_node, error);
+    List *token_end = chopExpression(current_token, &left_syntax_node, error);
     if (*error == NULL) {
-      start_token = token_end;
+      current_token = token_end;
       break;
     }
   }
   if (*error != NULL) {
-    return start_token;
+    return current_token;
   }
 
-  start_token = trimTokensLeft(start_token);
-  if (start_token == NULL) {
-    *error = "Failed to parse assignation, end of program";
-    return start_token;
+  current_token = trimTokensLeft(current_token);
+  if (current_token == NULL) {
+    *error = "Failed to parse assignation, end of scope";
+    return current_token;
   }
 
-  TokenData *middle_token = (TokenData*) listGetValue(start_token);
+  TokenData *middle_token = (TokenData*) listGetValue(current_token);
 
   if (middle_token->token.id != TOKEN_OPERATOR || middle_token->value[0] != '=') {
     *error = "Failed to parse assignation, missing '=' sign";
-    return start_token;
+    return current_token;
   }
-  start_token = trimTokensLeft(listNext(start_token));
-  if (start_token == NULL) {
-    *error = "Failed to parse assignation, end of program";
-    return start_token;
+  current_token = trimTokensLeft(listNext(current_token));
+  if (current_token == NULL) {
+    *error = "Failed to parse assignation, end of scope";
+    return current_token;
   }
   
   SyntaxNode right_syntax_node;
-  start_token = parseExpression(start_token, &right_syntax_node, error);
+  current_token = parseExpression(current_token, &right_syntax_node, error);
   if (*error != NULL) {
-    return start_token;
+    return current_token;
   }
 
   SyntaxAssignationData *data = malloc(sizeof(SyntaxAssignationData));
@@ -84,5 +77,5 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   data->right = right_syntax_node;
   result->data = data;
 
-  return start_token;
+  return current_token;
 }

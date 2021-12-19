@@ -10,7 +10,8 @@
 #define NOT_ZERO_DIGITS "123456789"
 #define ZERO_DIGIT "0"
 #define OPERATORS "+-*/="
-#define SEPARATORS ".,:;"
+#define SEPARATORS_EXPRESSION ";\n"
+#define SEPARATORS ".,:"
 #define OPEN_BRACKETS "([{"
 #define CLOSE_BRACKETS ")]}"
 

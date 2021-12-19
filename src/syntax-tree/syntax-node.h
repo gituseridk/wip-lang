@@ -1,12 +1,8 @@
 #ifndef SYNTAX_NODE_H
 #define SYNTAX_NODE_H
 
+#include "syntax-node-handler.h"
 #include "token/token-data.h"
-
-#define SYNTAX_PROGRAM 0
-#define SYNTAX_ASSIGNATION 1
-#define SYNTAX_INITIALIZATION 2
-#define SYNTAX_LITERAL 3
 
 #define SYNTAX_TYPE_ID_INT 0
 #define SYNTAX_TYPE_ID_FLOAT 1
@@ -15,9 +11,10 @@
 typedef struct SyntaxNode SyntaxNode;
 
 struct SyntaxNode {
-  int id;
+  SyntaxNodeHandler *handler;
   void *data;
-  void (*print)(SyntaxNode *self);
 };
+
+void syntaxNodePrint(SyntaxNode *self);
 
 #endif

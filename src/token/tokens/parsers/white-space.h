@@ -2,7 +2,7 @@
 #include "utils/string/string.h"
 
 ChopToken(white_space, token_start, error) {
-  if (!isspace(*token_start)) {
+  if (!isspace(*token_start) && *token_start != 24) {
     return NULL;
   }
 

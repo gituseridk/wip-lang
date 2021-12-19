@@ -4,14 +4,14 @@
 #include "./data.h"
 
 void printNode(void *self, void *el, int index, const Array *array) {
-  ((SyntaxNode*) el)->print(el);
+  syntaxNodePrint(el);
   if (index != arrayGetLength(array) - 1) {
     printf(",");
   }
 }
 
-void printSyntaxProgramData(SyntaxProgramData *data) {
-  printf("{nodes:[");
+void printSyntaxScopeData(SyntaxScopeData *data) {
+  printf("{\"nodes\":[");
   arrayForEach(data->nodes, printNode, NULL);
   printf("]}");
 }

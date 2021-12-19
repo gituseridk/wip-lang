@@ -7,6 +7,7 @@
 #include "./parsers/function-arrow.h"
 #include "./parsers/keyword.h"
 #include "./parsers/white-space.h"
+#include "./parsers/separator-expression.h"
 #include "./parsers/separator.h"
 #include "./parsers/operator.h"
 #include "./parsers/literal-string.h"
@@ -29,6 +30,7 @@ Array *getTokens() {
     createToken(bracket_close, TOKEN_BRACKET_CLOSE),
     createToken(keyword, TOKEN_KEYWORD),
     createToken(identifier, TOKEN_IDENTIFIER),
+    createToken(separator_expression, TOKEN_SEPARATOR_EXPRESSION),
     createToken(white_space, TOKEN_WHITE_SPACE),
     createToken(separator, TOKEN_SEPARATOR),
     createToken(operator, TOKEN_OPERATOR),

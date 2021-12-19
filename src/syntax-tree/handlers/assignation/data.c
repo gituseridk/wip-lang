@@ -3,9 +3,9 @@
 #include "./data.h"
 
 void printSyntaxAssignationData(SyntaxAssignationData *data) {
-  printf("{left:");
-  data->left.print(&(data->left));
-  printf(",right:");
-  data->right.print(&(data->right));
+  printf("{\"left\":");
+  syntaxNodePrint(&(data->left));
+  printf(",\"right\":");
+  syntaxNodePrint(&(data->right));
   printf("}");
 }

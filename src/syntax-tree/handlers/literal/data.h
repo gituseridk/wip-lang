@@ -1,5 +1,5 @@
-#ifndef SYNTAX_DATA_ASSIGNITION_H
-#define SYNTAX_DATA_ASSIGNITION_H
+#ifndef SYNTAX_DATA_LITERAL_H
+#define SYNTAX_DATA_LITERAL_H
 
 #include <stdbool.h>
 #include "syntax-tree/syntax-node.h"
