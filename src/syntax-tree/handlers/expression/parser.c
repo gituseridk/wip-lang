@@ -3,6 +3,7 @@
 
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/assignation/parser.h"
+#include "syntax-tree/handlers/parentheses/parser.h"
 #include "syntax-tree/handlers/operation/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
@@ -18,6 +19,7 @@ static Array *getExpressions() {
       ChopExpression,
       &parseAssignation,
       &parseOperation,
+      &parseParentheses,
       &parseInitialization,
       &parseLiteral,
       &parseIdentifier,
