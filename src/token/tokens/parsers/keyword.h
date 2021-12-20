@@ -23,5 +23,9 @@ ChopToken(keyword, token_start, error) {
     return NULL;
   }
 
+  if (checkIfLetterOrDigit(token_start[token_size])) {
+    return NULL;
+  }
+
   return token_start + token_size;
 }

@@ -1,5 +1,8 @@
 #include <stdlib.h>
+
 #include "token/tokens.h"
+#include "utils/string/string.h"
+
 #include "./helpers.h"
 #include "./parsers/identifier.h"
 #include "./parsers/bracket-open.h"

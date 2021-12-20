@@ -1,11 +1,3 @@
-#include "utils/string/string.h"
-
-bool checkIfLetterOrDigit(char c) {
-  return stringContainsChar(UPPER_CASE_LETTERS, c) ||
-         stringContainsChar(LOWER_CASE_LETTERS, c) ||
-         stringContainsChar(ZERO_DIGIT, c) ||
-         stringContainsChar(NOT_ZERO_DIGITS, c);
-}
 
 ChopToken(identifier, token_start, error) {
   if (!stringContainsChar(UPPER_CASE_LETTERS, *token_start) && !stringContainsChar(LOWER_CASE_LETTERS, *token_start)) {

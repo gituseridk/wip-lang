@@ -21,3 +21,10 @@
 #define CLOSE_BRACKETS ")]}"
 
 #define SPECIAL_CHARACTERS "ntvbrfa\\?\"0"
+
+bool checkIfLetterOrDigit(char c) {
+  return stringContainsChar(UPPER_CASE_LETTERS, c) ||
+         stringContainsChar(LOWER_CASE_LETTERS, c) ||
+         stringContainsChar(ZERO_DIGIT, c) ||
+         stringContainsChar(NOT_ZERO_DIGITS, c);
+}
