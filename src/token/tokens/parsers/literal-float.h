@@ -15,6 +15,10 @@ char* chopFloatTail(char *token_start) {
     stringContainsChar(ZERO_DIGIT, *token_end)
   ) ++token_end;
 
+  if (*token_end == 'f') {
+    return token_end + 1;
+  }
+
   return token_end;
 }
 
