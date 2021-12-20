@@ -4,6 +4,7 @@
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/expression/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
+#include "syntax-tree/handlers/identifier/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
 #include "syntax-tree/syntax-helpers.h"
 #include "./parser.h"
@@ -15,7 +16,7 @@ static Array *getLeftExpressions() {
     left_expression = newArray(
       ChopExpression,
       &parseInitialization,
-      // !TODO add identifire
+      &parseIdentifier,
     );
   }
   return left_expression;
