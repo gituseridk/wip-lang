@@ -17,6 +17,7 @@
   - [ ] WebAssembly
   - [ ] other
 - [ ] Turing-complete
+- [ ] Rewrite compiler on itself
 
 ## About project
 
