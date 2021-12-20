@@ -4,7 +4,7 @@
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/assignation/parser.h"
 #include "syntax-tree/handlers/parentheses/parser.h"
-#include "syntax-tree/handlers/operation/parser.h"
+#include "syntax-tree/handlers/operation-lr/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
 #include "syntax-tree/handlers/identifier/parser.h"

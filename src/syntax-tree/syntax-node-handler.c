@@ -3,7 +3,7 @@
 
 #include "./handlers/scope/data.h"
 #include "./handlers/assignation/data.h"
-#include "./handlers/operation/data.h"
+#include "./handlers/operation-lr/data.h"
 #include "./handlers/initialization/data.h"
 #include "./handlers/literal/data.h"
 #include "./handlers/identifier/data.h"
@@ -26,9 +26,9 @@ static Array *getSyntaxNodeHandlers() {
       .printData = (PrintData) printSyntaxAssignationData,
     },
     (SyntaxNodeHandler) {
-      .id = SYNTAX_OPERATION,
-      .name = "operation",
-      .printData = (PrintData) printSyntaxOperationData,
+      .id = SYNTAX_OPERATION_LR,
+      .name = "operation-lr",
+      .printData = (PrintData) printSyntaxOperationLRData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_INITIALIZATION,

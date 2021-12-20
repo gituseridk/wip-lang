@@ -54,7 +54,7 @@ List *parseOperation(List *tokens, SyntaxNode *result, char **error) {
   *error = NULL;
   *result = (SyntaxNode) {
     .data = NULL,
-    .handler = getSyntaxNodeHandler(SYNTAX_OPERATION),
+    .handler = getSyntaxNodeHandler(SYNTAX_OPERATION_LR),
   };
 
   List *current_token = trimTokensLeft(tokens);

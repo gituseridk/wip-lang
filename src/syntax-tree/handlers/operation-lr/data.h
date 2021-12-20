@@ -23,6 +23,6 @@ typedef struct {
   SyntaxNode right;
 } SyntaxOperationData;
 
-void printSyntaxOperationData(SyntaxOperationData *data);
+void printSyntaxOperationLRData(SyntaxOperationData *data);
 
 #endif

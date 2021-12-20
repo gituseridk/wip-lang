@@ -2,7 +2,7 @@
 
 #include "./data.h"
 
-void printSyntaxOperationData(SyntaxOperationData *data) {
+void printSyntaxOperationLRData(SyntaxOperationData *data) {
   printf("{\"left\":");
   syntaxNodePrint(&(data->left));
   printf(",\"right\":");
