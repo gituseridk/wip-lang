@@ -1,3 +1,2 @@
-var kek=123
-const lol = 45678+(12.76 * (kek + 1234)) - 5678
-lol
+var kek=123;
+const lol = 45678+12.76 * kek + 88.88f || 3456789 | 0

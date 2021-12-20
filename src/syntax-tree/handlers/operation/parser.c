@@ -10,18 +10,42 @@
 #include "./parser.h"
 #include "./data.h"
 
-static int getOperationId(char *operation) {
-  if (strcmp(operation, "+") == 0) {
+static int getOperationId(int token_id) {
+  if (token_id == TOKEN_OPERATOR_SUM) {
     return OPERATION_ID_SUM;
   }
-  if (strcmp(operation, "-") == 0) {
+  if (token_id == TOKEN_OPERATOR_DIFFERENCE) {
     return OPERATION_ID_DIFFERENCE;
   }
-  if (strcmp(operation, "/") == 0) {
+  if (token_id == TOKEN_OPERATOR_RATIO) {
     return OPERATION_ID_RATIO;
   }
-  if (strcmp(operation, "*") == 0) {
+  if (token_id == TOKEN_OPERATOR_PRODUCT) {
     return OPERATION_ID_PRODUCT;
+  }
+  if (token_id == TOKEN_OPERATOR_POWER) {
+    return OPERATION_ID_POWER;
+  }
+  if (token_id == TOKEN_OPERATOR_BIT_OR) {
+    return OPERATION_ID_BIT_OR;
+  }
+  if (token_id == TOKEN_OPERATOR_AND) {
+    return OPERATION_ID_AND;
+  }
+  if (token_id == TOKEN_OPERATOR_OR) {
+    return OPERATION_ID_OR;
+  }
+  if (token_id == TOKEN_OPERATOR_EQUALS) {
+    return OPERATION_ID_EQUALS;
+  }
+  if (token_id == TOKEN_OPERATOR_EQUALS_STRICT) {
+    return OPERATION_ID_EQUALS_STRICT;
+  }
+  if (token_id == TOKEN_OPERATOR_NOT_EQUALS) {
+    return OPERATION_ID_NOT_EQUALS;
+  }
+  if (token_id == TOKEN_OPERATOR_NOT_EQUALS_STRICT) {
+    return OPERATION_ID_NOT_EQUALS_STRICT;
   }
   return -1;
 }
@@ -53,14 +77,9 @@ List *parseOperation(List *tokens, SyntaxNode *result, char **error) {
 
   TokenData *middle_token = (TokenData*) listGetValue(current_token);
 
-  if (middle_token->token.id != TOKEN_OPERATOR_OPERATIONS) {
-    *error = "Failed to parse operation, unexpexted operation token";
-    return current_token;
-  }
-
-  int operation_id = getOperationId(middle_token->value);
+  int operation_id = getOperationId(middle_token->token.id);
   if (operation_id == -1) {
-    *error = "Failed to parse operation, unknown operation";
+    *error = "Failed to parse operation, unexpected token";
     return current_token;
   }
 
