@@ -68,7 +68,7 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error, false);
+  current_token = parseExpression(current_token, &right_syntax_node, error, NULL);
   if (*error != NULL) {
     return current_token;
   }

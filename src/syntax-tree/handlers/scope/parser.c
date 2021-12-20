@@ -26,7 +26,7 @@ List *parseScope(List *tokens, SyntaxNode *result, char **error) {
   List *current_token = tokens;
   while (current_token != NULL) {
     SyntaxNode node;
-    current_token = parseExpression(current_token, &node, error, false);
+    current_token = parseExpression(current_token, &node, error, NULL);
     if (*error != NULL) {
       return current_token;
     }

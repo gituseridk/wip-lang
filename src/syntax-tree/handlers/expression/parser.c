@@ -28,7 +28,7 @@ static Array *getExpressions() {
   return expressions;
 }
 
-List *parseExpression(List *first_token, SyntaxNode *result, char **error, bool without_operation) {
+List *parseExpression(List *first_token, SyntaxNode *result, char **error, ChopExpression expression_to_execlude) {
   *error = NULL;
   Array *expressions = getExpressions();
 
@@ -40,7 +40,7 @@ List *parseExpression(List *first_token, SyntaxNode *result, char **error, bool 
 
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(expressions, i);
-    if (without_operation && chopExpression == parseOperation) {
+    if (chopExpression == expression_to_execlude) {
       continue;
     }
     *error = NULL;
