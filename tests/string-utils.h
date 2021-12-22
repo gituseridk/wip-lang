@@ -32,7 +32,7 @@ void testStringUtils() {
   free(sub_string);
 
   printf("\t- split string\n");
-  Array *strings = stringSplit("1234567890123 ,  , 345 , 567, 444 , ", " , ");
+  Array *strings = stringSplit("1234567890123 ,  , 345 , 567, 444 , ", " , ", false);
   assert(arrayGetLength(strings) == 3);
   assert(!strcmp(*(char**)arrayAt(strings, 0), "1234567890123"));
   assert(!strcmp(*(char**)arrayAt(strings, 1), "345"));

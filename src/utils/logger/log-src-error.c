@@ -30,7 +30,7 @@ static void printLine(void *_self, void *line, int index, const Array *array) {
 
 void printSourceError(char *src, char *error, int row, int col) {
   printf("Error at %d:%d\n", row, col);
-  Array *lines = stringSplit(src, "\n");
+  Array *lines = stringSplit(src, "\n", true);
   SourceError err = (SourceError) {
     .text = error,
     .col = col,
