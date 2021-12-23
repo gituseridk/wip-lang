@@ -1,24 +1,9 @@
-var intValue=123;
-const operationsResult = 45678+12.76f * (intValue + 88f) * 0.7865
-const testBitOperators = 123.456 | 0
-
-{
-  {}
-
-  {
-    gfchvjbk
-    gfhjbk
-
-    aaaa + bbbbb
+const calcFactorial = (n, i): int => {
+  (i <= 0) && {
+    return n
   }
-  const scopeVar = 124
 
-  const floatVal = 122.0 + scopeVar
-
-  {
-    aaaaaa
-
-    bbbbbbb
-  }
+  return calcFactorial(n * (n - 1), i - 1);
 }
 
+const result = calcFactorial(10);

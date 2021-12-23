@@ -12,26 +12,29 @@
 #define TOKEN_SEPARATOR_EXPRESSION        8
 #define TOKEN_WHITE_SPACE                 9
 #define TOKEN_SEPARATOR                   10
-
 #define TOKEN_OPERATOR_NOT_EQUALS_STRICT  11
 #define TOKEN_OPERATOR_EQUALS_STRICT      12
 #define TOKEN_OPERATOR_NOT_EQUALS         13
 #define TOKEN_OPERATOR_EQUALS             14
-#define TOKEN_OPERATOR_OR                 15
-#define TOKEN_OPERATOR_AND                16
-#define TOKEN_OPERATOR_INC                17
-#define TOKEN_OPERATOR_DEC                18
-#define TOKEN_OPERATOR_POWER              19
-#define TOKEN_OPERATOR_NOT                20
-#define TOKEN_OPERATOR_ASSIGNATION        21
-#define TOKEN_OPERATOR_SUM                22
-#define TOKEN_OPERATOR_DIFFERENCE         23
-#define TOKEN_OPERATOR_PRODUCT            24
-#define TOKEN_OPERATOR_RATIO              25
-#define TOKEN_OPERATOR_BIT_OR             26
-#define TOKEN_OPERATOR_BIT_AND            27
+#define TOKEN_OPERATOR_GRATER_OR_EQUAL    15
+#define TOKEN_OPERATOR_LESS_OR_EQUAL      16
+#define TOKEN_OPERATOR_GRATER             17
+#define TOKEN_OPERATOR_LESS               18
+#define TOKEN_OPERATOR_OR                 19
+#define TOKEN_OPERATOR_AND                20
+#define TOKEN_OPERATOR_INC                21
+#define TOKEN_OPERATOR_DEC                22
+#define TOKEN_OPERATOR_POWER              23
+#define TOKEN_OPERATOR_NOT                24
+#define TOKEN_OPERATOR_ASSIGNATION        25
+#define TOKEN_OPERATOR_SUM                26
+#define TOKEN_OPERATOR_DIFFERENCE         27
+#define TOKEN_OPERATOR_PRODUCT            28
+#define TOKEN_OPERATOR_RATIO              29
+#define TOKEN_OPERATOR_BIT_OR             30
+#define TOKEN_OPERATOR_BIT_AND            31
 
-#define TOKEN_COMMENT                     28
+#define TOKEN_COMMENT                     32
 
 typedef struct {
   int id;

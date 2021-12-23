@@ -9,8 +9,9 @@ static Map *getKeywords() {
     keywords = createMap(0);
     mapSet(keywords, "const", NULL);
     mapSet(keywords, "var", NULL);
-    mapSet(keywords, "float", NULL);
+    mapSet(keywords, "void", NULL);
     mapSet(keywords, "int", NULL);
+    mapSet(keywords, "float", NULL);
   }
   return keywords;
 }

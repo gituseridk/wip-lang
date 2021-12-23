@@ -4,9 +4,10 @@
 #include "syntax-node-handler.h"
 #include "token/token-data.h"
 
-#define SYNTAX_TYPE_ID_INT 0
-#define SYNTAX_TYPE_ID_FLOAT 1
-#define SYNTAX_TYPE_ID_STRING 2
+#define SYNTAX_TYPE_ID_VOID     0
+#define SYNTAX_TYPE_ID_INT      1
+#define SYNTAX_TYPE_ID_FLOAT    2
+#define SYNTAX_TYPE_ID_STRING   3
 
 typedef struct SyntaxNode SyntaxNode;
 
