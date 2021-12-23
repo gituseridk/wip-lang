@@ -10,7 +10,7 @@
 SyntaxTree* createSyntaxTree(List *tokens, char *src) {
   char *error = NULL;
   SyntaxNode node;
-  List *last_loken = parseScope(tokens, &node, &error);
+  List *last_loken = parseScopeGlobal(tokens, &node, &error);
 
   if (error != NULL) {
     if (last_loken == NULL) {

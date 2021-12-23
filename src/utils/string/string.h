@@ -10,7 +10,7 @@ char* stringGetSubstring(const char* self, int start, int end);
 
 char* stringTrim(const char* self);
 
-Array* stringSplit(const char* self, const char* sepparator, bool withEmpty);
+Array* stringSplit(const char* self, const char* sepparator, bool with_empty);
 
 bool stringContainsChar(const char* self, char c);
 

@@ -44,7 +44,7 @@ char* stringTrim(const char *self) {
   return stringGetSubstring(self, getTrimmedStringStart(self), getTrimmedStringEnd(self));
 }
 
-Array* stringSplit(const char* self, const char* sepparator, bool withEmpty) {
+Array* stringSplit(const char* self, const char* sepparator, bool with_empty) {
   int sepparator_length = strlen(sepparator);
   Array *result = createEmptyArray(1, sizeof(char*));
   const char *part_start = self;
@@ -52,7 +52,7 @@ Array* stringSplit(const char* self, const char* sepparator, bool withEmpty) {
     char *part_end = strstr(part_start, sepparator);
     if (part_end == NULL) {
       int len = strlen(part_start);
-      if (len != 0 || withEmpty) {
+      if (len != 0 || with_empty) {
         char *part = malloc(len + 1);
         memcpy(part, part_start, len);
         part[len] = '\0';
@@ -61,7 +61,7 @@ Array* stringSplit(const char* self, const char* sepparator, bool withEmpty) {
       break;
     }
     int len = part_end - part_start;
-    if (len == 0 && !withEmpty) {
+    if (len == 0 && !with_empty) {
       part_start = part_end + sepparator_length;
       continue;
     }

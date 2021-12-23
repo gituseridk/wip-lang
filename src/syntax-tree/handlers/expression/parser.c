@@ -8,6 +8,7 @@
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
 #include "syntax-tree/handlers/identifier/parser.h"
+#include "syntax-tree/handlers/scope/parser.h"
 #include "syntax-tree/syntax-helpers.h"
 
 #include "./parser.h"
@@ -17,6 +18,7 @@ static Array *getExpressions() {
   if (expressions == NULL) {
     expressions = newArray(
       ChopExpression,
+      &parseScope,
       &parseAssignation,
       &parseOperation,
       &parseParentheses,

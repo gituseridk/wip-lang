@@ -1,3 +1,24 @@
 var intValue=123;
 const operationsResult = 45678+12.76f * (intValue + 88f) * 0.7865
-const testBitOperators = 123.456 | 0 
+const testBitOperators = 123.456 | 0
+
+{
+  {}
+
+  {
+    gfchvjbk
+    gfhjbk
+
+    aaaa + bbbbb
+  }
+  const scopeVar = 124
+
+  const floatVal = 122.0 + scopeVar
+
+  {
+    aaaaaa
+
+    bbbbbbb
+  }
+}
+
