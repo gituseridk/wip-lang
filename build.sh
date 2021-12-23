@@ -22,6 +22,8 @@ OUT=$OUT_FOLDER/out
 
 mkdir -p $OUT_FOLDER
 
-cc $SRC -I $ROOT -o $OUT
+export FLAGS="-Wall -Wextra -Wno-unused-parameter -std=c11 -pedantic -ggdb"
+
+cc $FLAGS $SRC -I $ROOT -o $OUT
 
 echo successfully build to $OUT

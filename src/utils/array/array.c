@@ -52,19 +52,19 @@ void* arrayAt(Array *self, unsigned index) {
   if (index < 0 || index >= self->length) {
     return NULL;
   }
-  return self->value + (self->el_size * index);
+  return (char*)self->value + (self->el_size * index);
 }
 
 bool arraySetElementAt(Array *self, unsigned index, const void *newValue) {
   if (index >= self->length) {
     return false;
   }
-  memcpy(self->value + index * self->el_size, newValue, self->el_size);
+  memcpy((void*)((char*)self->value + index * self->el_size), newValue, self->el_size);
   return true;
 }
 
-const unsigned arrayGetLength(const Array *self) {
-  return self->length;
+int arrayGetLength(const Array *self) {
+  return (int)self->length;
 }
 
 // !TODO free mem when more than half is unused
@@ -73,17 +73,17 @@ void* arrayPop(Array *self) {
     return NULL;
   }
   --self->length;
-  return self->value + (self->el_size * self->length);
+  return (char*)self->value + (self->el_size * self->length);
 }
 
 void arrayPush(Array *self, const void *element) {
   if (self->length < self->allocated) {
-    memcpy(self->value + (self->length * self->el_size), element, self->el_size);
+    memcpy((void*)((char*)self->value + (self->length * self->el_size)), element, self->el_size);
     ++self->length;
     return;
   }
   self->value = realloc(self->value, self->el_size * self->length * ALLOC_MULT);
-  memcpy(self->value + self->length * self->el_size, element, self->el_size);
+  memcpy((void*)((char*)self->value + self->length * self->el_size), element, self->el_size);
   self->allocated = self->length * ALLOC_MULT;
   ++self->length;
 }
@@ -91,21 +91,21 @@ void arrayPush(Array *self, const void *element) {
 Array* arrayMap(Array *array, unsigned new_el_size, MapHandler handler, void *self) {
   Array *result = createEmptyArray(array->length, new_el_size);
   result->length = array->length;
-  for (int i = 0; i != array->length; ++i) {
-    handler(self, result->value + i * new_el_size, arrayAt(array, i), i, array);
+  for (unsigned i = 0; i != array->length; ++i) {
+    handler(self, (char*)result->value + i * new_el_size, arrayAt(array, i), i, array);
   }
   return result;
 }
 
 void arrayForEach(Array *array, ForEachHandler handler, void *self) {
-  for (int i = 0; i != array->length; ++i) {
+  for (unsigned i = 0; i != array->length; ++i) {
     handler(self, arrayAt(array, i), i, array);
   }
 }
 
 Array* arrayFilter(Array *array, FilterHandler handler, void *self) {
   Array *result = createEmptyArray(0, array->el_size);
-  for (int i = 0; i != array->length; ++i) {
+  for (unsigned i = 0; i != array->length; ++i) {
     void *el = arrayAt(array, i);
     if (handler(self, el, i, array)) {
       arrayPush(result, el);
@@ -115,7 +115,7 @@ Array* arrayFilter(Array *array, FilterHandler handler, void *self) {
 }
 
 void* arrayFind(Array *array, FindHandler handler, void *self) {
-  for (int i = 0; i != array->length; ++i) {
+  for (unsigned i = 0; i != array->length; ++i) {
     void *el = arrayAt(array, i);
     if (handler(self, el, i, array)) {
       return el;
@@ -126,7 +126,7 @@ void* arrayFind(Array *array, FindHandler handler, void *self) {
 
 int arrayCount(Array *array, CountHandler handler, void *self) {
   int result = 0;
-  for (int i = 0; i != array->length; ++i) {
+  for (unsigned i = 0; i != array->length; ++i) {
     void *el = arrayAt(array, i);
     if (handler(self, el, i, array)) {
       ++result;

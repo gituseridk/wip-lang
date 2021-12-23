@@ -7,12 +7,6 @@
 #include "./data.h"
 #include "./parser.h"
 
-static void printScopeNode(SyntaxNode *self) {
-  printf("{scope:");
-  printSyntaxScopeData(self->data);
-  printf("}");
-}
-
 static List *chopBracket(List *start_token, char **error, bool open) {
   List *current_token = trimTokensLeftHard(start_token);
   if (current_token == NULL) {
@@ -50,7 +44,7 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
     .handler = getSyntaxNodeHandler(SYNTAX_SCOPE),
   };
 
-  data->nodes = newArray(SyntaxNode);
+  data->nodes = createEmptyArray(1, sizeof(SyntaxNode));
 
   List *current_token = tokens;
   while (current_token != NULL) {

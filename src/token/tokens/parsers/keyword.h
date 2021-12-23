@@ -16,8 +16,6 @@ static Map *getKeywords() {
 }
 
 ChopToken(keyword, token_start, error) {
-  char *token_end = token_start;
-
   int token_size = mapGetFirstPrefixKeySize(getKeywords(), token_start);
   if (token_size == 0) {
     return NULL;

@@ -57,10 +57,6 @@ List* tokenize(char *src) {
   int row = 1;
 
   while (*token_start != '\0') {
-    HandlerProps props = (HandlerProps) {
-      .token_start = token_start,
-    };
-
     Array *token_chop_results = arrayMap(getTokens(), sizeof(TokenChopResult), findTokenHandler, token_start);
 
     TokenChopResult *token_result = (TokenChopResult*) arrayFind(token_chop_results, hasResult, NULL);

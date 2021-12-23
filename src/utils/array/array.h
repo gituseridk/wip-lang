@@ -20,7 +20,7 @@ Array* createArray(unsigned length, unsigned el_size, const void *data);
 
 void arrayFree(Array *self);
 
-const unsigned arrayGetLength(const Array *self);
+int arrayGetLength(const Array *self);
 
 void* arrayAt(Array *self, unsigned index);
 bool arraySetElementAt(Array *self, unsigned index, const void *newValue);
