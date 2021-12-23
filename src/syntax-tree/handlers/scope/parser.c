@@ -55,14 +55,12 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
   List *current_token = tokens;
   while (current_token != NULL) {
     if (with_brackets) {
-      List *after_bracket = chopBracket(current_token, error, false);
+      List *token_after_bracket = chopBracket(current_token, error, false);
       if (*error == NULL) {
         *error = NULL;
-        current_token = after_bracket;
-        break;
+        return token_after_bracket;
       }
       *error = NULL;
-
     }
 
     SyntaxNode node;
@@ -77,6 +75,10 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
     }
     arrayPush(data->nodes, &node);
     current_token = trimTokensLeftHard(current_token);
+  }
+
+  if (with_brackets) {
+    *error = "Failed to parse scope, miss closing bracket";
   }
 
   return current_token;
