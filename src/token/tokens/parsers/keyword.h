@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#include "syntax-tree/syntax-node.h"
 #include "utils/map/map.h"
 
 static Map *keywords;
@@ -9,9 +10,11 @@ static Map *getKeywords() {
     keywords = createMap(0);
     mapSet(keywords, "const", NULL);
     mapSet(keywords, "var", NULL);
-    mapSet(keywords, "void", NULL);
-    mapSet(keywords, "int", NULL);
-    mapSet(keywords, "float", NULL);
+    mapSet(keywords, SYNTAX_TYPE_VOID_NAME, NULL);
+    mapSet(keywords, SYNTAX_TYPE_STRUCT_NAME, NULL);
+    mapSet(keywords, SYNTAX_TYPE_INT_NAME, NULL);
+    mapSet(keywords, SYNTAX_TYPE_FLOAT_NAME, NULL);
+    mapSet(keywords, SYNTAX_TYPE_CHAR_NAME, NULL);
   }
   return keywords;
 }

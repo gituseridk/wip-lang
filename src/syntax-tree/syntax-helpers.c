@@ -1,7 +1,25 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
+#include <strings.h>
+
 #include "token/token-data.h"
 #include "./syntax-helpers.h"
+
+List *chopToken(List *start_token, int token_id, const char *token_value, char **error) {
+  *error = NULL;
+  TokenData *token = (TokenData*) listGetValue(start_token);
+  if (token_value == NULL) {
+    if (token->token.id != token_id) {
+      asprintf(error, "Unexpected token with id = %d, expect id = %d", token->token.id, token_id);
+      return start_token;
+    }
+  } else if (token->token.id != token_id || strcmp(token->value, token_value) != 0) {
+    asprintf(error, "Unexpected token, expect '%s'", token_value);
+    return start_token;
+  }
+  return listNext(start_token);
+}
 
 List *trimTokensLeft(List *start_token) {
   while (start_token != NULL && ((TokenData*)listGetValue(start_token))->token.id == TOKEN_WHITE_SPACE) {

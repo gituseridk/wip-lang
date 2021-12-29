@@ -1,9 +1,1 @@
-const calcFactorial = (n, i): int => {
-  (i <= 0) && {
-    return n
-  }
-
-  return calcFactorial(n * (n - 1), i - 1);
-}
-
-const result = calcFactorial(10);
+const power = (a: int, b: int) => a ** b;

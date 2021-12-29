@@ -47,6 +47,20 @@ static int getOperationId(int token_id) {
   if (token_id == TOKEN_OPERATOR_NOT_EQUALS_STRICT) {
     return OPERATION_ID_NOT_EQUALS_STRICT;
   }
+
+  if (token_id == TOKEN_OPERATOR_GRATER_OR_EQUAL) {
+    return OPERATION_ID_GRATER_OR_EQUAL;
+  }
+  if (token_id == TOKEN_OPERATOR_LESS_OR_EQUAL) {
+    return OPERATION_ID_LESS_OR_EQUAL;
+  }
+  if (token_id == TOKEN_OPERATOR_GRATER) {
+    return OPERATION_ID_GRATER;
+  }
+  if (token_id == TOKEN_OPERATOR_LESS) {
+    return OPERATION_ID_LESS;
+  }
+
   return -1;
 }
 

@@ -3,12 +3,14 @@
 
 #include "utils/array/array.h"
 
-#define SYNTAX_SCOPE 0
-#define SYNTAX_ASSIGNATION 1
-#define SYNTAX_OPERATION_LR 2
-#define SYNTAX_INITIALIZATION 3
-#define SYNTAX_LITERAL 4
-#define SYNTAX_IDENTIFIER 5
+#define SYNTAX_SCOPE            0
+#define SYNTAX_ASSIGNATION      1
+#define SYNTAX_OPERATION_LR     2
+#define SYNTAX_INITIALIZATION   3
+#define SYNTAX_LITERAL          4
+#define SYNTAX_IDENTIFIER       5
+#define SYNTAX_FUNCTION         6
+#define SYNTAX_TYPE_DEFINITION  7
 
 typedef void (*PrintData)(void *data);
 

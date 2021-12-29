@@ -16,6 +16,10 @@
 #define OPERATION_ID_NOT_EQUALS         10
 #define OPERATION_ID_EQUALS_STRICT      11
 #define OPERATION_ID_NOT_EQUALS_STRICT  12
+#define OPERATION_ID_GRATER_OR_EQUAL    13
+#define OPERATION_ID_LESS_OR_EQUAL      14
+#define OPERATION_ID_GRATER             15
+#define OPERATION_ID_LESS               16
 
 typedef struct {
   int operation_id;

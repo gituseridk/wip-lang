@@ -3,6 +3,7 @@
 
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/assignation/parser.h"
+#include "syntax-tree/handlers/function/parser.h"
 #include "syntax-tree/handlers/parentheses/parser.h"
 #include "syntax-tree/handlers/operation-lr/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
@@ -25,6 +26,7 @@ static Array *getExpressions() {
       &parseInitialization,
       &parseLiteral,
       &parseIdentifier,
+      &parseFunction,
     );
   }
   return expressions;

@@ -7,6 +7,8 @@
 #include "./handlers/initialization/data.h"
 #include "./handlers/literal/data.h"
 #include "./handlers/identifier/data.h"
+#include "./handlers/function/data.h"
+#include "./handlers/type-definition/data.h"
 
 #include "./syntax-node-handler.h"
 
@@ -44,6 +46,16 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_IDENTIFIER,
       .name = "identifier",
       .printData = (PrintData) printSyntaxIdentifierData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_FUNCTION,
+      .name = "function",
+      .printData = (PrintData) printSyntaxFunctionData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_TYPE_DEFINITION,
+      .name = "type_refinition",
+      .printData = (PrintData) printSyntaxTypeDefinitionData,
     },
   );
   return handlers;
