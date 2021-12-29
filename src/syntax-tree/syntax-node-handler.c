@@ -9,6 +9,7 @@
 #include "./handlers/identifier/data.h"
 #include "./handlers/function/data.h"
 #include "./handlers/return/data.h"
+#include "./handlers/function-call/data.h"
 #include "./handlers/type-definition/data.h"
 
 #include "./syntax-node-handler.h"
@@ -22,6 +23,11 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_SCOPE,
       .name = "scope",
       .printData = (PrintData) printSyntaxScopeData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_FUNCTION_CALL,
+      .name = "function-call",
+      .printData = (PrintData) printSyntaxFunctionCallData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_ASSIGNATION,
