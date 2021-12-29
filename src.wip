@@ -1,12 +1,10 @@
-const i = 2345
-
-var sdfghj = 123.456
-
 const power = (a: int, b: int): int => a ** b;
 
-const sum = (a: int, b: int) => {
+const sum = (a: int, b: int): int => {
   const c = a + b;
+  return c;
 };
 
-const div = (a: int, b: int): int => {
+const div = (a: int, b: int):int => {
+  return a / b;
 };

@@ -18,10 +18,8 @@ List *parseInitialization(List *token, SyntaxNode *result, char **error) {
 
   TokenData *initialization_type = (TokenData*) listGetValue(token);
   if (
-    initialization_type->token.id != TOKEN_KEYWORD && (
-      strcmp(initialization_type->value, "const") != 0 ||
-      strcmp(initialization_type->value, "var") != 0
-    )
+    initialization_type->token.id != TOKEN_KEYWORD ||
+    (strcmp(initialization_type->value, "const") != 0 && strcmp(initialization_type->value, "var") != 0)
   ) {
     *error = "Unexpected token, must be a 'const' or 'var' keyword";
     return token;

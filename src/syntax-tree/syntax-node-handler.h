@@ -10,7 +10,8 @@
 #define SYNTAX_LITERAL          4
 #define SYNTAX_IDENTIFIER       5
 #define SYNTAX_FUNCTION         6
-#define SYNTAX_TYPE_DEFINITION  7
+#define SYNTAX_RETURN           7
+#define SYNTAX_TYPE_DEFINITION  8
 
 typedef void (*PrintData)(void *data);
 

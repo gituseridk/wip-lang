@@ -10,6 +10,7 @@
 #include "syntax-tree/handlers/literal/parser.h"
 #include "syntax-tree/handlers/identifier/parser.h"
 #include "syntax-tree/handlers/scope/parser.h"
+#include "syntax-tree/handlers/return/parser.h"
 #include "syntax-tree/syntax-helpers.h"
 
 #include "./parser.h"
@@ -26,6 +27,7 @@ static Array *getExpressions() {
       &parseInitialization,
       &parseLiteral,
       &parseIdentifier,
+      &parseReturn,
       &parseFunction,
     );
   }
