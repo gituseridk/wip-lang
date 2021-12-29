@@ -9,7 +9,7 @@
 
 - [ ] Name (something better then wip-lang)
 - [x] Tokenization
-- [ ] Build AST
+- [x] Build AST
 - [ ] Check AST (type checking, reassigning of constants, etc.)
 - [ ] Compile
   - [ ] arm macos assembly
