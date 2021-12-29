@@ -99,6 +99,25 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
 
   SyntaxFunctionData *result_data = (SyntaxFunctionData*) malloc(sizeof(SyntaxFunctionData));
   result->data = result_data;
+
+  current_token = trimTokensLeft(current_token);
+  current_token = chopToken(current_token, TOKEN_SEPARATOR, ":", error);
+  if (*error == NULL) {
+    current_token = trimTokensLeft(current_token);
+
+    SyntaxNode resturn_type_node;
+    current_token = parseTypeDefinition(current_token, &resturn_type_node, error);
+    if (*error != NULL) {
+      free(result_data);
+      return current_token;
+    }
+    result_data->return_type = *(SyntaxTypeDefinitionData*) resturn_type_node.data;
+  } else {
+    *error = NULL;
+    result_data->return_type.type_id = SYNTAX_TYPE_ID_VOID;
+  }
+
+
   result_data->arguments = arguments;
 
   current_token = trimTokensLeft(current_token);

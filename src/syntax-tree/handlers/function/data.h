@@ -12,6 +12,7 @@ typedef struct {
 
 typedef struct {
   Array *arguments;
+  SyntaxTypeDefinitionData return_type;
   SyntaxNode body_expression;
 } SyntaxFunctionData;
 

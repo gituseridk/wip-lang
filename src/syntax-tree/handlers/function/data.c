@@ -18,7 +18,10 @@ void printSyntaxFunctionData(SyntaxFunctionData *data) {
 
   arrayForEach(data->arguments, printArgument, NULL);
 
-  printf("],\"body_expression\":");
+  printf("],\"return_type\":");
+  printSyntaxTypeDefinitionData(&(data->return_type));
+
+  printf(",\"body_expression\":");
   syntaxNodePrint(&(data->body_expression));
   printf("}");
 }
