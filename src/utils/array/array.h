@@ -22,7 +22,7 @@ void arrayFree(Array *self);
 
 int arrayGetLength(const Array *self);
 
-void* arrayAt(Array *self, unsigned index);
+void* arrayAt(Array *self, int index);
 bool arraySetElementAt(Array *self, unsigned index, const void *newValue);
 
 void* arrayPop(Array *self);

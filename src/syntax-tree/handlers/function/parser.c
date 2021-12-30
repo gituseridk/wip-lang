@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/expression/parser.h"

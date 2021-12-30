@@ -45,11 +45,11 @@ void arrayFree(Array *self) {
   free(self);
 }
 
-void* arrayAt(Array *self, unsigned index) {
+void* arrayAt(Array *self, int index) {
   if (index < 0) {
     index = self->length - index;
   }
-  if (index < 0 || index >= self->length) {
+  if (index < 0 || index >= (int) self->length) {
     return NULL;
   }
   return (char*)self->value + (self->el_size * index);
@@ -82,9 +82,11 @@ void arrayPush(Array *self, const void *element) {
     ++self->length;
     return;
   }
-  self->value = realloc(self->value, self->el_size * self->length * ALLOC_MULT);
+
+  int new_allocated = (self->length + 1) * ALLOC_MULT;
+  self->value = realloc(self->value, self->el_size * new_allocated);
   memcpy((void*)((char*)self->value + self->length * self->el_size), element, self->el_size);
-  self->allocated = self->length * ALLOC_MULT;
+  self->allocated = new_allocated;
   ++self->length;
 }
 
