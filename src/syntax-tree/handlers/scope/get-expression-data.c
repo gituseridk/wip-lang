@@ -18,6 +18,7 @@ Array *parseChildExpressions(
     SyntaxNode *node = (SyntaxNode*) arrayAt(data->nodes, i);
     ExpressionData child_expression;
     child_expression.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+    child_expression.result_type.data = NULL;
     child_expression.parent_scope = self;
 
     node->handler->getExpressionData(src, node->data, node->token, &child_expression);

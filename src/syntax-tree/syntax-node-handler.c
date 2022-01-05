@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 #include "utils/logger/log-src-error.h"
@@ -23,9 +22,7 @@ void getNotImplementedExpressionData(
   List *token,
   ExpressionData *result
 ) {
-  TokenData *token_data = (TokenData*) listGetValue(token);
-  printSourceError(src, "syntax node is not implemented yet", token_data->row, token_data->col);
-  exit(1);
+  throwSourceError(src, "syntax node is not implemented yet", token);
 }
 
 static Array *getSyntaxNodeHandlers() {
@@ -53,19 +50,19 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_OPERATION_LR,
       .name = "operation-lr",
       .printData = (PrintData) printSyntaxOperationLRData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getOperationLRExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_INITIALIZATION,
       .name = "initialization",
       .printData = (PrintData) printSyntaxInitializationData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getInitializationExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_LITERAL,
       .name = "literal",
       .printData = (PrintData) printSyntaxLiteralData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getLiteralExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_IDENTIFIER,

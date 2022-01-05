@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 #include "utils/logger/log-src-error.h"
 #include "../initialization/data.h"
 #include "./data.h"
@@ -22,9 +20,7 @@ void getAssignationExpressionData(
   result->result_type = right.result_type;
 
   if (right.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
-    TokenData *token = (TokenData*)listGetValue(data->right.token);
-    printSourceError(src, "unexpected right side expression with void type", token->row, token->col);
-    exit(1);
+    throwSourceError(src, "unexpected right side expression with void type", data->right.token);
   }
 
   if (data->left.handler->getExpressionData == getInitializationExpressionData) {
@@ -37,9 +33,7 @@ void getAssignationExpressionData(
     left.result_type.type_id != right.result_type.type_id ||
     left.result_type.data != right.result_type.data
   ) {
-    TokenData *token = (TokenData*)listGetValue(data->left.token);
-    printSourceError(src, "type mismatch", token->row, token->col);
-    exit(1);
+    throwSourceError(src, "type mismatch", data->left.token);
   }
 
   result->child_expressions = newArray(ExpressionData, left, right);

@@ -10,5 +10,11 @@ typedef struct {
 } SyntaxLiteralData;
 
 void printSyntaxLiteralData(SyntaxLiteralData *data);
+void getLiteralExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+);
 
 #endif

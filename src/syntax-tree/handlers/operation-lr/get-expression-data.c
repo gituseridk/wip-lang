@@ -15,10 +15,12 @@ void getOperationLRExpressionData(
   ExpressionData left;
   left.parent_scope = result->parent_scope;
   left.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  left.result_type.data = NULL;
 
   ExpressionData right;
   right.parent_scope = result->parent_scope;
   right.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  right.result_type.data = NULL;
 
   data->left.handler->getExpressionData(
     src,
@@ -26,6 +28,10 @@ void getOperationLRExpressionData(
     data->left.token,
     &left
   );
+  
+  if (left.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
+    throwSourceError(src, "left side expression is void type", token);
+  }
 
   data->right.handler->getExpressionData(
     src,
@@ -35,9 +41,7 @@ void getOperationLRExpressionData(
   );
 
   if (left.result_type.type_id != right.result_type.type_id || left.result_type.data != right.result_type.data) {
-    TokenData *token_data = (TokenData*) listGetValue(token);
-    printSourceError(src, "right side and left side are of different types", token_data->row, token_data->col);
-    exit(0);
+    throwSourceError(src, "right side and left side expressions are of different types", token);
   }
 
   result->child_expressions = newArray(ExpressionData, left, right);

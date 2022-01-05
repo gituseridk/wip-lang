@@ -1,5 +1,8 @@
+#include <stdlib.h>
 #include <stdio.h>
+
 #include "utils/string/string.h"
+#include "token/token-data.h"
 #include "./log-src-error.h"
 
 #define RANGE 4
@@ -38,4 +41,11 @@ void printSourceError(const char *src, const char *error, int row, int col) {
   };
   arrayForEach(lines, printLine, &err);
   freeSplittedString(lines);
+}
+
+void throwSourceError(const char *src, const char *error, List *token) {
+  TokenData *token_data = (TokenData*) listGetValue(token);
+
+  printSourceError(src, error, token_data->row, token_data->col);
+  exit(1);
 }

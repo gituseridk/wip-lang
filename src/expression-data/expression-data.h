@@ -10,7 +10,8 @@
 #define EXPRESSION_SCOPE              1
 #define EXPRESSION_ASSIGNATION        2
 #define EXPRESSION_INITIALIZATION     3
-#define EXPRESSION_OPERATIONS         4 // from 4 to 4 + OPERATION_LR_COUNT - 1
+#define EXPRESSION_LITERAL            4
+#define EXPRESSION_OPERATIONS         5 // from 5 to 5 + OPERATION_LR_COUNT - 1
 
 typedef struct {
   unsigned scope_offset;
