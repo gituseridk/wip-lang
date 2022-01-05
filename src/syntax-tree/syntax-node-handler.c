@@ -19,7 +19,7 @@ Array *handlers;
 
 void getNotImplementedExpressionData(const char *src, void *raw_data, List *token, ExpressionData *result, unsigned *offset) {
   TokenData *token_data = (TokenData*) listGetValue(token);
-  printSourceError(src, "syntax node not implemented yet", token_data->row, token_data->col);
+  printSourceError(src, "syntax node is not implemented yet", token_data->row, token_data->col);
   exit(1);
 }
 
@@ -42,7 +42,7 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_ASSIGNATION,
       .name = "assignation",
       .printData = (PrintData) printSyntaxAssignationData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getAssignationExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_OPERATION_LR,
