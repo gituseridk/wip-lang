@@ -26,6 +26,9 @@ void getNotImplementedExpressionData(
 }
 
 static Array *getSyntaxNodeHandlers() {
+  if (handlers != NULL) {
+    return handlers;
+  }
   handlers = newArray(
     SyntaxNodeHandler,
     (SyntaxNodeHandler) {

@@ -19,7 +19,6 @@ typedef struct {
   char *name;
   SyntaxTypeDefinitionData result_type;
 
-  void *value;
 } VariableData;
 
 typedef struct ExpressionData ExpressionData;
@@ -33,6 +32,7 @@ struct ExpressionData {
   SyntaxTypeDefinitionData result_type;
 
   int id;
+  void *value;
 };
 
 #endif

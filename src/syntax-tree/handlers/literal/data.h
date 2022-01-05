@@ -4,8 +4,9 @@
 #include <stdbool.h>
 #include "syntax-tree/syntax-node.h"
 
+
 typedef struct {
-  int type_id;
+  SyntaxTypeDefinitionData type_definition;
   void *value;
 } SyntaxLiteralData;
 

@@ -19,7 +19,7 @@ List* parseLiteral(List *token, SyntaxNode *result, char **error) {
   TokenData *token_data = listGetValue(token);
   if (token_data->token.id == TOKEN_LITERAL_FLOAT) {
     SyntaxLiteralData *data = malloc(sizeof(SyntaxLiteralData));
-    data->type_id = SYNTAX_TYPE_ID_FLOAT;
+    data->type_definition.type_id = SYNTAX_TYPE_ID_FLOAT;
     data->value = malloc(sizeof(float));
     (*(float*) data->value) = atof(token_data->value);
     result->data = data;
@@ -27,7 +27,7 @@ List* parseLiteral(List *token, SyntaxNode *result, char **error) {
   }
   if (token_data->token.id == TOKEN_LITERAL_INT) {
     SyntaxLiteralData *data = malloc(sizeof(SyntaxLiteralData));
-    data->type_id = SYNTAX_TYPE_ID_INT;
+    data->type_definition.type_id = SYNTAX_TYPE_ID_INT;
     data->value = malloc(sizeof(int));
     (*(int*) data->value) = atoi(token_data->value);
     result->data = data;

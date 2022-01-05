@@ -17,12 +17,12 @@ void getInitializationExpressionData(
 
   result->id = EXPRESSION_INITIALIZATION;
 
-  if (mapGet(result->variables, data->identifier) != NULL) {
+  if (mapGet(result->parent_scope->variables, data->identifier) != NULL) {
     TokenData *identifier_token = (TokenData*) trimTokensLeft(listNext(token));
     char msg[100];
     sprintf(msg, "name \"%s\" is already used", data->identifier);
     printSourceError(src, msg, identifier_token->row, identifier_token->col);
   }
 
-  mapSet(result->variables, data->identifier, &(result->result_type));
+  mapSet(result->parent_scope->variables, data->identifier, &(result->result_type));
 }

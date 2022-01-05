@@ -44,6 +44,7 @@ void getOperationLRExpressionData(
     throwSourceError(src, "right side and left side expressions are of different types", token);
   }
 
+  result->result_type = left.result_type;
   result->child_expressions = newArray(ExpressionData, left, right);
 }
 
