@@ -11,8 +11,7 @@ void getInitializationExpressionData(
   const char *src,
   void *raw_data,
   List *token,
-  ExpressionData *result,
-  unsigned *offset
+  ExpressionData *result
 ) {
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 

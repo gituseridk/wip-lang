@@ -4,7 +4,12 @@
 #include "../initialization/data.h"
 #include "./data.h"
 
-void getAssignationExpressionData(const char *src, void *raw_data, List *token, ExpressionData *result, unsigned *offset) {
+void getAssignationExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;
   result->id = EXPRESSION_ASSIGNATION;
 
@@ -13,14 +18,20 @@ void getAssignationExpressionData(const char *src, void *raw_data, List *token, 
   ExpressionData right;
   right.parent_scope = result->parent_scope;
 
-  data->right.handler->getExpressionData(src, data->right.data, data->right.token, &right, offset);
+  data->right.handler->getExpressionData(src, data->right.data, data->right.token, &right);
   result->result_type = right.result_type;
+
+  if (right.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
+    TokenData *token = (TokenData*)listGetValue(data->right.token);
+    printSourceError(src, "unexpected right side expression with void type", token->row, token->col);
+    exit(1);
+  }
 
   if (data->left.handler->getExpressionData == getInitializationExpressionData) {
     left.result_type = right.result_type;
   }
 
-  data->left.handler->getExpressionData(src, data->left.data, data->left.token, &left, offset);
+  data->left.handler->getExpressionData(src, data->left.data, data->left.token, &left);
 
   if (
     left.result_type.type_id != right.result_type.type_id ||
@@ -30,4 +41,6 @@ void getAssignationExpressionData(const char *src, void *raw_data, List *token, 
     printSourceError(src, "type mismatch", token->row, token->col);
     exit(1);
   }
+
+  result->child_expressions = newArray(ExpressionData, left, right);
 }

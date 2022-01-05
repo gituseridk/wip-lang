@@ -23,7 +23,6 @@ int main() {
   }
   fclose(file);
 
-  printf("===src===\n%s\n===SRC===\n\n", src);
   List *tokens = tokenize(src);
 
   if (tokens == NULL) {
@@ -31,31 +30,18 @@ int main() {
     return 1;
   }
 
-  printf("==tokens==\n");
-  int i = 0;
-  for (List *token = tokens; token != NULL; token = listNext(token)) {
-    printf("tokens[%d]: ", i++);
-    tokenDataPrint(listGetValue(token));
-  }
-  printf("==TOKENS==\n");
-
   SyntaxTree *tree = createSyntaxTree(tokens, src);
   if (tree == NULL) {
     printf("failed to parse syntax tree\n");
     return 1;
   }
-  printf("===ast===\n");
-  printSyntaxTree(tree);
-  printf("===AST===\n");
 
   ExpressionData root_expression;
-  unsigned offset = 0;
   tree->root_node.handler->getExpressionData(
     src,
     tree->root_node.data,
     tree->root_node.token,
-    &root_expression,
-    &offset
+    &root_expression
   );
 
   listFree(tokens);

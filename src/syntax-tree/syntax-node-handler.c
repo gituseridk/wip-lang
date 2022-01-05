@@ -17,7 +17,12 @@
 
 Array *handlers;
 
-void getNotImplementedExpressionData(const char *src, void *raw_data, List *token, ExpressionData *result, unsigned *offset) {
+void getNotImplementedExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+) {
   TokenData *token_data = (TokenData*) listGetValue(token);
   printSourceError(src, "syntax node is not implemented yet", token_data->row, token_data->col);
   exit(1);

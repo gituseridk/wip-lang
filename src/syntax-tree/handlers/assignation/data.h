@@ -9,6 +9,6 @@ typedef struct {
 } SyntaxAssignationData;
 
 void printSyntaxAssignationData(SyntaxAssignationData *data);
-void getAssignationExpressionData(const char *src, void *data, List *token, ExpressionData *result, unsigned *offset);
+void getAssignationExpressionData(const char *src, void *data, List *token, ExpressionData *result);
 
 #endif

@@ -11,7 +11,6 @@ Array *parseChildExpressions(
   Map *variables,
   SyntaxTypeDefinitionData *result_type
 ) {
-  unsigned offset = 0;
 
   Array *result = createEmptyArray(1u, sizeof(ExpressionData));
 
@@ -21,7 +20,7 @@ Array *parseChildExpressions(
     child_expression.result_type.type_id = SYNTAX_TYPE_ID_VOID;
     child_expression.parent_scope = self;
 
-    node->handler->getExpressionData(src, node->data, node->token, &child_expression, &offset);
+    node->handler->getExpressionData(src, node->data, node->token, &child_expression);
 
     arrayPush(result, &child_expression);
   }
@@ -29,7 +28,12 @@ Array *parseChildExpressions(
   return result;
 }
 
-void getScopeExpressionData(const char *src, void *raw_data, List *token, ExpressionData *result, unsigned *offset) {
+void getScopeExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+) {
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
 
   result->id = EXPRESSION_SCOPE;

@@ -21,6 +21,8 @@
 #define OPERATION_ID_GRATER             15
 #define OPERATION_ID_LESS               16
 
+#define OPERATION_LR_COUNT               17
+
 typedef struct {
   int operation_id;
   SyntaxNode left;
@@ -28,5 +30,12 @@ typedef struct {
 } SyntaxOperationData;
 
 void printSyntaxOperationLRData(SyntaxOperationData *data);
+
+void getOperationLRExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+);
 
 #endif
