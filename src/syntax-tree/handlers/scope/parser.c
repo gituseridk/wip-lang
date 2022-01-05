@@ -30,6 +30,8 @@ static List *chopBracket(List *start_token, char **error, bool open) {
 
 static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **error, bool with_brackets) {
   *error = NULL;
+  tokens = trimTokensLeft(tokens);
+  result->token = tokens;
 
   if (with_brackets) {
     tokens = chopBracket(tokens, error, true);

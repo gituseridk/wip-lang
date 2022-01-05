@@ -1,14 +1,11 @@
-const power = (a: int, b: int): int => a ** b;
+const a = 12345 + 6753;
+const b = 678;
 
-const sum = (a: int, b: int): int => {
-  const c = a + b;
-  return c;
+const func = (x: int, y: int): int => {
+  z = x + y;
+  return z;
 };
 
-const div = (a: int, b: int):int => {
-  return a / b;
-};
 
-var sum_result = sum(33, 36);
 
-print(sum_result);
+const c = func(a, b);

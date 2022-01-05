@@ -18,6 +18,7 @@ List *parseReturn(List *start_token, SyntaxNode *result, char **error) {
   };
 
   List *current_token = trimTokensLeft(start_token);
+  result->token = current_token;
   current_token = chopToken(current_token, TOKEN_KEYWORD, "return", error);
   if (*error != NULL) {
     return current_token;

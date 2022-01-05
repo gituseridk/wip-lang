@@ -17,6 +17,7 @@ List* parseTypeDefinition(List *start_token, SyntaxNode *result, char **error) {
   };
 
   List *current_token = trimTokensLeft(start_token);
+  result->token = current_token;
   TokenData *token = (TokenData*) listGetValue(current_token);
 
   if (token->token.id != TOKEN_KEYWORD) {

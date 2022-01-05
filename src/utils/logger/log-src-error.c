@@ -28,7 +28,7 @@ static void printLine(void *_self, void *line, int index, const Array *array) {
   }
 }
 
-void printSourceError(char *src, char *error, int row, int col) {
+void printSourceError(const char *src, const char *error, int row, int col) {
   printf("Error at %d:%d\n", row, col);
   Array *lines = stringSplit(src, "\n", true);
   SourceError err = (SourceError) {

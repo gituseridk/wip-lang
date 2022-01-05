@@ -13,6 +13,8 @@ List* parseLiteral(List *token, SyntaxNode *result, char **error) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_LITERAL), 
   };
+  result->token = token;
+
 
   TokenData *token_data = listGetValue(token);
   if (token_data->token.id == TOKEN_LITERAL_FLOAT) {

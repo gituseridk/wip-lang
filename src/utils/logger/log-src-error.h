@@ -4,11 +4,11 @@
 #include "utils/array/array.h"
 
 typedef struct {
-  char *text;
+  const char *text;
   int col;
   int row;
 } SourceError;
 
-void printSourceError(char *src, char *error, int row, int col);
+void printSourceError(const char *src, const char *error, int row, int col);
 
 #endif

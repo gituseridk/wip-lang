@@ -89,6 +89,7 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
   };
   
   List *current_token = trimTokensLeft(tokens);
+  result->token = current_token;
 
   Array *arguments = createEmptyArray(1, sizeof(FunctionArgument));
   current_token = trimArguments(current_token, arguments, error);

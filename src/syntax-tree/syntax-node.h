@@ -25,6 +25,7 @@
 typedef struct SyntaxNode SyntaxNode;
 
 struct SyntaxNode {
+  List *token;
   SyntaxNodeHandler *handler;
   void *data;
 };

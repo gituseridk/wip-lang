@@ -18,6 +18,7 @@ List* parseParentheses(List *start_token, SyntaxNode *result, char **error) {
   }
 
   List *current_token = trimTokensLeft(listNext(start_token));
+  result->token = current_token;
 
   current_token = parseExpression(current_token, result, error, NULL);
 

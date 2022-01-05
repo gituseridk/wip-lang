@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "expression-data/expression-data.h"
 #include "token/token-data.h"
 #include "syntax-tree/syntax-tree.h"
 
@@ -46,6 +47,16 @@ int main() {
   printf("===ast===\n");
   printSyntaxTree(tree);
   printf("===AST===\n");
+
+  ExpressionData root_expression;
+  unsigned offset = 0;
+  tree->root_node.handler->getExpressionData(
+    src,
+    tree->root_node.data,
+    tree->root_node.token,
+    &root_expression,
+    &offset
+  );
 
   listFree(tokens);
   free(src);

@@ -2,7 +2,6 @@
 #define SYNTAX_DATA_TYPE_DEFINITION_H
 
 #include <stdbool.h>
-#include "syntax-tree/syntax-node.h"
 
 typedef struct {
   int type_id;
