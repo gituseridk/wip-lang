@@ -7,8 +7,9 @@
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/type-definition/data.h"
 
-#define EXPRESSION_SCOPE            1
-#define EXPRESSION_ASSIGNATION      2
+#define EXPRESSION_SCOPE              1
+#define EXPRESSION_ASSIGNATION        2
+#define EXPRESSION_INITIALIZATION     3
 
 typedef struct {
   unsigned scope_offset;
