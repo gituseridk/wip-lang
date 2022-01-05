@@ -22,7 +22,7 @@ void getNotImplementedExpressionData(
   List *token,
   ExpressionData *result
 ) {
-  throwSourceError(src, "syntax node is not implemented yet", token);
+  throwSourceError(src, "this syntax node is not implemented yet", token);
 }
 
 static Array *getSyntaxNodeHandlers() {
