@@ -10,6 +10,7 @@ void getAssignationExpressionData(
 ) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;
   result->id = EXPRESSION_ASSIGNATION;
+  result->variables = createMap(sizeof(VariableData));
 
   ExpressionData left;
   left.parent_scope = result->parent_scope;

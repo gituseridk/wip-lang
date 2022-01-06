@@ -14,7 +14,6 @@ SyntaxTree* createSyntaxTree(List *tokens, char *src) {
 
   if (error != NULL) {
     if (last_loken == NULL) {
-      printf("%s\n", error);
       return NULL;
     }
     TokenData *token_data = (TokenData*) listGetValue(last_loken);

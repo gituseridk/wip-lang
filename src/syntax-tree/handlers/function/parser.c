@@ -23,6 +23,7 @@ List* trimSingleArgument(List *start_token, FunctionArgument *argument, char **e
   }
 
   argument->name = ((SyntaxIdentifierData*) (identifire.data))->name;
+  argument->token = current_token;
 
   current_token = trimTokensLeft(current_token);
   current_token = chopToken(current_token, TOKEN_SEPARATOR, ":", error);

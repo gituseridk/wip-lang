@@ -12,13 +12,30 @@ void getFunctionExpressionData(
 ) {
   SyntaxFunctionData *data = (SyntaxFunctionData*) raw_data;
   result->id = EXPRESSION_FUNCTION;
+  result->variables = createMap(sizeof(VariableData));
+
+  for (int i = 0; i != arrayGetLength(data->arguments); ++i) {
+    FunctionArgument *arg = (FunctionArgument*)arrayAt(data->arguments, i);
+    if (mapGet(result->variables, arg->name) != NULL) {
+      throwSourceError(src, "name is already used in this scope", arg->token);
+    }
+    VariableData data = (VariableData) {
+      .is_constant = true,
+      .name = arg->name,
+      .result_type = arg->type_definition,
+      .scope_offset = 0, // !TODO add offset
+    };
+    mapSet(result->variables, arg->name, &data);
+
+    VariableData *d = (VariableData*) mapGet(result->variables, arg->name);
+  }
 
   result->result_type.type_id = SYNTAX_TYPE_ID_FUNCTION;
   result->result_type.data = NULL; // !TODO add function type
 
   ExpressionData body;
   body.result_type = data->return_type;
-  body.parent_scope = result->parent_scope;
+  body.parent_scope = result;
 
   data->body_expression.handler->getExpressionData(
     src,

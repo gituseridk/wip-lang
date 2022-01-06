@@ -37,6 +37,8 @@ int main() {
   }
 
   ExpressionData root_expression;
+  root_expression.parent_scope = NULL;
+
   tree->root_node.handler->getExpressionData(
     src,
     tree->root_node.data,

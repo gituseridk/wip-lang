@@ -16,6 +16,7 @@ void getInitializationExpressionData(
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 
   result->id = EXPRESSION_INITIALIZATION;
+  result->variables = createMap(sizeof(VariableData));
 
   if (mapGet(result->parent_scope->variables, data->identifier) != NULL) {
     TokenData *identifier_token = (TokenData*) trimTokensLeft(listNext(token));

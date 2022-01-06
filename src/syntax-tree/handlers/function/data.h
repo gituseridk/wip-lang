@@ -6,6 +6,7 @@
 #include "syntax-tree/handlers/scope/data.h"
 
 typedef struct {
+  List *token;
   char *name;
   SyntaxTypeDefinitionData type_definition;
 } FunctionArgument;

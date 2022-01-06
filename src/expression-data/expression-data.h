@@ -34,7 +34,6 @@ struct ExpressionData {
   SyntaxTypeDefinitionData result_type;
 
   int id;
-  bool is_scope;
   void *value;
 };
 

@@ -11,6 +11,7 @@ void getLiteralExpressionData(
 ) {
   SyntaxLiteralData *data = (SyntaxLiteralData*) raw_data;
   result->id = EXPRESSION_LITERAL;
+  result->variables = createMap(sizeof(VariableData));
   result->value = data->value;
   result->result_type = data->type_definition;
 }
