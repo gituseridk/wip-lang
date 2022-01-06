@@ -20,6 +20,7 @@ typedef struct {
   char *name;
   SyntaxTypeDefinitionData result_type;
 
+  bool is_constant;
 } VariableData;
 
 typedef struct ExpressionData ExpressionData;

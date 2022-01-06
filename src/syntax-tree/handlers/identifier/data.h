@@ -10,4 +10,11 @@ typedef struct {
 
 void printSyntaxIdentifierData(SyntaxIdentifierData *data);
 
+void getIdentifierExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+);
+
 #endif
