@@ -2,10 +2,9 @@ const a = 12345 + 6753;
 const b = 678;
 
 const func = (x: int, y: int): int => {
-  z = x + y;
+  var z = x + y;
+  z = 1234 / z;
   return z;
 };
-
-
 
 const c = func(a, b);

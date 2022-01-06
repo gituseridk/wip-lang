@@ -15,7 +15,8 @@ void getLiteralExpressionData(
   const char *src,
   void *raw_data,
   List *token,
-  ExpressionData *result
+  ExpressionData *result,
+  unsigned *offset
 );
 
 #endif

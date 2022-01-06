@@ -39,11 +39,14 @@ int main() {
   ExpressionData root_expression;
   root_expression.parent_scope = NULL;
 
+  unsigned global_size = 0;
+
   tree->root_node.handler->getExpressionData(
     src,
     tree->root_node.data,
     tree->root_node.token,
-    &root_expression
+    &root_expression,
+    &global_size
   );
 
   listFree(tokens);

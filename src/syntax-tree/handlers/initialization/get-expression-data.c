@@ -11,7 +11,8 @@ void getInitializationExpressionData(
   const char *src,
   void *raw_data,
   List *token,
-  ExpressionData *result
+  ExpressionData *result,
+  unsigned *offset
 ) {
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 
@@ -25,5 +26,11 @@ void getInitializationExpressionData(
     printSourceError(src, msg, identifier_token->row, identifier_token->col);
   }
 
-  mapSet(result->parent_scope->variables, data->identifier, &(result->result_type));
+  VariableData new_var = (VariableData) {
+    .is_constant = data->is_constant,
+    .name = data->identifier,
+    .result_type = result->result_type,
+    .scope_offset = 0,
+  };
+  mapSet(result->parent_scope->variables, data->identifier, &new_var);
 }

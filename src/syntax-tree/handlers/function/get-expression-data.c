@@ -8,7 +8,8 @@ void getFunctionExpressionData(
   const char *src,
   void *raw_data,
   List *token,
-  ExpressionData *result
+  ExpressionData *result,
+  unsigned *offset
 ) {
   SyntaxFunctionData *data = (SyntaxFunctionData*) raw_data;
   result->id = EXPRESSION_FUNCTION;
@@ -39,7 +40,8 @@ void getFunctionExpressionData(
     src,
     data->body_expression.data,
     data->body_expression.token,
-    &body
+    &body,
+    offset
   );
 
   if (body.result_type.type_id != data->return_type.type_id || body.result_type.data != data->return_type.data) {

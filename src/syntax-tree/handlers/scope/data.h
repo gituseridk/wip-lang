@@ -10,6 +10,6 @@ typedef struct {
 } SyntaxScopeData;
 
 void printSyntaxScopeData(SyntaxScopeData *data);
-void getScopeExpressionData(const char *src, void *data, List *token, ExpressionData *result);
+void getScopeExpressionData(const char *src, void *data, List *token, ExpressionData *result, unsigned *offset);
 
 #endif

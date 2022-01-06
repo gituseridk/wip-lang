@@ -6,7 +6,8 @@ void getAssignationExpressionData(
   const char *src,
   void *raw_data,
   List *token,
-  ExpressionData *result
+  ExpressionData *result,
+  unsigned *offset
 ) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;
   result->id = EXPRESSION_ASSIGNATION;
@@ -17,7 +18,7 @@ void getAssignationExpressionData(
   ExpressionData right;
   right.parent_scope = result->parent_scope;
 
-  data->right.handler->getExpressionData(src, data->right.data, data->right.token, &right);
+  data->right.handler->getExpressionData(src, data->right.data, data->right.token, &right, offset);
   result->result_type = right.result_type;
 
   if (right.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
@@ -28,7 +29,7 @@ void getAssignationExpressionData(
     left.result_type = right.result_type;
   }
 
-  data->left.handler->getExpressionData(src, data->left.data, data->left.token, &left);
+  data->left.handler->getExpressionData(src, data->left.data, data->left.token, &left, offset);
 
   if (
     left.result_type.type_id != right.result_type.type_id ||
