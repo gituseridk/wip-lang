@@ -26,8 +26,6 @@ void getFunctionExpressionData(
       .scope_offset = 0, // !TODO add offset
     };
     mapSet(result->variables, arg->name, &data);
-
-    VariableData *d = (VariableData*) mapGet(result->variables, arg->name);
   }
 
   result->result_type.type_id = SYNTAX_TYPE_ID_FUNCTION;
