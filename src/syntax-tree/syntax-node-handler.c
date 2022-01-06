@@ -77,7 +77,7 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_FUNCTION,
       .name = "function",
       .printData = (PrintData) printSyntaxFunctionData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getFunctionExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_RETURN,

@@ -18,4 +18,11 @@ typedef struct {
 
 void printSyntaxFunctionData(SyntaxFunctionData *data);
 
+void getFunctionExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result
+);
+
 #endif

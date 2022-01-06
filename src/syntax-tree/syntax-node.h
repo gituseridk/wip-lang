@@ -13,13 +13,16 @@
 #define SYNTAX_TYPE_ID_STRUCT     2
 #define SYNTAX_TYPE_STRUCT_NAME   "struct"
 
-#define SYNTAX_TYPE_ID_INT        3
+#define SYNTAX_TYPE_ID_FUNCTION   3
+#define SYNTAX_TYPE_FUNCTION_NAME "function"
+
+#define SYNTAX_TYPE_ID_INT        4
 #define SYNTAX_TYPE_INT_NAME      "int"
 
-#define SYNTAX_TYPE_ID_FLOAT      4
+#define SYNTAX_TYPE_ID_FLOAT      5
 #define SYNTAX_TYPE_FLOAT_NAME    "float"
 
-#define SYNTAX_TYPE_ID_CHAR       5
+#define SYNTAX_TYPE_ID_CHAR       6
 #define SYNTAX_TYPE_CHAR_NAME     "char"
 
 typedef struct SyntaxNode SyntaxNode;
