@@ -70,6 +70,7 @@ List *chopFunctionCall(List *start_token, SyntaxNode *result, char **error) {
     current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
     if (*error == NULL) {
       SyntaxNode result_node;
+      result_node.token = trimTokensLeft(start_token);
       result_node.data = malloc(sizeof(SyntaxFunctionCallData));
       ((SyntaxFunctionCallData*)result_node.data)->target = *result;
       ((SyntaxFunctionCallData*)result_node.data)->arguments = arguments;

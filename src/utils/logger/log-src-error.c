@@ -8,16 +8,16 @@
 void printSourceError(const char *src, const char *error, int row, int col) {
   printf("Error at %d:%d\n", row, col);
   Array *lines = stringSplit(src, "\n", true);
-  char **line = (char**) arrayAt(lines, row);
+  char **line = (char**) arrayAt(lines, row - 1);
  
   int row_num_length = 0;
   for(int i = row + 1; i != 0; i /= 10) ++row_num_length;
 
   if (line != NULL) {
-    printf("%d | %s\n", row + 1, *line);
+    printf("%d | %s\n", row, *line);
   }
 
-  for (int i = row_num_length; i != 0; --i) printf(" ");
+  for (int i = row_num_length + col; i != 0; --i) printf(" ");
   printf("  ^ %s\n", error);
 
   freeSplittedString(lines);
