@@ -6,15 +6,16 @@
 #include "utils/list/list.h"
 
 #define SYNTAX_SCOPE            0
-#define SYNTAX_FUNCTION_CALL    1
-#define SYNTAX_ASSIGNATION      2
-#define SYNTAX_OPERATION_LR     3
-#define SYNTAX_INITIALIZATION   4
-#define SYNTAX_LITERAL          5
-#define SYNTAX_IDENTIFIER       6
-#define SYNTAX_FUNCTION         7
-#define SYNTAX_RETURN           8
-#define SYNTAX_TYPE_DEFINITION  9
+#define SYNTAX_IF               1
+#define SYNTAX_FUNCTION_CALL    2
+#define SYNTAX_ASSIGNATION      3
+#define SYNTAX_OPERATION_LR     4
+#define SYNTAX_INITIALIZATION   5
+#define SYNTAX_LITERAL          6
+#define SYNTAX_IDENTIFIER       7
+#define SYNTAX_FUNCTION         8
+#define SYNTAX_RETURN           9
+#define SYNTAX_TYPE_DEFINITION  10
 
 typedef void (*PrintData)(void *data);
 typedef void (*GetExpressionData)(

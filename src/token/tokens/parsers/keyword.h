@@ -11,6 +11,9 @@ static Map *getKeywords() {
     mapSet(keywords, "const", NULL);
     mapSet(keywords, "var", NULL);
     mapSet(keywords, "return", NULL);
+    mapSet(keywords, "if", NULL);
+    mapSet(keywords, "else", NULL);
+    mapSet(keywords, "elif", NULL);
     mapSet(keywords, SYNTAX_TYPE_VOID_NAME, NULL);
     mapSet(keywords, SYNTAX_TYPE_STRUCT_NAME, NULL);
     mapSet(keywords, SYNTAX_TYPE_INT_NAME, NULL);

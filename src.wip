@@ -21,3 +21,12 @@ const funcResult = func(123, 456);
 print(funcResult);
 
 const c = func(a, b);
+
+var i = 1031;
+
+if (0) {
+  print(0);
+}
+
+
+if (c + func(65, 7654)) print(funcResult);

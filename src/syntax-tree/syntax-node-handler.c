@@ -3,6 +3,7 @@
 #include "utils/logger/log-src-error.h"
 
 #include "./handlers/scope/data.h"
+#include "./handlers/if/data.h"
 #include "./handlers/assignation/data.h"
 #include "./handlers/operation-lr/data.h"
 #include "./handlers/initialization/data.h"
@@ -41,6 +42,12 @@ static Array *getSyntaxNodeHandlers() {
       .name = "scope",
       .printData = (PrintData) printSyntaxScopeData,
       .getExpressionData = (GetExpressionData) getScopeExpressionData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_IF,
+      .name = "if",
+      .printData = (PrintData) printSyntaxIfData,
+      .getExpressionData = (GetExpressionData) getIfExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_FUNCTION_CALL,
