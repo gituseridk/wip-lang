@@ -18,7 +18,7 @@ void printSourceError(const char *src, const char *error, int row, int col) {
   }
 
   for (int i = row_num_length + col; i != 0; --i) printf(" ");
-  printf(" ^ %s\n", error);
+  printf("  ^ %s\n", error);
 
   freeSplittedString(lines);
 }

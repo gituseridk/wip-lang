@@ -22,11 +22,13 @@ print(funcResult);
 
 const c = func(a, b);
 
-var i = 1031;
+var i = -134.0325f;
 
 if (0) {
   print(0);
 }
 
 
-if (c + func(65, 7654)) print(funcResult);
+if (c + func(65, 7654)) {
+  print(funcResult)
+}

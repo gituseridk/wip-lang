@@ -17,11 +17,12 @@ int main() {
   fseek(file, 0, SEEK_END);
   long length = ftell(file);
   fseek(file, 0, SEEK_SET);
-  char *src = malloc(length);
+  char *src = malloc(length+1);
   if (src) {
     fread(src, 1, length, file);
   }
   fclose(file);
+  src[length] = 0;
 
   List *tokens = tokenize(src);
 
@@ -29,6 +30,14 @@ int main() {
     printf("failed to tokenize sources\n");
     return 1;
   }
+
+  printf("==tokens==\n");
+  int i = 0;
+  for (List *token = tokens; token != NULL; token = listNext(token)) {
+    printf("tokens[%d]: ", i++);
+    tokenDataPrint(listGetValue(token));
+  }
+  printf("==TOKENS==\n");
 
   SyntaxTree *tree = createSyntaxTree(tokens, src);
   if (tree == NULL) {
