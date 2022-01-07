@@ -44,6 +44,22 @@ List *chopFunctionCall(List *start_token, SyntaxNode *result, char **error) {
     return current_token;
   }
 
+  current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
+  if (*error == NULL) {
+    SyntaxNode result_node;
+    result_node.token = trimTokensLeft(start_token);
+    result_node.data = malloc(sizeof(SyntaxFunctionCallData));
+    ((SyntaxFunctionCallData*)result_node.data)->target = *result;
+    ((SyntaxFunctionCallData*)result_node.data)->arguments = createEmptyArray(0, sizeof(SyntaxNode));
+    result_node.handler = getSyntaxNodeHandler(SYNTAX_FUNCTION_CALL);
+
+    *result = result_node;
+
+    return current_token;
+  } else {
+    *error = NULL;
+  }
+
   Array *arguments = createEmptyArray(1, sizeof(SyntaxNode));
   while (true) {
     SyntaxNode arg;
