@@ -35,6 +35,9 @@ int main() {
     printf("failed to parse syntax tree\n");
     return 1;
   }
+  printf("===ast===\n");
+  printSyntaxTree(tree);
+  printf("===AST===\n");
 
   ExpressionData root_expression;
   root_expression.parent_scope = NULL;
@@ -46,7 +49,8 @@ int main() {
     tree->root_node.data,
     tree->root_node.token,
     &root_expression,
-    &global_size
+    &global_size,
+    tree->root_node.handler->name
   );
 
   listFree(tokens);

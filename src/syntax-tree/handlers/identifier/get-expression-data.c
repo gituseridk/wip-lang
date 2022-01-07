@@ -19,7 +19,8 @@ void getIdentifierExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset
+  unsigned *offset,
+  char *handler_name
 ) {
   SyntaxIdentifierData *data = (SyntaxIdentifierData*) raw_data;
   result->id = EXPRESSION_FUNCTION;

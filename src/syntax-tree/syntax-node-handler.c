@@ -21,9 +21,12 @@ void getNotImplementedExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset
+  unsigned *offset,
+  char *handler_name
 ) {
-  throwSourceError(src, "this syntax node is not implemented yet", token);
+  char err[100];
+  sprintf(err, "\"%s\" syntax node is not implemented yet", handler_name);
+  throwSourceError(src, err, token);
 }
 
 static Array *getSyntaxNodeHandlers() {
@@ -84,7 +87,7 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_RETURN,
       .name = "return",
       .printData = (PrintData) printSyntaxReturnData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getReturnExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_TYPE_DEFINITION,

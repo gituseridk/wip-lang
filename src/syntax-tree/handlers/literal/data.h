@@ -16,7 +16,8 @@ void getLiteralExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset
+  unsigned *offset,
+  char *handler_name
 );
 
 #endif

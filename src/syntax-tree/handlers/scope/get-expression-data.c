@@ -4,7 +4,7 @@
 #include "syntax-tree/syntax-node.h"
 #include "./data.h"
 
-Array *parseChildExpressions(
+static Array *parseChildExpressions(
   const char *src,
   ExpressionData* self,
   SyntaxScopeData *data,
@@ -22,7 +22,14 @@ Array *parseChildExpressions(
     child_expression.result_type.data = NULL;
     child_expression.parent_scope = self;
 
-    node->handler->getExpressionData(src, node->data, node->token, &child_expression, offset);
+    node->handler->getExpressionData(
+      src,
+      node->data,
+      node->token,
+      &child_expression,
+      offset,
+      node->handler->name
+    );
 
     arrayPush(result, &child_expression);
   }
@@ -35,7 +42,8 @@ void getScopeExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset
+  unsigned *offset,
+  char *handler_name
 ) {
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
 

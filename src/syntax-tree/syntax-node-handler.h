@@ -22,7 +22,8 @@ typedef void (*GetExpressionData)(
   void *data,
   List *token,
   ExpressionData *result,
-  unsigned *offset
+  unsigned *offset,
+  char *handler_name
 );
 
 typedef struct {

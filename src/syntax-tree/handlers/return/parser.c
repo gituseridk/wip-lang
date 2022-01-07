@@ -26,13 +26,17 @@ List *parseReturn(List *start_token, SyntaxNode *result, char **error) {
 
   current_token = trimTokensLeft(current_token);
   
-  SyntaxNode expression;
-  current_token = parseExpression(current_token, &expression, error, parseReturn);
+  SyntaxNode *expression = malloc(sizeof(SyntaxNode));
+  result->data = malloc(sizeof(SyntaxReturnData));
+
+  List *new_token = parseExpression(current_token, expression, error, parseReturn);
   if (*error != NULL) {
+    *error = NULL;
+    ((SyntaxReturnData*) result->data)->expression = NULL;
     return current_token;
   }
-  result->data = malloc(sizeof(SyntaxReturnData));
+
   ((SyntaxReturnData*) result->data)->expression = expression;
 
-  return current_token;
+  return new_token;
 }

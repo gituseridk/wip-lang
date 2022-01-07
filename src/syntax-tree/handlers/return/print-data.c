@@ -4,6 +4,10 @@
 
 void printSyntaxReturnData(SyntaxReturnData *data) {
   printf("{\"expression\":");
-  syntaxNodePrint(&(data->expression));
+  if (data->expression == NULL) {
+    printf("null");
+  } else {
+    syntaxNodePrint(data->expression);
+  }
   printf("}");
 }
