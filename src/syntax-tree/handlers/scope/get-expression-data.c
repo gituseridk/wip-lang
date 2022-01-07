@@ -28,7 +28,7 @@ static Array *parseChildExpressions(
       node->token,
       &child_expression,
       offset,
-      node->handler->name
+      node->handler->id
     );
 
     arrayPush(result, &child_expression);
@@ -43,7 +43,7 @@ void getScopeExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
 

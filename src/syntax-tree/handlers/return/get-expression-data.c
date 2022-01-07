@@ -13,7 +13,7 @@ void getReturnExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxReturnData *data = (SyntaxReturnData*)raw_data;
 
@@ -35,7 +35,7 @@ void getReturnExpressionData(
     data->expression->token,
     &child_expression,
     offset,
-    data->expression->handler->name
+    data->expression->handler->id
   );
 
   

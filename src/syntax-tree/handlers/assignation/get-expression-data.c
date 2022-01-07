@@ -8,7 +8,7 @@ void getAssignationExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;
   result->id = EXPRESSION_ASSIGNATION;
@@ -25,7 +25,7 @@ void getAssignationExpressionData(
     data->right.token,
     &right,
     offset,
-    data->right.handler->name
+    data->right.handler->id
   );
   result->result_type = right.result_type;
 
@@ -43,7 +43,7 @@ void getAssignationExpressionData(
     data->left.token,
     &left,
     offset,
-    data->left.handler->name
+    data->left.handler->id
   );
 
   if (

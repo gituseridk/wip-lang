@@ -10,7 +10,7 @@ void getFunctionExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxFunctionData *data = (SyntaxFunctionData*) raw_data;
   result->id = EXPRESSION_FUNCTION;
@@ -43,7 +43,7 @@ void getFunctionExpressionData(
     data->body_expression.token,
     &body,
     offset,
-    data->body_expression.handler->name
+    data->body_expression.handler->id
   );
 
   if (body.result_type.type_id != data->return_type.type_id || body.result_type.data != data->return_type.data) {

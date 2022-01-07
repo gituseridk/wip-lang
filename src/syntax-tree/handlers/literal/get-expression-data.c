@@ -9,7 +9,7 @@ void getLiteralExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxLiteralData *data = (SyntaxLiteralData*) raw_data;
   result->id = EXPRESSION_LITERAL;

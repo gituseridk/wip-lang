@@ -50,7 +50,7 @@ int main() {
     tree->root_node.token,
     &root_expression,
     &global_size,
-    tree->root_node.handler->name
+    tree->root_node.handler->id
   );
 
   listFree(tokens);

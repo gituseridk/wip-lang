@@ -22,10 +22,10 @@ void getNotImplementedExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   char err[100];
-  sprintf(err, "\"%s\" syntax node is not implemented yet", handler_name);
+  sprintf(err, "\"%s\" syntax node is not implemented yet", getSyntaxNodeHandler(handler_id)->name);
   throwSourceError(src, err, token);
 }
 

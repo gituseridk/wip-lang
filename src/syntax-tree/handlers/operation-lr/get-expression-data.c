@@ -9,7 +9,7 @@ void getOperationLRExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxOperationData *data = (SyntaxOperationData*) raw_data;
   result->id = EXPRESSION_OPERATIONS + data->operation_id;
@@ -31,7 +31,7 @@ void getOperationLRExpressionData(
     data->left.token,
     &left,
     offset,
-    data->left.handler->name
+    data->left.handler->id
   );
   
   if (left.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
@@ -44,7 +44,7 @@ void getOperationLRExpressionData(
     data->right.token,
     &right,
     offset,
-    data->left.handler->name
+    data->left.handler->id
   );
 
   if (left.result_type.type_id != right.result_type.type_id || left.result_type.data != right.result_type.data) {

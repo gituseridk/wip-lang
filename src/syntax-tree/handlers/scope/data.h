@@ -16,7 +16,7 @@ void getScopeExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 );
 
 #endif

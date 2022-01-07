@@ -13,7 +13,7 @@ void getInitializationExpressionData(
   List *token,
   ExpressionData *result,
   unsigned *offset,
-  char *handler_name
+  int handler_id
 ) {
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 
