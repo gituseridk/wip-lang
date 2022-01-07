@@ -12,8 +12,9 @@
 #define EXPRESSION_INITIALIZATION     3
 #define EXPRESSION_LITERAL            4
 #define EXPRESSION_FUNCTION           5
-#define EXPRESSION_RETURN             6
-#define EXPRESSION_OPERATIONS         7 // from 7 to 7 + OPERATION_LR_COUNT - 1
+#define EXPRESSION_FUNCTION_CALL      6
+#define EXPRESSION_RETURN             7
+#define EXPRESSION_OPERATIONS         8 // from 8 to 8 + OPERATION_LR_COUNT - 1
 
 typedef struct {
   unsigned scope_offset;
@@ -37,5 +38,7 @@ struct ExpressionData {
   int id;
   void *value;
 };
+
+VariableData *expressionDataGetVariable(ExpressionData *self, char *name);
 
 #endif

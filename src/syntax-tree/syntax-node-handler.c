@@ -9,6 +9,7 @@
 #include "./handlers/literal/data.h"
 #include "./handlers/identifier/data.h"
 #include "./handlers/function/data.h"
+#include "./handlers/function-call/data.h"
 #include "./handlers/return/data.h"
 #include "./handlers/function-call/data.h"
 #include "./handlers/type-definition/data.h"
@@ -45,7 +46,7 @@ static Array *getSyntaxNodeHandlers() {
       .id = SYNTAX_FUNCTION_CALL,
       .name = "function-call",
       .printData = (PrintData) printSyntaxFunctionCallData,
-      .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
+      .getExpressionData = (GetExpressionData) getFunctionCallExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_ASSIGNATION,

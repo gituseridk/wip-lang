@@ -6,6 +6,11 @@
 #include "syntax-tree/handlers/scope/data.h"
 
 typedef struct {
+  Array *args; // array of VariableData
+  SyntaxTypeDefinitionData result_type;
+} FunctionTypeData;
+
+typedef struct {
   List *token;
   char *name;
   SyntaxTypeDefinitionData type_definition;

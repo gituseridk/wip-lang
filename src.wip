@@ -1,6 +1,10 @@
 const a = 12345 + 6753;
 const b = 678;
 
+const print = (arg: int) => {
+  return;
+}
+
 const printSum = (x: int, y: int) => {
   print(x + y);
   return;
@@ -11,5 +15,9 @@ const func = (x: int, y: int): int => {
   z = 1234 / z;
   return z;
 };
+
+const funcResult = func(123, 456);
+
+print(funcResult);
 
 const c = func(a, b);

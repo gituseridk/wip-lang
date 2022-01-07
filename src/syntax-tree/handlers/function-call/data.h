@@ -10,4 +10,13 @@ typedef struct {
 
 void printSyntaxFunctionCallData(SyntaxFunctionCallData *data);
 
+void getFunctionCallExpressionData(
+  const char *src,
+  void *raw_data,
+  List *token,
+  ExpressionData *result,
+  unsigned *offset,
+  int handler_id
+);
+
 #endif

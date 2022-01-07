@@ -16,6 +16,9 @@ void getFunctionExpressionData(
   result->id = EXPRESSION_FUNCTION;
   result->variables = createMap(sizeof(VariableData));
 
+  FunctionTypeData *function_type_data = malloc(sizeof(FunctionTypeData));
+  function_type_data->args = createEmptyArray(arrayGetLength(data->arguments), sizeof(VariableData));
+
   for (int i = 0; i != arrayGetLength(data->arguments); ++i) {
     FunctionArgument *arg = (FunctionArgument*)arrayAt(data->arguments, i);
     if (mapGet(result->variables, arg->name) != NULL) {
@@ -28,10 +31,13 @@ void getFunctionExpressionData(
       .scope_offset = 0, // !TODO add offset
     };
     mapSet(result->variables, arg->name, &data);
+    arrayPush(function_type_data->args, &data);
   }
 
+  function_type_data->result_type = data->return_type;
+
   result->result_type.type_id = SYNTAX_TYPE_ID_FUNCTION;
-  result->result_type.data = NULL; // !TODO add function type
+  result->result_type.data = function_type_data;
 
   ExpressionData body;
   body.result_type = data->return_type;
