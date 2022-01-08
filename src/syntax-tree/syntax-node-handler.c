@@ -6,6 +6,7 @@
 #include "./handlers/if/data.h"
 #include "./handlers/assignation/data.h"
 #include "./handlers/operation-prefix/data.h"
+#include "./handlers/operation-postfix/data.h"
 #include "./handlers/operation-lr/data.h"
 #include "./handlers/initialization/data.h"
 #include "./handlers/literal/data.h"
@@ -63,10 +64,16 @@ static Array *getSyntaxNodeHandlers() {
       .getExpressionData = (GetExpressionData) getAssignationExpressionData,
     },
     (SyntaxNodeHandler) {
-      .id = SYNTAX_OPERATION_LR,
+      .id = SYNTAX_OPERATION_PREFIX,
       .name = "operation-prefix",
       .printData = (PrintData) printSyntaxOperationPrefixData,
       .getExpressionData = (GetExpressionData) getOperationPrefixExpressionData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_OPERATION_POSTFIX,
+      .name = "operation-postfix",
+      .printData = (PrintData) printSyntaxOperationPostfixData,
+      .getExpressionData = (GetExpressionData) getOperationPostfixExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_OPERATION_LR,

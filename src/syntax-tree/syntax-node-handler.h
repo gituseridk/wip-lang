@@ -10,13 +10,14 @@
 #define SYNTAX_FUNCTION_CALL        2
 #define SYNTAX_ASSIGNATION          3
 #define SYNTAX_OPERATION_PREFIX     4
-#define SYNTAX_OPERATION_LR         5
-#define SYNTAX_INITIALIZATION       6
-#define SYNTAX_LITERAL              7
-#define SYNTAX_IDENTIFIER           8
-#define SYNTAX_FUNCTION             9
-#define SYNTAX_RETURN               10
-#define SYNTAX_TYPE_DEFINITION      11
+#define SYNTAX_OPERATION_POSTFIX    5
+#define SYNTAX_OPERATION_LR         6
+#define SYNTAX_INITIALIZATION       7
+#define SYNTAX_LITERAL              8
+#define SYNTAX_IDENTIFIER           9
+#define SYNTAX_FUNCTION             10
+#define SYNTAX_RETURN               11
+#define SYNTAX_TYPE_DEFINITION      12
 
 typedef void (*PrintData)(void *data);
 typedef void (*GetExpressionData)(

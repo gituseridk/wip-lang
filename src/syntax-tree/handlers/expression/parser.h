@@ -3,7 +3,9 @@
 
 #include "syntax-tree/syntax-node.h"
 
-typedef List* (*ChopExpression)(List *first_token, SyntaxNode *result, char **error);
-List *parseExpression(List *tokens, SyntaxNode *result, char **error, ChopExpression expression_to_execlude);
+typedef List* (*ChopExpression)(List *start_token, SyntaxNode *result, char **error);
+typedef List* (*ChopLeftExpression)(List *start_token, SyntaxNode *left, SyntaxNode *result, char **error);
+
+List *parseExpression(List *tokens, SyntaxNode *result, char **error);
 
 #endif

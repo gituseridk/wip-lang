@@ -6,8 +6,10 @@
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/assignation/parser.h"
 #include "syntax-tree/handlers/function/parser.h"
+#include "syntax-tree/handlers/function-call/parser.h"
 #include "syntax-tree/handlers/parentheses/parser.h"
 #include "syntax-tree/handlers/operation-prefix/parser.h"
+#include "syntax-tree/handlers/operation-postfix/parser.h"
 #include "syntax-tree/handlers/operation-lr/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
@@ -29,7 +31,6 @@ static Array *getExpressions() {
       &parseIf,
       &parseAssignation,
       &parseOperationPrefix,
-      &parseOperation,
       &parseParentheses,
       &parseInitialization,
       &parseLiteral,
@@ -41,71 +42,36 @@ static Array *getExpressions() {
   return expressions;
 }
 
-List *chopFunctionCall(List *start_token, SyntaxNode *result, char **error) {
-  List *current_token = trimTokensLeft(start_token);
-  current_token = chopToken(current_token, TOKEN_BRACKET_OPEN, "(", error);
-  if (*error != NULL) {
-    return current_token;
+Array *left_expressions;
+static Array *getLeftExpressions() {
+  if (left_expressions == NULL) {
+    left_expressions = newArray(
+      ChopLeftExpression,
+      &parseOperation,
+      &parseFunctionCall,
+      &parseOperationPostfix,
+    );
   }
-
-  current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
-  if (*error == NULL) {
-    SyntaxNode result_node;
-    result_node.token = trimTokensLeft(start_token);
-    result_node.data = malloc(sizeof(SyntaxFunctionCallData));
-    ((SyntaxFunctionCallData*)result_node.data)->target = *result;
-    ((SyntaxFunctionCallData*)result_node.data)->arguments = createEmptyArray(0, sizeof(SyntaxNode));
-    result_node.handler = getSyntaxNodeHandler(SYNTAX_FUNCTION_CALL);
-
-    *result = result_node;
-
-    return current_token;
-  } else {
-    *error = NULL;
-  }
-
-  Array *arguments = createEmptyArray(1, sizeof(SyntaxNode));
-  while (true) {
-    SyntaxNode arg;
-    current_token = parseExpression(current_token, &arg, error, NULL);
-    if (*error != NULL) {
-      arrayFree(arguments);
-      return current_token;
-    }
-    arrayPush(arguments, &arg);
-
-    current_token = trimTokensLeft(current_token);
-    if (current_token == NULL) {
-      arrayFree(arguments);
-      *error = "Failed to parse argument, end of program";
-      return current_token;
-    }
-
-    current_token = chopToken(current_token, TOKEN_SEPARATOR, ",", error);
-    if (*error == NULL) {
-      continue;
-    }
-    *error = NULL;
-
-    current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
-    if (*error == NULL) {
-      SyntaxNode result_node;
-      result_node.token = trimTokensLeft(start_token);
-      result_node.data = malloc(sizeof(SyntaxFunctionCallData));
-      ((SyntaxFunctionCallData*)result_node.data)->target = *result;
-      ((SyntaxFunctionCallData*)result_node.data)->arguments = arguments;
-      result_node.handler = getSyntaxNodeHandler(SYNTAX_FUNCTION_CALL);
-
-      *result = result_node;
-
-      return current_token;
-    }
-    *error = NULL;
-  }
-  __builtin_unreachable();
+  return left_expressions;
 }
 
-List *parseExpression(List *start_token, SyntaxNode *result, char **error, ChopExpression expression_to_execlude) {
+List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *result, char **error) {
+  Array *expressions = getLeftExpressions();
+  for (int i = 0; i != arrayGetLength(expressions); ++i) {
+    *error = NULL;
+    ChopLeftExpression chopLeftExpression = *(ChopLeftExpression*) arrayAt(expressions, i);
+
+    List *token_end = chopLeftExpression(start_token, left, result, error);
+
+    if (*error == NULL) {
+      return token_end;
+    }
+  }
+  *error = "failed to parse left expression";
+  return start_token;
+}
+
+List *parseExpression(List *start_token, SyntaxNode *result, char **error) {
   *error = NULL;
   Array *expressions = getExpressions();
 
@@ -117,14 +83,14 @@ List *parseExpression(List *start_token, SyntaxNode *result, char **error, ChopE
 
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     ChopExpression chopExpression = *(ChopExpression*) arrayAt(expressions, i);
-    if (chopExpression == expression_to_execlude) {
-      continue;
-    }
+
     *error = NULL;
     List *token_end = chopExpression(current_token, result, error);
     if (*error == NULL) {
-      List *new_token_end = chopFunctionCall(token_end, result, error);
+      SyntaxNode left_expression_result;
+      List *new_token_end = parseLeftExpression(token_end, result, &left_expression_result, error);
       if (*error == NULL) {
+        *result = left_expression_result;
         return new_token_end;
       }
       *error = NULL;

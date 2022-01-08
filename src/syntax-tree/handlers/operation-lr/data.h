@@ -21,7 +21,7 @@
 #define OPERATION_ID_GRATER             15
 #define OPERATION_ID_LESS               16
 
-#define OPERATION_LR_COUNT               17
+#define OPERATION_LR_COUNT              17
 
 typedef struct {
   int operation_id;

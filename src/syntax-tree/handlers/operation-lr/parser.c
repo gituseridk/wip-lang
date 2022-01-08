@@ -64,7 +64,7 @@ static int getOperationId(int token_id) {
   return -1;
 }
 
-List *parseOperation(List *tokens, SyntaxNode *result, char **error) {
+List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **error) {
   *error = NULL;
   *result = (SyntaxNode) {
     .data = NULL,
@@ -79,21 +79,9 @@ List *parseOperation(List *tokens, SyntaxNode *result, char **error) {
     return current_token;
   }
 
-  SyntaxNode left_syntax_node;
-  current_token = parseExpression(current_token, &left_syntax_node, error, parseOperation);
-  if (*error != NULL) {
-    return current_token;
-  }
+  TokenData *operation_token = (TokenData*) listGetValue(current_token);
 
-  current_token = trimTokensLeft(current_token);
-  if (current_token == NULL) {
-    *error = "Failed to parse operation, end of scope";
-    return current_token;
-  }
-
-  TokenData *middle_token = (TokenData*) listGetValue(current_token);
-
-  int operation_id = getOperationId(middle_token->token.id);
+  int operation_id = getOperationId(operation_token->token.id);
   if (operation_id == -1) {
     *error = "Failed to parse operation, unexpected token";
     return current_token;
@@ -106,13 +94,13 @@ List *parseOperation(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error, NULL);
+  current_token = parseExpression(current_token, &right_syntax_node, error);
   if (*error != NULL) {
     return current_token;
   }
 
   SyntaxOperationData *data = malloc(sizeof(SyntaxOperationData));
-  data->left = left_syntax_node;
+  data->left = *left;
   data->right = right_syntax_node;
   data->operation_id = operation_id;
   result->data = data;

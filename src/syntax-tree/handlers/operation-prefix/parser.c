@@ -36,12 +36,6 @@ List *parseOperationPrefix(List *tokens, SyntaxNode *result, char **error) {
     return current_token;
   }
 
-  current_token = trimTokensLeft(current_token);
-  if (current_token == NULL) {
-    *error = "Failed to parse operation, end of scope";
-    return current_token;
-  }
-
   TokenData *operator_token = (TokenData*) listGetValue(current_token);
 
   int operation_id = getOperationId(operator_token->token.id);
@@ -57,7 +51,7 @@ List *parseOperationPrefix(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode expression_syntax_node;
-  current_token = parseExpression(current_token, &expression_syntax_node, error, NULL);
+  current_token = parseExpression(current_token, &expression_syntax_node, error);
   if (*error != NULL) {
     return current_token;
   }

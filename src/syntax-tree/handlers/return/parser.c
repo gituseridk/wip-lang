@@ -29,7 +29,7 @@ List *parseReturn(List *start_token, SyntaxNode *result, char **error) {
   SyntaxNode *expression = malloc(sizeof(SyntaxNode));
   result->data = malloc(sizeof(SyntaxReturnData));
 
-  List *new_token = parseExpression(current_token, expression, error, parseReturn);
+  List *new_token = parseExpression(current_token, expression, error);
   if (*error != NULL) {
     *error = NULL;
     ((SyntaxReturnData*) result->data)->expression = NULL;

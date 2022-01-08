@@ -132,9 +132,8 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
 
   current_token = trimTokensLeft(current_token);
 
-  current_token = parseExpression(current_token, &(result_data->body_expression), error, NULL);
+  current_token = parseExpression(current_token, &(result_data->body_expression), error);
   if (*error != NULL)  {
-    tokenDataPrint(listGetValue(current_token));
     free(result_data);
     return current_token;
   }
