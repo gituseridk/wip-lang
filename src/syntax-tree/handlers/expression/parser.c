@@ -17,6 +17,7 @@
 #include "syntax-tree/handlers/scope/parser.h"
 #include "syntax-tree/handlers/return/parser.h"
 #include "syntax-tree/handlers/if/parser.h"
+#include "syntax-tree/handlers/while/parser.h"
 #include "syntax-tree/handlers/function-call/data.h"
 #include "syntax-tree/syntax-helpers.h"
 
@@ -29,6 +30,7 @@ static Array *getExpressions() {
       ChopExpression,
       &parseScope,
       &parseIf,
+      &parseWhile,
       &parseAssignation,
       &parseOperationPrefix,
       &parseParentheses,

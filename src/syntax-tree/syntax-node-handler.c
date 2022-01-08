@@ -4,6 +4,7 @@
 
 #include "./handlers/scope/data.h"
 #include "./handlers/if/data.h"
+#include "./handlers/while/data.h"
 #include "./handlers/assignation/data.h"
 #include "./handlers/operation-prefix/data.h"
 #include "./handlers/operation-postfix/data.h"
@@ -50,6 +51,12 @@ static Array *getSyntaxNodeHandlers() {
       .name = "if",
       .printData = (PrintData) printSyntaxIfData,
       .getExpressionData = (GetExpressionData) getIfExpressionData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_WHILE,
+      .name = "while",
+      .printData = (PrintData) printSyntaxWhileData,
+      .getExpressionData = (GetExpressionData) getWhileExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_FUNCTION_CALL,

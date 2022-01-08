@@ -14,7 +14,7 @@
 #define EXPRESSION_FUNCTION               5
 #define EXPRESSION_FUNCTION_CALL          6
 #define EXPRESSION_IF                     7
-#define EXPRESSION_FOR                    8
+#define EXPRESSION_WHILE                  8
 #define EXPRESSION_RETURN                 9
 #define EXPRESSION_OPERATIONS_PREFIX      10
 #define EXPRESSION_OPERATIONS_POSTFIX     12

@@ -5,6 +5,11 @@ const print = (arg: int) => {
   return;
 }
 
+var i = 0;
+while i++ < 10 {
+  print(i);
+}
+
 const printSum = (x: int, y: int) => {
   print(x + y);
   return;
@@ -21,8 +26,6 @@ const funcResult = func(123, 456);
 print(funcResult);
 
 const c = func(a, b);
-
-var i = -134.0325f;
 
 if c {
   print(0);

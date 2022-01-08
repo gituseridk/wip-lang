@@ -21,10 +21,10 @@ void getInitializationExpressionData(
   result->variables = createMap(sizeof(VariableData));
 
   if (mapGet(result->parent_scope->variables, data->identifier) != NULL) {
-    TokenData *identifier_token = (TokenData*) trimTokensLeft(listNext(token));
+    List *identifier_token = trimTokensLeft(listNext(token));
     char msg[100];
     sprintf(msg, "name \"%s\" is already used", data->identifier);
-    printSourceError(src, msg, identifier_token->row, identifier_token->col);
+    throwSourceError(src, msg, identifier_token);
   }
 
   VariableData new_var = (VariableData) {
