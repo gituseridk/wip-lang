@@ -15,7 +15,7 @@ static int getOperationId(int token_id) {
     return OPERATION_POSTFIX_ID_INC;
   }
   if (token_id == TOKEN_OPERATOR_DEC) {
-    return OPERATION_POSTFIX_ID_INC;
+    return OPERATION_POSTFIX_ID_DEC;
   }
 
   return -1;

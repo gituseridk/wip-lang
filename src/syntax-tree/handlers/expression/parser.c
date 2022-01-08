@@ -87,14 +87,17 @@ List *parseExpression(List *start_token, SyntaxNode *result, char **error) {
     *error = NULL;
     List *token_end = chopExpression(current_token, result, error);
     if (*error == NULL) {
-      SyntaxNode left_expression_result;
-      List *new_token_end = parseLeftExpression(token_end, result, &left_expression_result, error);
-      if (*error == NULL) {
-        *result = left_expression_result;
-        return new_token_end;
+      for(;;) {
+        SyntaxNode left_expression_result;
+        List *new_token_end = parseLeftExpression(token_end, result, &left_expression_result, error);
+        if (*error == NULL) {
+          *result = left_expression_result;
+          token_end = new_token_end;
+          continue;
+        }
+        *error = NULL;
+        return token_end;
       }
-      *error = NULL;
-      return token_end;
     }
   }
   *error = "Failed to parse expression, unknown token";
