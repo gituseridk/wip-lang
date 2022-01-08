@@ -49,5 +49,5 @@ List *parseOperationPostfix(List *tokens, SyntaxNode *left, SyntaxNode *result, 
   data->operation_id = operation_id;
   result->data = data;
 
-  return current_token;
+  return listNext(current_token);
 }

@@ -32,3 +32,4 @@ if (c + func(65, 7654)) {
   print(funcResult)
 }
 
+c++;
