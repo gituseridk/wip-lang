@@ -24,7 +24,7 @@ const c = func(a, b);
 
 var i = -134.0325f;
 
-if (0) {
+if c {
   print(0);
 }
 
