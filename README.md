@@ -11,6 +11,15 @@
 - [x] Tokenization
 - [x] Build AST
 - [x] Check AST (type checking, reassigning of constants, etc.)
+- [ ] Types
+  - [x] int
+  - [x] float
+  - [x] function
+  - [x] void
+  - [ ] struct
+  - [ ] bool
+  - [ ] pointer
+  - [ ] char
 - [ ] Compile
   - [ ] arm macos assembly
   - [ ] x86 linux assembly
