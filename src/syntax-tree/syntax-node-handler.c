@@ -5,6 +5,7 @@
 #include "./handlers/scope/data.h"
 #include "./handlers/if/data.h"
 #include "./handlers/assignation/data.h"
+#include "./handlers/operation-prefix/data.h"
 #include "./handlers/operation-lr/data.h"
 #include "./handlers/initialization/data.h"
 #include "./handlers/literal/data.h"
@@ -60,6 +61,12 @@ static Array *getSyntaxNodeHandlers() {
       .name = "assignation",
       .printData = (PrintData) printSyntaxAssignationData,
       .getExpressionData = (GetExpressionData) getAssignationExpressionData,
+    },
+    (SyntaxNodeHandler) {
+      .id = SYNTAX_OPERATION_LR,
+      .name = "operation-prefix",
+      .printData = (PrintData) printSyntaxOperationPrefixData,
+      .getExpressionData = (GetExpressionData) getOperationPrefixExpressionData,
     },
     (SyntaxNodeHandler) {
       .id = SYNTAX_OPERATION_LR,

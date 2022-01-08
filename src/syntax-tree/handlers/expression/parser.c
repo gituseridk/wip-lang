@@ -7,6 +7,7 @@
 #include "syntax-tree/handlers/assignation/parser.h"
 #include "syntax-tree/handlers/function/parser.h"
 #include "syntax-tree/handlers/parentheses/parser.h"
+#include "syntax-tree/handlers/operation-prefix/parser.h"
 #include "syntax-tree/handlers/operation-lr/parser.h"
 #include "syntax-tree/handlers/initialization/parser.h"
 #include "syntax-tree/handlers/literal/parser.h"
@@ -27,6 +28,7 @@ static Array *getExpressions() {
       &parseScope,
       &parseIf,
       &parseAssignation,
+      &parseOperationPrefix,
       &parseOperation,
       &parseParentheses,
       &parseInitialization,

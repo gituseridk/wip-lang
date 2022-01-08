@@ -28,7 +28,8 @@ if c {
   print(0);
 }
 
-
 if (c + func(65, 7654)) {
   print(funcResult)
 }
+
+++c;

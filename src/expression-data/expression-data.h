@@ -7,16 +7,17 @@
 #include "utils/array/array.h"
 #include "syntax-tree/handlers/type-definition/data.h"
 
-#define EXPRESSION_SCOPE              1
-#define EXPRESSION_ASSIGNATION        2
-#define EXPRESSION_INITIALIZATION     3
-#define EXPRESSION_LITERAL            4
-#define EXPRESSION_FUNCTION           5
-#define EXPRESSION_FUNCTION_CALL      6
-#define EXPRESSION_IF                 7
-#define EXPRESSION_FOR                8
-#define EXPRESSION_RETURN             9
-#define EXPRESSION_OPERATIONS         10 // from 10 to 10 + OPERATION_LR_COUNT - 1
+#define EXPRESSION_SCOPE                1
+#define EXPRESSION_ASSIGNATION          2
+#define EXPRESSION_INITIALIZATION       3
+#define EXPRESSION_LITERAL              4
+#define EXPRESSION_FUNCTION             5
+#define EXPRESSION_FUNCTION_CALL        6
+#define EXPRESSION_IF                   7
+#define EXPRESSION_FOR                  8
+#define EXPRESSION_RETURN               9
+#define EXPRESSION_OPERATIONS_PREFIX    10
+#define EXPRESSION_OPERATIONS           12
 
 typedef struct {
   unsigned scope_offset;
