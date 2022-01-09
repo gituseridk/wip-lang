@@ -18,8 +18,8 @@
   - [x] void
   - [ ] struct
   - [ ] bool
-  - [ ] pointer
-  - [ ] char
+  - [x] pointer
+  - [x] char
 - [ ] Compile
   - [ ] arm macos assembly
   - [ ] x86 linux assembly
