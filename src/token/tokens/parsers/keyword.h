@@ -14,11 +14,11 @@ static Map *getKeywords() {
     mapSet(keywords, "if", NULL);
     mapSet(keywords, "else", NULL);
     mapSet(keywords, "while", NULL);
-    mapSet(keywords, SYNTAX_TYPE_VOID_NAME, NULL);
-    mapSet(keywords, SYNTAX_TYPE_STRUCT_NAME, NULL);
-    mapSet(keywords, SYNTAX_TYPE_INT_NAME, NULL);
-    mapSet(keywords, SYNTAX_TYPE_FLOAT_NAME, NULL);
-    mapSet(keywords, SYNTAX_TYPE_CHAR_NAME, NULL);
+    mapSet(keywords, TYPE_NAME_VOID, NULL);
+    mapSet(keywords, TYPE_NAME_STRUCT, NULL);
+    mapSet(keywords, TYPE_NAME_INT, NULL);
+    mapSet(keywords, TYPE_NAME_FLOAT, NULL);
+    mapSet(keywords, TYPE_NAME_CHAR, NULL);
   }
   return keywords;
 }

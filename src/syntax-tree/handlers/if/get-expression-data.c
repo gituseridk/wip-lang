@@ -18,7 +18,7 @@ void getIfExpressionData(
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;
-  condition.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  condition.result_type.type_id = TYPE_ID_VOID;
   condition.result_type.data = NULL;
 
   data->condition.handler->getExpressionData(
@@ -33,9 +33,9 @@ void getIfExpressionData(
   // !TODO move out check for boolean compatability
   int condition_type = condition.result_type.type_id;
   if (
-    condition_type != SYNTAX_TYPE_ID_INT &&
-    condition_type != SYNTAX_TYPE_ID_FLOAT &&
-    condition_type != SYNTAX_TYPE_ID_POINTER
+    condition_type != TYPE_ID_INT &&
+    condition_type != TYPE_ID_FLOAT &&
+    condition_type != TYPE_ID_POINTER
   ) {
     throwSourceError(src, "if condition is not convertable to boolean", data->condition.token);
   }
@@ -43,7 +43,7 @@ void getIfExpressionData(
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;
-  expression.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  expression.result_type.type_id = TYPE_ID_VOID;
   expression.result_type.data = NULL;
 
   data->expression.handler->getExpressionData(

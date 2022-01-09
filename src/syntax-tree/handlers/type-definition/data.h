@@ -1,11 +1,10 @@
 #ifndef SYNTAX_DATA_TYPE_DEFINITION_H
 #define SYNTAX_DATA_TYPE_DEFINITION_H
 
-#include <stdbool.h>
+#include "type-defenition/type-defenition.h"
 
 typedef struct {
-  int type_id;
-  void *data;
+  TypeDefinition value;
 } SyntaxTypeDefinitionData;
 
 void printSyntaxTypeDefinitionData(SyntaxTypeDefinitionData *data);

@@ -116,7 +116,7 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
     result_data->return_type = *(SyntaxTypeDefinitionData*) resturn_type_node.data;
   } else {
     *error = NULL;
-    result_data->return_type.type_id = SYNTAX_TYPE_ID_VOID;
+    result_data->return_type.value.type_id = TYPE_ID_VOID;
   }
 
 

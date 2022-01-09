@@ -29,7 +29,7 @@ void getAssignationExpressionData(
   );
   result->result_type = right.result_type;
 
-  if (right.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
+  if (right.result_type.type_id == TYPE_ID_VOID) {
     throwSourceError(src, "unexpected right side expression with void type", data->right.token);
   }
 
@@ -46,10 +46,7 @@ void getAssignationExpressionData(
     data->left.handler->id
   );
 
-  if (
-    left.result_type.type_id != right.result_type.type_id ||
-    left.result_type.data != right.result_type.data
-  ) {
+  if (!isSameType(&(left.result_type), &(right.result_type))) {
     throwSourceError(src, "type mismatch", data->left.token);
   }
 

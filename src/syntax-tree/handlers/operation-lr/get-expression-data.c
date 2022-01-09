@@ -17,12 +17,12 @@ void getOperationLRExpressionData(
 
   ExpressionData left;
   left.parent_scope = result->parent_scope;
-  left.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  left.result_type.type_id = TYPE_ID_VOID;
   left.result_type.data = NULL;
 
   ExpressionData right;
   right.parent_scope = result->parent_scope;
-  right.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  right.result_type.type_id = TYPE_ID_VOID;
   right.result_type.data = NULL;
 
   data->left.handler->getExpressionData(
@@ -34,7 +34,7 @@ void getOperationLRExpressionData(
     data->left.handler->id
   );
   
-  if (left.result_type.type_id == SYNTAX_TYPE_ID_VOID) {
+  if (left.result_type.type_id == TYPE_ID_VOID) {
     throwSourceError(src, "left side expression is void type", token);
   }
 

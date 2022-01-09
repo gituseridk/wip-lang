@@ -21,28 +21,28 @@ List* parseTypeDefinition(List *start_token, SyntaxNode *result, char **error) {
   TokenData *token = (TokenData*) listGetValue(current_token);
 
   if (token->token.id != TOKEN_KEYWORD) {
-    *error = "Failed to parse type definition: nexpected token";
+    *error = "Failed to parse type definition: expected token";
     return current_token;
   }
 
   result->data = malloc(sizeof(SyntaxTypeDefinitionData));
   SyntaxTypeDefinitionData *type_data = (SyntaxTypeDefinitionData*) result->data;
-  type_data->data = NULL;
+  type_data->value.data = NULL;
 
-  if (strcmp(token->value, SYNTAX_TYPE_VOID_NAME) == 0) {
-    type_data->type_id = SYNTAX_TYPE_ID_VOID;
+  if (strcmp(token->value, TYPE_NAME_VOID) == 0) {
+    type_data->value.type_id = TYPE_ID_VOID;
     return listNext(current_token);
   }
-  if (strcmp(token->value, SYNTAX_TYPE_INT_NAME) == 0) {
-    type_data->type_id = SYNTAX_TYPE_ID_INT;
+  if (strcmp(token->value, TYPE_NAME_INT) == 0) {
+    type_data->value.type_id = TYPE_ID_INT;
     return listNext(current_token);
   }
-  if (strcmp(token->value, SYNTAX_TYPE_FLOAT_NAME) == 0) {
-    type_data->type_id = SYNTAX_TYPE_ID_FLOAT;
+  if (strcmp(token->value, TYPE_NAME_FLOAT) == 0) {
+    type_data->value.type_id = TYPE_ID_FLOAT;
     return listNext(current_token);
   }
-  if (strcmp(token->value, SYNTAX_TYPE_CHAR_NAME) == 0) {
-    type_data->type_id = SYNTAX_TYPE_ID_CHAR;
+  if (strcmp(token->value, TYPE_NAME_CHAR) == 0) {
+    type_data->value.type_id = TYPE_ID_CHAR;
     return listNext(current_token);
   }
 

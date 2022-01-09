@@ -17,7 +17,7 @@ void getOperationPrefixExpressionData(
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;
-  expression.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  expression.result_type.type_id = TYPE_ID_VOID;
   expression.result_type.data = NULL;
 
   data->expression.handler->getExpressionData(
@@ -30,7 +30,7 @@ void getOperationPrefixExpressionData(
   );
 
   // !TODO add expression overload
-  if (expression.result_type.type_id != SYNTAX_TYPE_ID_INT) {
+  if (expression.result_type.type_id != TYPE_ID_INT) {
     throwSourceError(src, "wrong expression type, expected int", token);
   }
 

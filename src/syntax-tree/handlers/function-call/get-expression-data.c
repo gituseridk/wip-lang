@@ -40,7 +40,7 @@ void getFunctionCallExpressionData(
       SyntaxNode *node = (SyntaxNode*) arrayAt(data->arguments, i);
       ExpressionData arg_expression;
       arg_expression.parent_scope = result->parent_scope;
-      arg_expression.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+      arg_expression.result_type.type_id = TYPE_ID_VOID;
       arg_expression.result_type.data = NULL;
 
       node->handler->getExpressionData(
@@ -72,7 +72,7 @@ void getFunctionCallExpressionData(
     }
 
     result->child_expressions = args;
-    result->result_type = function_data->result_type;
+    result->result_type = function_data->result_type.value;
 
     return;
   }

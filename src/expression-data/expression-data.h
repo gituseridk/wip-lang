@@ -24,7 +24,7 @@ typedef struct {
   unsigned scope_offset;
 
   char *name;
-  SyntaxTypeDefinitionData result_type;
+  TypeDefinition result_type;
 
   bool is_constant;
 } VariableData;
@@ -37,7 +37,7 @@ struct ExpressionData {
   Map *variables;
   Array * child_expressions;
 
-  SyntaxTypeDefinitionData result_type;
+  TypeDefinition result_type;
 
   int id;
   void *value;

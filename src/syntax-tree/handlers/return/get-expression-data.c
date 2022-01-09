@@ -27,7 +27,7 @@ void getReturnExpressionData(
   ExpressionData child_expression;
   child_expression.parent_scope = result->parent_scope;
   child_expression.result_type.data = NULL;
-  child_expression.result_type.type_id = SYNTAX_TYPE_ID_VOID;
+  child_expression.result_type.type_id = TYPE_ID_VOID;
 
   data->expression->handler->getExpressionData(
     src,

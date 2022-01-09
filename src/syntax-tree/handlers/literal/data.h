@@ -6,7 +6,7 @@
 
 
 typedef struct {
-  SyntaxTypeDefinitionData type_definition;
+  TypeDefinition type_definition;
   void *value;
 } SyntaxLiteralData;
 
