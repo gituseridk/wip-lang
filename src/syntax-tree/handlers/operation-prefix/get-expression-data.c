@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 
+#include "type-definition/pointer/data.h"
 #include "utils/logger/log-src-error.h"
 #include "./data.h"
 
@@ -28,6 +30,18 @@ void getOperationPrefixExpressionData(
     offset,
     data->expression.handler->id
   );
+
+  if (data->operation_id == OPERATION_PREFIX_ID_DEREFERENCING) {
+    if (expression.result_type.type_id == TYPE_ID_POINTER) {
+      TypePointerData *pointer_data = (TypePointerData*) expression.result_type.data;
+      result->result_type = pointer_data->type;
+      result->child_expressions = newArray(ExpressionData, expression);
+      return;
+    }
+    char err[100];
+    sprintf(err, "cannot dereference %s type", getTypeName(&(expression.result_type)));
+    throwSourceError(src, err, token);
+  }
 
   // !TODO add expression overload
   if (expression.result_type.type_id != TYPE_ID_INT) {

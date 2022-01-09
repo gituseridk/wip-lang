@@ -7,6 +7,10 @@
 
 List *parseFunctionCall(List *start_token, SyntaxNode *left, SyntaxNode *result, char **error) {
   List *current_token = trimTokensLeft(start_token);
+  if (current_token == NULL) {
+    *error = "failed to parse function call, end of program";
+    return current_token;
+  }
   current_token = chopToken(current_token, TOKEN_BRACKET_OPEN, "(", error);
   if (*error != NULL) {
     return current_token;

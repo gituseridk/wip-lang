@@ -1,44 +1,11 @@
-const b = 678;
 
-const a: int = 12345 + 6753;
-
-var ikjhgf: **int;
-
-const print = (arg: int) => {
-  return;
-}
-
-const srt = "1\t2\n\t3";
-
+var a = 0;
+var b = 1;
 
 var i = 0;
 while i++ < 10 {
   print(i);
+  const temp = b;
+  b = b + a;
+  a = temp;
 }
-
-const printSum = (x: int, y: int) => {
-  print(x + y);
-  return;
-};
-
-const func = (x: int, y: int): int => {
-  var z = x + y;
-  z = 1234 / z;
-  return z;
-};
-
-const funcResult = func(123, 456);
-
-print(funcResult);
-
-const c = func(a, b);
-
-if c {
-  print(0);
-}
-
-if (c + func(65, 7654)) {
-  print(funcResult)
-}
-
-c++;
