@@ -46,6 +46,10 @@ void getAssignationExpressionData(
     data->left.handler->id
   );
 
+  if (left.result_type.is_constant && left.id != EXPRESSION_INITIALIZATION) {
+    throwSourceError(src, "left expression is constant", data->left.token);
+  }
+
   if (!isSameType(&(left.result_type), &(right.result_type))) {
     throwSourceError(src, "type mismatch", data->left.token);
   }

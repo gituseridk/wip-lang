@@ -27,8 +27,8 @@ void getInitializationExpressionData(
     throwSourceError(src, msg, identifier_token);
   }
 
+  result->result_type.is_constant = data->is_constant;
   VariableData new_var = (VariableData) {
-    .is_constant = data->is_constant,
     .name = data->identifier,
     .result_type = result->result_type,
     .scope_offset = 0,

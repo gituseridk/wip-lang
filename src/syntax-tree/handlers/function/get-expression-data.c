@@ -25,7 +25,6 @@ void getFunctionExpressionData(
       throwSourceError(src, "name is already used in this scope", arg->token);
     }
     VariableData data = (VariableData) {
-      .is_constant = true,
       .name = arg->name,
       .result_type = arg->type_definition,
       .scope_offset = 0, // !TODO add offset

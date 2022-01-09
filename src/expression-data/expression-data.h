@@ -25,8 +25,6 @@ typedef struct {
 
   char *name;
   TypeDefinition result_type;
-
-  bool is_constant;
 } VariableData;
 
 typedef struct ExpressionData ExpressionData;

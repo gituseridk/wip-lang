@@ -35,6 +35,7 @@
 typedef struct {
   int type_id;
   void *data;
+  bool is_constant;
 } TypeDefinition;
 
 bool isSameType(const TypeDefinition *left, const TypeDefinition *right);
