@@ -14,5 +14,8 @@ void printSyntaxLiteralData(SyntaxLiteralData *data) {
     printf("%f}", *(float*) data->value);
     return;
   }
-  printf("null}");
+  if (data->type_definition.type_id == TYPE_ID_POINTER) {
+    printf("%lu}", (long unsigned) data->value);
+    return;
+  }
 }
