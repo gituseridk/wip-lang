@@ -37,10 +37,14 @@ static char chopSpecialChar(const char *src) {
 }
 
 int parseString(const char *src, char **result) {
+  // -2 stands for start and end quotes
   int src_size = strlen(src) - 2;
   *result = malloc(sizeof(char) * src_size);
   unsigned offset = 0;
-  for (const char *i = (src + 1); (i - src) + 1 < src_size;) {
+
+  const char *string_start = src + 1;
+
+  for (const char *i = string_start; (i - string_start) < src_size;) {
     char new_char = chopSpecialChar(i);
     if (new_char == 0) {
       (*result)[offset++] = *i;
