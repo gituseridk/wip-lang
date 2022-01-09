@@ -12,12 +12,10 @@
 
 static List *chopType(List *token, TypeDefinition **type) {
   char *error = NULL;
-  tokenDataPrint(listGetValue(token));
   List *current_token = chopToken(token, TOKEN_SEPARATOR, ":", &error); 
   if (error != NULL || current_token == NULL) {
     return token;
   }
-  printf("!!!!!!!!!\n");
 
   current_token = trimTokensLeft(current_token);
   if (current_token == NULL) {

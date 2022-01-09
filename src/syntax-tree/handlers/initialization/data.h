@@ -5,8 +5,8 @@
 #include "syntax-tree/syntax-node.h"
 
 typedef struct {
-  TypeDefinition *type;
   bool is_constant;
+  TypeDefinition *type;
   char *identifier;
 } SyntaxInitializationData;
 

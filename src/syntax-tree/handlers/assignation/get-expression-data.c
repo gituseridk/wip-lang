@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "utils/logger/log-src-error.h"
 #include "../initialization/data.h"
 #include "./data.h"
@@ -34,7 +36,12 @@ void getAssignationExpressionData(
   }
 
   if (data->left.handler->getExpressionData == getInitializationExpressionData) {
-    left.result_type = right.result_type;
+    SyntaxInitializationData *left_data = (SyntaxInitializationData*) data->left.data;
+    if (left_data->type == NULL) {
+      left.result_type = right.result_type;
+    } else {
+      left.result_type = *(left_data->type);
+    }
   }
 
   data->left.handler->getExpressionData(

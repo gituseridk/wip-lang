@@ -2,9 +2,11 @@ const b = 678;
 
 const a: int = 12345 + 6753;
 
-const ikjhgf: int;
+var ikjhgf: int;
 
-const qwert: float = 12345 + 6753;
+var aaa;
+
+ikjhgf = 124;
 
 const print = (arg: int) => {
   return;
