@@ -72,7 +72,7 @@ void getFunctionCallExpressionData(
     }
 
     result->child_expressions = args;
-    result->result_type = function_data->result_type.value;
+    result->result_type = function_data->result_type;
 
     return;
   }

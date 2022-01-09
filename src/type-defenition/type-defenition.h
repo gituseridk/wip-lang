@@ -41,6 +41,7 @@ bool isSameType(const TypeDefinition *left, const TypeDefinition *right);
 unsigned getTypeSize(const TypeDefinition *type, char **error);
 bool isBool(const TypeDefinition *type);
 char *getTypeName(const TypeDefinition *type);
+void printTypeDefinition(const TypeDefinition *type);
 void setVoidType(TypeDefinition *type);
 
 #endif

@@ -39,7 +39,7 @@ List* trimSingleArgument(List *start_token, FunctionArgument *argument, char **e
     return current_token;
   }
 
-  argument->type_definition = *(SyntaxTypeDefinitionData*) type_node.data;
+  argument->type_definition = ((SyntaxTypeDefinitionData*) type_node.data)->value;
 
   return current_token;
 }
@@ -113,10 +113,10 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
       free(result_data);
       return current_token;
     }
-    result_data->return_type = *(SyntaxTypeDefinitionData*) resturn_type_node.data;
+    result_data->return_type = ((SyntaxTypeDefinitionData*) resturn_type_node.data)->value;
   } else {
     *error = NULL;
-    result_data->return_type.value.type_id = TYPE_ID_VOID;
+    result_data->return_type.type_id = TYPE_ID_VOID;
   }
 
 

@@ -7,18 +7,18 @@
 
 typedef struct {
   Array *args; // array of VariableData
-  SyntaxTypeDefinitionData result_type;
+  TypeDefinition result_type;
 } FunctionTypeData;
 
 typedef struct {
   List *token;
   char *name;
-  SyntaxTypeDefinitionData type_definition;
+  TypeDefinition type_definition;
 } FunctionArgument;
 
 typedef struct {
   Array *arguments;
-  SyntaxTypeDefinitionData return_type;
+  TypeDefinition return_type;
   SyntaxNode body_expression;
 } SyntaxFunctionData;
 

@@ -27,7 +27,7 @@ void getFunctionExpressionData(
     VariableData data = (VariableData) {
       .is_constant = true,
       .name = arg->name,
-      .result_type = arg->type_definition.value,
+      .result_type = arg->type_definition,
       .scope_offset = 0, // !TODO add offset
     };
     mapSet(result->variables, arg->name, &data);
@@ -40,7 +40,7 @@ void getFunctionExpressionData(
   result->result_type.data = function_type_data;
 
   ExpressionData body;
-  body.result_type = data->return_type.value;
+  body.result_type = data->return_type;
   body.parent_scope = result;
 
   data->body_expression.handler->getExpressionData(
@@ -52,7 +52,7 @@ void getFunctionExpressionData(
     data->body_expression.handler->id
   );
 
-  if (isSameType(&(body.result_type), &(data->return_type.value))) {
+  if (!isSameType(&(body.result_type), &(data->return_type))) {
     throwSourceError(src, "the return type of the function is invalid", data->body_expression.token);
   }
 
