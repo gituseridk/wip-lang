@@ -30,7 +30,7 @@ void getWhileExpressionData(
     data->condition.handler->id
   );
 
-  if (isBool(&(condition.result_type))) {
+  if (!isBool(&(condition.result_type))) {
     throwSourceError(src, "if condition is not convertable to boolean", data->condition.token);
   }
 
