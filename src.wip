@@ -1,5 +1,10 @@
-const a = 12345 + 6753;
 const b = 678;
+
+const a: int = 12345 + 6753;
+
+const ikjhgf: int;
+
+const qwert: float = 12345 + 6753;
 
 const print = (arg: int) => {
   return;

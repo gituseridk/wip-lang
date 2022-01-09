@@ -9,7 +9,7 @@ static const char *chopSpecialChar(const char *src) {
   }
 
   if (stringContainsChar(SPECIAL_CHARACTERS, src[1])) {
-    return src[1];
+    return src + 1;
   }
 
   return NULL;
