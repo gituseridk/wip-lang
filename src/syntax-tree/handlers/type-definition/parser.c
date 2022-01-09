@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "type-definition/pointer/data.h"
 #include "utils/array/array.h"
 #include "syntax-tree/syntax-helpers.h"
 #include "syntax-tree/handlers/expression/parser.h"
@@ -19,6 +20,31 @@ List* parseTypeDefinition(List *start_token, SyntaxNode *result, char **error) {
   List *current_token = trimTokensLeft(start_token);
   result->token = current_token;
   TokenData *token = (TokenData*) listGetValue(current_token);
+
+  if (token->token.id == TOKEN_OPERATOR_PRODUCT) {
+    SyntaxNode point_type;
+    current_token = trimTokensLeft(listNext(current_token));
+    current_token = parseTypeDefinition(current_token, &point_type, error);
+
+    if (*error != NULL) {
+      printf("%s\n", *error);
+      return current_token;
+    }
+
+    SyntaxTypeDefinitionData *inner_type = (SyntaxTypeDefinitionData*) point_type.data;
+
+    result->data = malloc(sizeof(SyntaxTypeDefinitionData));
+    SyntaxTypeDefinitionData *result_type = (SyntaxTypeDefinitionData*) result->data;
+
+    result_type->value.type_id = TYPE_ID_POINTER;
+    result_type->value.data = malloc(sizeof(TypePointerData));
+    *(TypePointerData*) result_type->value.data = (TypePointerData) {
+      .size = 1,
+      .type = inner_type->value,
+    };
+
+    return current_token;
+  }
 
   if (token->token.id != TOKEN_KEYWORD) {
     *error = "Failed to parse type definition: expected token";

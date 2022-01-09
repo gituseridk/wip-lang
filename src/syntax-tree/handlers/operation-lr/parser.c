@@ -23,9 +23,6 @@ static int getOperationId(int token_id) {
   if (token_id == TOKEN_OPERATOR_PRODUCT) {
     return OPERATION_ID_PRODUCT;
   }
-  if (token_id == TOKEN_OPERATOR_POWER) {
-    return OPERATION_ID_POWER;
-  }
   if (token_id == TOKEN_OPERATOR_BIT_OR) {
     return OPERATION_ID_BIT_OR;
   }

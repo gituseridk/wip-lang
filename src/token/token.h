@@ -24,17 +24,16 @@
 #define TOKEN_OPERATOR_AND                20
 #define TOKEN_OPERATOR_INC                21
 #define TOKEN_OPERATOR_DEC                22
-#define TOKEN_OPERATOR_POWER              23
-#define TOKEN_OPERATOR_NOT                24
-#define TOKEN_OPERATOR_ASSIGNATION        25
-#define TOKEN_OPERATOR_SUM                26
-#define TOKEN_OPERATOR_DIFFERENCE         27
-#define TOKEN_OPERATOR_PRODUCT            28
-#define TOKEN_OPERATOR_RATIO              29
-#define TOKEN_OPERATOR_BIT_OR             30
-#define TOKEN_OPERATOR_BIT_AND            31
+#define TOKEN_OPERATOR_NOT                23
+#define TOKEN_OPERATOR_ASSIGNATION        24
+#define TOKEN_OPERATOR_SUM                25
+#define TOKEN_OPERATOR_DIFFERENCE         26
+#define TOKEN_OPERATOR_PRODUCT            27
+#define TOKEN_OPERATOR_RATIO              28
+#define TOKEN_OPERATOR_BIT_OR             29
+#define TOKEN_OPERATOR_BIT_AND            30
 
-#define TOKEN_COMMENT                     32
+#define TOKEN_COMMENT                     31
 
 typedef struct {
   int id;

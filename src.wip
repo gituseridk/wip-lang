@@ -2,9 +2,7 @@ const b = 678;
 
 const a: int = 12345 + 6753;
 
-var ikjhgf: int;
-
-ikjhgf = 124;
+var ikjhgf: **int;
 
 const print = (arg: int) => {
   return;

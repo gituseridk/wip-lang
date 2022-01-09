@@ -54,7 +54,6 @@ Array *getTokens() {
     createToken(operator_and, TOKEN_OPERATOR_AND),
     createToken(operator_inc, TOKEN_OPERATOR_INC),
     createToken(operator_dec, TOKEN_OPERATOR_DEC),
-    createToken(operator_power, TOKEN_OPERATOR_POWER),
     createToken(operator_not, TOKEN_OPERATOR_NOT),
     createToken(operator_assignation, TOKEN_OPERATOR_ASSIGNATION),
     createToken(operator_sum, TOKEN_OPERATOR_SUM),
