@@ -21,6 +21,8 @@ void getInitializationExpressionData(
   result->variables = createMap(sizeof(VariableData));
   if (data->type != NULL) {
     result->result_type = *(data->type);
+  } else if (result->result_type.type_id == TYPE_ID_VOID) {
+    throwSourceError(src, "missing initialization type", token);
   }
 
   if (mapGet(result->parent_scope->variables, data->identifier) != NULL) {
