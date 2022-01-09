@@ -26,7 +26,7 @@ void getFunctionExpressionData(
     }
     VariableData data = (VariableData) {
       .name = arg->name,
-      .result_type = arg->type_definition,
+      .type = arg->type_definition,
       .scope_offset = 0, // !TODO add offset
     };
     mapSet(result->variables, arg->name, &data);

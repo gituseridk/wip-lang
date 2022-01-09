@@ -25,11 +25,11 @@ void getFunctionCallExpressionData(
 
     if (var == NULL) {
       char err[100];
-      sprintf(err, "\"%s\" is undefined", identifier_name);
+      sprintf(err, "\"%s\" is not defined", identifier_name);
       throwSourceError(src, err, token);
     }
 
-    FunctionTypeData *function_data = (FunctionTypeData*) var->result_type.data;
+    FunctionTypeData *function_data = (FunctionTypeData*) var->type.data;
 
     if (arrayGetLength(function_data->args) != arrayGetLength(data->arguments)) {
       throwSourceError(src, "wrong number off arguments", token);
@@ -54,15 +54,12 @@ void getFunctionCallExpressionData(
 
       VariableData *original_arg = (VariableData*) arrayAt(function_data->args, i);
 
-      if (
-        arg_expression.result_type.type_id != original_arg->result_type.type_id ||
-        arg_expression.result_type.data != original_arg->result_type.data
-      ) {
+      if (!isSameType(&(arg_expression.result_type), &(original_arg->type))) {
         char err[100];
         sprintf(
           err,
           "wrong type, expected type with id %d, got %d",
-          original_arg->result_type.type_id,
+          original_arg->type.type_id,
           arg_expression.result_type.type_id
         );
         throwSourceError(src, err, node->token);

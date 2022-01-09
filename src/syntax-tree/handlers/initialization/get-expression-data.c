@@ -35,7 +35,7 @@ void getInitializationExpressionData(
   result->result_type.is_constant = data->is_constant;
   VariableData new_var = (VariableData) {
     .name = data->identifier,
-    .result_type = result->result_type,
+    .type = result->result_type,
     .scope_offset = 0,
   };
   mapSet(result->parent_scope->variables, data->identifier, &new_var);

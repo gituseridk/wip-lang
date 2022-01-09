@@ -3,6 +3,11 @@
 #include "./expression-data.h"
 
 VariableData *expressionDataGetVariable(ExpressionData *self, char *name) {
+  VariableData *global = getGlobalVariable(name);
+  if (global != NULL) {
+    return global;
+  }
+
   while (self != NULL) {
     VariableData *var_data = mapGet(self->variables, name);
     if (var_data != NULL) {

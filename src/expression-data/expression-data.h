@@ -24,7 +24,7 @@ typedef struct {
   unsigned scope_offset;
 
   char *name;
-  TypeDefinition result_type;
+  TypeDefinition type;
 } VariableData;
 
 typedef struct ExpressionData ExpressionData;
@@ -42,5 +42,6 @@ struct ExpressionData {
 };
 
 VariableData *expressionDataGetVariable(ExpressionData *self, char *name);
+VariableData *getGlobalVariable(char *name);
 
 #endif

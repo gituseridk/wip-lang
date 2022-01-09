@@ -20,6 +20,6 @@ void getIdentifierExpressionData(
     throwSourceError(src, "ubdefined identifier", token);
   }
 
-  result->result_type = var_data->result_type;
+  result->result_type = var_data->type;
   result->value = var_data;
 }

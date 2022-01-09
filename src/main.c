@@ -4,6 +4,7 @@
 #include "expression-data/expression-data.h"
 #include "token/token-data.h"
 #include "syntax-tree/syntax-tree.h"
+#include "compiler/compiler.h"
 
 int main() {
   char *file_name = "./src.wip";
@@ -61,6 +62,10 @@ int main() {
     &global_size,
     tree->root_node.handler->id
   );
+
+  printf("===nasm===\n");
+  compile(src, root_expression, stdout);
+  printf("===NASM===\n");
 
   listFree(tokens);
   free(src);
