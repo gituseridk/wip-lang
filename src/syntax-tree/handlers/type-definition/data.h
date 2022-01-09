@@ -1,7 +1,7 @@
 #ifndef SYNTAX_DATA_TYPE_DEFINITION_H
 #define SYNTAX_DATA_TYPE_DEFINITION_H
 
-#include "type-defenition/type-defenition.h"
+#include "type-definition/type-definition.h"
 
 typedef struct {
   TypeDefinition value;

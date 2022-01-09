@@ -1,4 +1,4 @@
-#include "./type-defenition.h"
+#include "./type-definition.h"
 
 char *getTypeName(const TypeDefinition *type) {
   switch (type->type_id)

@@ -1,5 +1,7 @@
 const a = 12345 + 6753;
 const b = 678;
 
+const str = "1234";
+
 var func = (x: int): int => {
 };

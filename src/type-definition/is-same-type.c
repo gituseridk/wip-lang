@@ -1,4 +1,4 @@
-#include "./type-defenition.h"
+#include "./type-definition.h"
 
 bool isSameType(const TypeDefinition *left, const TypeDefinition *right) {
   if (left->type_id < COMPLEX_TYPES_START_ID) {

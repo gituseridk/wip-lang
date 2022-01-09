@@ -1,4 +1,4 @@
-#include "./type-defenition.h"
+#include "./type-definition.h"
 
 bool isBool(const TypeDefinition *type) {
   return type->type_id == TYPE_ID_INT ||

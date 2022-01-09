@@ -1,4 +1,4 @@
-#include "./type-defenition.h"
+#include "./type-definition.h"
 
 unsigned getTypeSize(const TypeDefinition *type, char **error) {
   switch (type->type_id)

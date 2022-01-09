@@ -20,8 +20,6 @@
 #define OPEN_BRACKETS "([{"
 #define CLOSE_BRACKETS ")]}"
 
-#define SPECIAL_CHARACTERS "ntvbrfa\\?\"0"
-
 bool checkIfLetterOrDigit(char c) {
   return stringContainsChar(UPPER_CASE_LETTERS, c) ||
          stringContainsChar(LOWER_CASE_LETTERS, c) ||

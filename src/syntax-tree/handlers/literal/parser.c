@@ -1,9 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 #include "utils/array/array.h"
+#include "utils/string/string.h"
 #include "syntax-tree/handlers/expression/parser.h"
 #include "syntax-tree/syntax-helpers.h"
+#include "type-definition/pointer/data.h"
 
 #include "./parser.h"
 #include "./data.h"
@@ -31,29 +34,51 @@ List* parseLiteral(List *token, SyntaxNode *result, char **error) {
     }
   }
 
+  SyntaxLiteralData *data = malloc(sizeof(SyntaxLiteralData));
+  data->type_definition.data = NULL;
+  data->type_definition.is_constant = true;
+
   if (token_data->token.id == TOKEN_LITERAL_FLOAT) {
-    SyntaxLiteralData *data = malloc(sizeof(SyntaxLiteralData));
     data->type_definition.type_id = TYPE_ID_FLOAT;
-    data->type_definition.data = NULL;
     data->value = malloc(sizeof(float));
     (*(float*) data->value) = atof(token_data->value) * (is_negative ? -1 : 1);
     result->data = data;
     return listNext(token);
   }
+
   if (token_data->token.id == TOKEN_LITERAL_INT) {
-    SyntaxLiteralData *data = malloc(sizeof(SyntaxLiteralData));
     data->type_definition.type_id = TYPE_ID_INT;
-    data->type_definition.data = NULL;
     data->value = malloc(sizeof(int));
     (*(int*) data->value) = atoi(token_data->value) * (is_negative ? -1 : 1);
     result->data = data;
     return listNext(token);
   }
+
   if (token_data->token.id == TOKEN_LITERAL_STRING) {
-    *error = "Strings is not supported yet";
-    return token;
+    data->type_definition.type_id = TYPE_ID_POINTER;
+    data->value = token_data->value;
+    char *result_string;
+
+    unsigned value_length = parseString(token_data->value, &result_string);
+
+    TypePointerData *value = malloc(sizeof(TypePointerData));
+    *value = (TypePointerData) {
+      .type = (TypeDefinition) {
+        .data = NULL,
+        .is_constant = false,
+        .type_id = TYPE_ID_CHAR,
+      },
+      .size = value_length, 
+    };
+
+    data->type_definition.data = value;
+    data->value = result_string;
+
+    result->data = data;
+    return listNext(token);
   }
 
+  free(data);
   *error = "Token is not a literal";
 
   return token;
