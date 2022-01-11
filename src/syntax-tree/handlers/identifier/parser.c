@@ -12,8 +12,8 @@ List* parseIdentifier(List *token, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_IDENTIFIER), 
+    .token = token,
   };
-  result->token = token;
 
   TokenData *token_data = listGetValue(token);
   if (token_data->token.id == TOKEN_IDENTIFIER) {

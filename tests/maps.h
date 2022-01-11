@@ -49,5 +49,24 @@ void testMaps() {
   assert(mapGetFirstPrefixKeySize(map, "zzz") == 0);
   assert(mapGetFirstPrefixKeySize(map, "abc") == 0);
 
+  printf("\t- ittrerate through map\n");
+  Map *map_to_itterate = createMap(sizeof(int));
+  val = 0;
+  mapSet(map_to_itterate, "0", &val);
+  val = 1;
+  mapSet(map_to_itterate, "1", &val);
+  val = 2;
+  mapSet(map_to_itterate, "2", &val);
+  val = 3;
+  mapSet(map_to_itterate, "3", &val);
+
+  int size = 1;
+  for (MapItterator *i = mapBegin(map_to_itterate); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
+    ++size;
+    assert(mapItteratorGet(i).key[0] - '0' == *(int*) mapItteratorGet(i).value);
+  }
+
+  assert(size == mapSize(map_to_itterate));
+
   printf("Test maps: OK\n");
 }

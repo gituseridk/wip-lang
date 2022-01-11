@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+typedef struct MapItterator MapItterator;
 // simple red-black tree
 typedef struct Map Map;
 
@@ -21,5 +22,17 @@ int mapGetFirstPrefixKeySize(Map *self, const char *full_key);
 
 // !TODO implement
 void mapPop(Map *self, char *key, void *element);
+
+typedef struct
+{
+  char *key;
+  void *value;
+} KVPair;
+
+
+MapItterator *mapBegin(Map *self);
+bool mapItteratorNext(MapItterator *itterator);
+bool mapItteratorIsEnded(MapItterator *itterator);
+KVPair mapItteratorGet(MapItterator *itterator);
 
 #endif

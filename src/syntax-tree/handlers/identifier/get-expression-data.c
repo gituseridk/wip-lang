@@ -12,8 +12,7 @@ void getIdentifierExpressionData(
   int handler_id
 ) {
   SyntaxIdentifierData *data = (SyntaxIdentifierData*) raw_data;
-  result->id = EXPRESSION_FUNCTION;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_FUNCTION, token);
 
   VariableData *var_data = expressionDataGetVariable(result, data->name);
   if (var_data == NULL) {

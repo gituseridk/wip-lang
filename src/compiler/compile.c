@@ -1,5 +1,13 @@
-#include "./compiler.h"
+#include <stdlib.h>
 
-void compile(char *src, ExpressionData root_expression, FILE *out_stream) {
-  fprintf(out_stream, "// !TODO\n");
+#include "./compiler.h"
+#include "./x86/compile.h"
+
+void compile(char *src, Architecture arch, ExpressionData root_expression, FILE *out_stream) {
+  if (arch != ARCH_X86) {
+    printf("only x86 arch is supported\n");
+    exit(1);
+  }
+
+  compileX86(src, root_expression, out_stream);
 }

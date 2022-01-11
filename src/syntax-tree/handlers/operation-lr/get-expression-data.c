@@ -12,8 +12,7 @@ void getOperationLRExpressionData(
   int handler_id
 ) {
   SyntaxOperationData *data = (SyntaxOperationData*) raw_data;
-  result->id = EXPRESSION_OPERATIONS + data->operation_id;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_OPERATIONS + data->operation_id, token);
 
   ExpressionData left;
   left.parent_scope = result->parent_scope;

@@ -2,9 +2,12 @@
 #define EXPRSSION_DATA_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
+#include "compiler/compile-arch.h"
 #include "utils/map/map.h"
 #include "utils/array/array.h"
+#include "utils/list/list.h"
 #include "syntax-tree/handlers/type-definition/data.h"
 
 #define EXPRESSION_SCOPE                  1
@@ -29,13 +32,19 @@ typedef struct {
 
 typedef struct ExpressionData ExpressionData;
 
+typedef void (*ExpressionCompile)(char *src, ExpressionData *self, FILE *out_stream);
+
 struct ExpressionData {
   ExpressionData *parent_scope;
 
   Map *variables;
   Array * child_expressions;
 
+  List *token;
+
   TypeDefinition result_type;
+
+  ExpressionCompile compileX86;
 
   int id;
   void *value;
@@ -43,5 +52,8 @@ struct ExpressionData {
 
 VariableData *expressionDataGetVariable(ExpressionData *self, char *name);
 VariableData *getGlobalVariable(char *name);
+void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream);
+void expressionInit(ExpressionData *result, int id, List *token);
+unsigned expressionGetSize(ExpressionData *self);
 
 #endif

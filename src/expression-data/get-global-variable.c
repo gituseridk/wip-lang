@@ -3,12 +3,11 @@
 #include "./expression-data.h"
 #include "syntax-tree/handlers/function/data.h"
 
-#define PRINT_NAME "print"
+#define GLOBAL_VAR_PRINT_INT "printInt"
 
 Map *global_variables;
 
-static void definePrint() {
-
+static void definePrintInt() {
   FunctionTypeData *type_data = malloc(sizeof(FunctionTypeData));
 
   type_data->args = newArray(
@@ -25,8 +24,8 @@ static void definePrint() {
   );
   setVoidType(&(type_data->result_type));
 
-  mapSet(global_variables, PRINT_NAME, &(VariableData) {
-    .name = PRINT_NAME,
+  mapSet(global_variables, GLOBAL_VAR_PRINT_INT, &(VariableData) {
+    .name = GLOBAL_VAR_PRINT_INT,
     .scope_offset = 0,
     .type = (TypeDefinition) {
       .data = type_data,
@@ -39,7 +38,7 @@ static void definePrint() {
 VariableData *getGlobalVariable(char *name) {
   if (global_variables == NULL) {
     global_variables = createMap(sizeof(VariableData));
-    definePrint();
+    definePrintInt();
   }
 
   return mapGet(global_variables, name);

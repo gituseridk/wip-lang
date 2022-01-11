@@ -17,7 +17,8 @@ void getInitializationExpressionData(
 ) {
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 
-  result->id = EXPRESSION_INITIALIZATION;
+  expressionInit(result, EXPRESSION_INITIALIZATION, token);
+
   result->variables = createMap(sizeof(VariableData));
   if (data->type != NULL) {
     result->result_type = *(data->type);
@@ -36,7 +37,14 @@ void getInitializationExpressionData(
   VariableData new_var = (VariableData) {
     .name = data->identifier,
     .type = result->result_type,
-    .scope_offset = 0,
+    .scope_offset = *offset,
   };
+
+  char *error = NULL;
+  *offset += getTypeSize(&(result->result_type), &error);
+  if (error != NULL) {
+    throwSourceError(src, error, token);
+  }
+
   mapSet(result->parent_scope->variables, data->identifier, &new_var);
 }

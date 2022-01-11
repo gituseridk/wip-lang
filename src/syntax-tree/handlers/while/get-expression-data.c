@@ -13,8 +13,7 @@ void getWhileExpressionData(
   int handler_id
 ) {
   SyntaxWhileData *data = (SyntaxWhileData*) raw_data;
-  result->id = EXPRESSION_WHILE;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_WHILE, token);
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;

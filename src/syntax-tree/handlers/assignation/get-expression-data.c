@@ -13,8 +13,7 @@ void getAssignationExpressionData(
   int handler_id
 ) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;
-  result->id = EXPRESSION_ASSIGNATION;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_ASSIGNATION, token);
 
   ExpressionData left;
   left.parent_scope = result->parent_scope;

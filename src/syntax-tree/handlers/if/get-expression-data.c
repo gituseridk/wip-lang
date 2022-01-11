@@ -13,8 +13,7 @@ void getIfExpressionData(
   int handler_id
 ) {
   SyntaxIfData *data = (SyntaxIfData*) raw_data;
-  result->id = EXPRESSION_IF;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_IF, token);
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;

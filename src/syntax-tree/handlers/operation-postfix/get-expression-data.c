@@ -12,8 +12,7 @@ void getOperationPostfixExpressionData(
   int handler_id
 ) {
   SyntaxOperationPostfixData *data = (SyntaxOperationPostfixData*) raw_data;
-  result->id = EXPRESSION_OPERATIONS_POSTFIX + data->operation_id;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_OPERATIONS_POSTFIX + data->operation_id, token);
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;

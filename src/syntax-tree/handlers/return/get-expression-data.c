@@ -16,9 +16,7 @@ void getReturnExpressionData(
   int handler_id
 ) {
   SyntaxReturnData *data = (SyntaxReturnData*)raw_data;
-
-  result->id = EXPRESSION_RETURN;
-  result->variables = createMap(sizeof(VariableData));
+  expressionInit(result, EXPRESSION_RETURN, token);
 
   if (data->expression == NULL) {
     return;

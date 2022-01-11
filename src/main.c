@@ -54,6 +54,7 @@ int main() {
 
   unsigned global_size = 0;
 
+  tokenDataPrint(listGetValue(tree->root_node.token));
   tree->root_node.handler->getExpressionData(
     src,
     tree->root_node.data,
@@ -64,7 +65,7 @@ int main() {
   );
 
   printf("===nasm===\n");
-  compile(src, root_expression, stdout);
+  compile(src, ARCH_X86, root_expression, stdout);
   printf("===NASM===\n");
 
   listFree(tokens);

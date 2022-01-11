@@ -31,7 +31,6 @@ static List *chopBracket(List *start_token, char **error, bool open) {
 static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **error, bool with_brackets) {
   *error = NULL;
   tokens = trimTokensLeft(tokens);
-  result->token = tokens;
 
   if (with_brackets) {
     tokens = chopBracket(tokens, error, true);
@@ -43,6 +42,7 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
   SyntaxScopeData *data = (SyntaxScopeData*) malloc(sizeof(SyntaxScopeData));
   *result = (SyntaxNode) {
     .data = data,
+    .token = tokens,
     .handler = getSyntaxNodeHandler(SYNTAX_SCOPE),
   };
 

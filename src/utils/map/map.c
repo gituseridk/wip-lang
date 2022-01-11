@@ -288,3 +288,51 @@ static void printNode(MapNode *node, ToString toString) {
 void mapPrint(Map *self, ToString toString) {
   printNode(self->root_node, toString);
 }
+
+
+struct MapItterator {
+  MapNode *current_node;
+};
+
+MapItterator *mapBegin(Map *self) {
+  MapItterator *result = malloc(sizeof(MapItterator));
+  result->current_node = self->root_node;
+  return result;
+}
+
+bool mapItteratorNext(MapItterator *itterator) {
+  if (itterator->current_node == NULL) {
+    return false;
+  }
+  if (itterator->current_node->left->key != NULL) {
+    itterator->current_node = itterator->current_node->left;
+    return true;
+  }
+  if (itterator->current_node->left->key != NULL) {
+    itterator->current_node = itterator->current_node->left;
+    return true;
+  }
+  while (itterator->current_node->parent != NULL) {
+    if (
+      itterator->current_node->parent->left == itterator->current_node &&
+      itterator->current_node->parent->right->key != NULL
+    ) {
+      itterator->current_node = itterator->current_node->parent->right;
+      return true;
+    }
+    itterator->current_node = itterator->current_node->parent;
+  }
+  itterator->current_node = NULL;
+  return false;
+}
+
+bool mapItteratorIsEnded(MapItterator *itterator) {
+  return itterator->current_node == NULL;
+}
+
+KVPair mapItteratorGet(MapItterator *itterator) {
+  return (KVPair) {
+    .value = itterator->current_node->value,
+    .key = itterator->current_node->key,
+  };
+}
