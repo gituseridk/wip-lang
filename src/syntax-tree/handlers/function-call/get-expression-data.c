@@ -16,6 +16,7 @@ void getFunctionCallExpressionData(
 ) {
   SyntaxFunctionCallData *data = (SyntaxFunctionCallData*) raw_data;
   expressionInit(result, EXPRESSION_FUNCTION_CALL, "function_call", token, false);
+  result->compileX86 = compileFunctionCallX86;
 
   if (data->target.handler->id == SYNTAX_IDENTIFIER) {
     char *identifier_name = ((SyntaxIdentifierData*) data->target.data)->name;
