@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void popNBytes(char *to_register, unsigned size, FILE *out_stream);
+void copyNBytes(char *address_reg, unsigned size, FILE *out_stream);
 
 #endif

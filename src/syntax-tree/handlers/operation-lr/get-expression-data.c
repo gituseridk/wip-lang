@@ -12,7 +12,7 @@ void getOperationLRExpressionData(
   int handler_id
 ) {
   SyntaxOperationData *data = (SyntaxOperationData*) raw_data;
-  expressionInit(result, EXPRESSION_OPERATIONS + data->operation_id, token, false);
+  expressionInit(result, EXPRESSION_OPERATIONS + data->operation_id, "operation_lr", token, false);
   result->compileX86 = compileOperationLRX86;
 
   ExpressionData left;

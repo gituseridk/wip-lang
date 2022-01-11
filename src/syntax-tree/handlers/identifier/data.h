@@ -19,4 +19,6 @@ void getIdentifierExpressionData(
   int handler_id
 );
 
+void compileIdentifierX86(char *src, ExpressionData *self, FILE *out_stream);
+
 #endif

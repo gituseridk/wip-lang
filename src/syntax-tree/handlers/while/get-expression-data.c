@@ -13,7 +13,7 @@ void getWhileExpressionData(
   int handler_id
 ) {
   SyntaxWhileData *data = (SyntaxWhileData*) raw_data;
-  expressionInit(result, EXPRESSION_WHILE, token, false);
+  expressionInit(result, EXPRESSION_WHILE, "while", token, false);
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;

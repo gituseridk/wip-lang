@@ -13,7 +13,7 @@ void getAssignationExpressionData(
   int handler_id
 ) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;
-  expressionInit(result, EXPRESSION_ASSIGNATION, token, false);
+  expressionInit(result, EXPRESSION_ASSIGNATION, "assignation", token, false);
   result->compileX86 = compileAssignationX86;
 
   ExpressionData left;

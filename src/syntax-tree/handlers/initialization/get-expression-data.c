@@ -17,7 +17,7 @@ void getInitializationExpressionData(
 ) {
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 
-  expressionInit(result, EXPRESSION_INITIALIZATION, token, false);
+  expressionInit(result, EXPRESSION_INITIALIZATION, "initialization", token, false);
   result->compileX86 = compileInitializationX86;
 
   if (data->type != NULL) {
@@ -36,6 +36,7 @@ void getInitializationExpressionData(
   result->result_type.is_constant = data->is_constant;
   VariableData *new_var = malloc(sizeof(VariableData));
   *new_var = (VariableData) {
+    .scope = result->parent_scope,
     .name = data->identifier,
     .type = result->result_type,
     .scope_offset = *offset,

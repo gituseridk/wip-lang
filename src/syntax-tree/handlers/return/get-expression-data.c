@@ -16,7 +16,7 @@ void getReturnExpressionData(
   int handler_id
 ) {
   SyntaxReturnData *data = (SyntaxReturnData*)raw_data;
-  expressionInit(result, EXPRESSION_RETURN, token, false);
+  expressionInit(result, EXPRESSION_RETURN, "return", token, false);
 
   if (data->expression == NULL) {
     return;

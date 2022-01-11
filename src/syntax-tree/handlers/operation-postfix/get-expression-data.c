@@ -12,7 +12,7 @@ void getOperationPostfixExpressionData(
   int handler_id
 ) {
   SyntaxOperationPostfixData *data = (SyntaxOperationPostfixData*) raw_data;
-  expressionInit(result, EXPRESSION_OPERATIONS_POSTFIX + data->operation_id, token, false);
+  expressionInit(result, EXPRESSION_OPERATIONS_POSTFIX + data->operation_id, "operation_postfix", token, false);
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;

@@ -13,6 +13,7 @@ static void definePrintInt() {
   type_data->args = newArray(
     VariableData,
     (VariableData) {
+      .scope = NULL,
       .name = "value",
       .scope_offset = 0,
       .type = (TypeDefinition) {
@@ -25,6 +26,7 @@ static void definePrintInt() {
   setVoidType(&(type_data->result_type));
 
   mapSet(global_variables, GLOBAL_VAR_PRINT_INT, &(VariableData) {
+    .scope = NULL,
     .name = GLOBAL_VAR_PRINT_INT,
     .scope_offset = 0,
     .type = (TypeDefinition) {

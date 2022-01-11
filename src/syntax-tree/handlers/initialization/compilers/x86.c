@@ -10,5 +10,7 @@ void compileInitializationX86(char *src, ExpressionData *self, FILE *out_stream)
   }
 
   VariableData *var = (VariableData*) self->value;
-  fprintf(out_stream, "\t\tmov\t\trax, QWORD PTR [rdp - %d]\n", var->scope_offset);
+
+  fprintf(out_stream, "\t\tmov\t\trax, rbp\n");
+  fprintf(out_stream, "\t\tsub\t\trax, %d\n", var->scope_offset);
 }

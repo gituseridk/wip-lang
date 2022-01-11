@@ -9,13 +9,10 @@ static void compileSum(char *src, ExpressionData *self, ExpressionData *left, Ex
     // save rbx
     fprintf(out_stream, "\t\tpush\t\trbx\n");
 
-    // push two ints to stack
     expressionCompile(left, ARCH_X86, src, out_stream);
-    expressionCompile(right, ARCH_X86, src, out_stream);
+    fprintf(out_stream, "\t\tmov\t\trbx, rax\n");
 
-    // pop it to regs
-    fprintf(out_stream, "\t\tpop\t\trax\n");
-    fprintf(out_stream, "\t\tpop\t\trbx\n");
+    expressionCompile(right, ARCH_X86, src, out_stream);
 
     fprintf(out_stream, "\t\tadd\t\trax, rbx\n");
     

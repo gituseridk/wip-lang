@@ -13,7 +13,7 @@ void getFunctionExpressionData(
   int handler_id
 ) {
   SyntaxFunctionData *data = (SyntaxFunctionData*) raw_data;
-  expressionInit(result, EXPRESSION_FUNCTION, token, true);
+  expressionInit(result, EXPRESSION_FUNCTION, "function", token, true);
 
   FunctionTypeData *function_type_data = malloc(sizeof(FunctionTypeData));
   function_type_data->args = createEmptyArray(arrayGetLength(data->arguments), sizeof(VariableData));
@@ -24,6 +24,7 @@ void getFunctionExpressionData(
       throwSourceError(src, "name is already used in this scope", arg->token);
     }
     VariableData data = (VariableData) {
+      .scope = result,
       .name = arg->name,
       .type = arg->type_definition,
       .scope_offset = 0, // !TODO add offset

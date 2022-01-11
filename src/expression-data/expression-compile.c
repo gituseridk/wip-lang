@@ -19,7 +19,7 @@ void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE 
   }
 
   TokenData *token = (TokenData*) listGetValue(self->token);
-  fprintf(out_stream, "; expression %d at %d:%d (\n", self->id, token->col, token->row);
+  fprintf(out_stream, "; expression %s (id: %d) at %d:%d (\n", self->name, self->id, token->col, token->row);
 
   self->compileX86(src, self, out_stream);
 

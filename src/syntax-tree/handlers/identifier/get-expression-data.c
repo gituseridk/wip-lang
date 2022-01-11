@@ -12,7 +12,8 @@ void getIdentifierExpressionData(
   int handler_id
 ) {
   SyntaxIdentifierData *data = (SyntaxIdentifierData*) raw_data;
-  expressionInit(result, EXPRESSION_FUNCTION, token, false);
+  expressionInit(result, EXPRESSION_IDENTIFIER, "identifier", token, false);
+  result->compileX86 = compileIdentifierX86;
 
   VariableData *var_data = expressionDataGetVariable(result, data->name);
   if (var_data == NULL) {
