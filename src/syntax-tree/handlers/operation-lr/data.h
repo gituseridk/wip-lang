@@ -39,4 +39,6 @@ void getOperationLRExpressionData(
   int handler_id
 );
 
+void compileOperationLRX86(char *src, ExpressionData *self, FILE *out_stream);
+
 #endif

@@ -12,7 +12,9 @@ void getLiteralExpressionData(
   int handler_id
 ) {
   SyntaxLiteralData *data = (SyntaxLiteralData*) raw_data;
-  expressionInit(result, EXPRESSION_LITERAL, token);
+  expressionInit(result, EXPRESSION_LITERAL, token, false);
+  result->compileX86 = compileLiteralX86;
+  
   result->value = data->value;
   result->result_type = data->type_definition;
 }

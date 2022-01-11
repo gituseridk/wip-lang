@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "token/token-data.h"
 #include "utils/logger/log-src-error.h"
 #include "./expression-data.h"
 
@@ -16,5 +17,11 @@ void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE 
     sprintf(err, "expression with id %d is not implemmented for x86 arch\n", self->id);
     throwSourceError(src, err, self->token);
   }
+
+  TokenData *token = (TokenData*) listGetValue(self->token);
+  fprintf(out_stream, "; expression %d at %d:%d (\n", self->id, token->col, token->row);
+
   self->compileX86(src, self, out_stream);
+
+  fprintf(out_stream, "; )\n");
 }

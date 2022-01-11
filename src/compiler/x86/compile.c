@@ -3,7 +3,7 @@
 void compileX86(char *src, ExpressionData root_expression, FILE *out_stream) {
   fprintf(out_stream,
     "section .text\n"
-    "global  _start\n\n"
+    "global _start\n\n"
     "_start:\n"
   );
 

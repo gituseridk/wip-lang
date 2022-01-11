@@ -53,7 +53,7 @@ struct ExpressionData {
 VariableData *expressionDataGetVariable(ExpressionData *self, char *name);
 VariableData *getGlobalVariable(char *name);
 void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream);
-void expressionInit(ExpressionData *result, int id, List *token);
+void expressionInit(ExpressionData *result, int id, List *token, bool is_scope);
 unsigned expressionGetSize(ExpressionData *self);
 
 #endif

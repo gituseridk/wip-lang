@@ -20,4 +20,6 @@ void getInitializationExpressionData(
   int handler_id
 );
 
+void compileInitializationX86(char *src, ExpressionData *self, FILE *out_stream);
+
 #endif

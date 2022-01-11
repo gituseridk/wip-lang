@@ -13,7 +13,7 @@ void getFunctionExpressionData(
   int handler_id
 ) {
   SyntaxFunctionData *data = (SyntaxFunctionData*) raw_data;
-  expressionInit(result, EXPRESSION_FUNCTION, token);
+  expressionInit(result, EXPRESSION_FUNCTION, token, true);
 
   FunctionTypeData *function_type_data = malloc(sizeof(FunctionTypeData));
   function_type_data->args = createEmptyArray(arrayGetLength(data->arguments), sizeof(VariableData));

@@ -17,9 +17,9 @@ void getInitializationExpressionData(
 ) {
   SyntaxInitializationData *data = (SyntaxInitializationData*)raw_data;
 
-  expressionInit(result, EXPRESSION_INITIALIZATION, token);
+  expressionInit(result, EXPRESSION_INITIALIZATION, token, false);
+  result->compileX86 = compileInitializationX86;
 
-  result->variables = createMap(sizeof(VariableData));
   if (data->type != NULL) {
     result->result_type = *(data->type);
   } else if (result->result_type.type_id == TYPE_ID_VOID) {
@@ -34,11 +34,14 @@ void getInitializationExpressionData(
   }
 
   result->result_type.is_constant = data->is_constant;
-  VariableData new_var = (VariableData) {
+  VariableData *new_var = malloc(sizeof(VariableData));
+  *new_var = (VariableData) {
     .name = data->identifier,
     .type = result->result_type,
     .scope_offset = *offset,
   };
+
+  result->value = new_var;
 
   char *error = NULL;
   *offset += getTypeSize(&(result->result_type), &error);
@@ -46,5 +49,5 @@ void getInitializationExpressionData(
     throwSourceError(src, error, token);
   }
 
-  mapSet(result->parent_scope->variables, data->identifier, &new_var);
+  mapSet(result->parent_scope->variables, data->identifier, new_var);
 }

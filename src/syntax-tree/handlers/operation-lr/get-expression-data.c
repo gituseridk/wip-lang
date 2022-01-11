@@ -12,7 +12,8 @@ void getOperationLRExpressionData(
   int handler_id
 ) {
   SyntaxOperationData *data = (SyntaxOperationData*) raw_data;
-  expressionInit(result, EXPRESSION_OPERATIONS + data->operation_id, token);
+  expressionInit(result, EXPRESSION_OPERATIONS + data->operation_id, token, false);
+  result->compileX86 = compileOperationLRX86;
 
   ExpressionData left;
   left.parent_scope = result->parent_scope;

@@ -54,7 +54,6 @@ int main() {
 
   unsigned global_size = 0;
 
-  tokenDataPrint(listGetValue(tree->root_node.token));
   tree->root_node.handler->getExpressionData(
     src,
     tree->root_node.data,

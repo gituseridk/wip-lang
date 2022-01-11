@@ -9,9 +9,11 @@ VariableData *expressionDataGetVariable(ExpressionData *self, char *name) {
   }
 
   while (self != NULL) {
-    VariableData *var_data = mapGet(self->variables, name);
-    if (var_data != NULL) {
-      return var_data;
+    if (self->variables != NULL) {
+      VariableData *var_data = mapGet(self->variables, name);
+      if (var_data != NULL) {
+        return var_data;
+      }
     }
     self = self->parent_scope;
   }

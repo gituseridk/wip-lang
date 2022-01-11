@@ -46,7 +46,7 @@ void getScopeExpressionData(
   int handler_id
 ) {
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
-  expressionInit(result, EXPRESSION_SCOPE, token);
+  expressionInit(result, EXPRESSION_SCOPE, token, true);
   result->compileX86 = compileScopeX86;
 
   result->child_expressions = parseChildExpressions(
