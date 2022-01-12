@@ -3,12 +3,6 @@
 
 #include "utils/map/map.h"
 
-char *toStr(void *v) {
-  char *result;
-  asprintf(&result, "%d", *(int*) v);
-  return result;
-}
-
 // !TODO add more tests
 void testMaps() {
   printf("Test maps:\n");

@@ -21,7 +21,7 @@ OUT=$OUT_FOLDER/test
 
 mkdir -p $OUT_FOLDER
 
-export FLAGS="-Wall -Wextra -Wno-unused-parameter -std=c11 -pedantic -ggdb"
+export FLAGS="-Wall -D_GNU_SOURCE -Wextra -Wno-unused-parameter -std=c11 -pedantic -ggdb"
 
 cc $FLAGS $SRC -I ./src -o $OUT
 $OUT
