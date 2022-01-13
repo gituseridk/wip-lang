@@ -1,7 +1,5 @@
 
-const a = 567;
-const b = 736 + 987;
+const a = 2;
+const b = 3 + 5;
 
-var c = a + b;
-
-printInt(c);
+printInt(a + b);

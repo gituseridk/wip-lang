@@ -3,8 +3,6 @@
 #include "./expression-data.h"
 #include "syntax-tree/handlers/function/data.h"
 
-#define GLOBAL_VAR_PRINT_INT "printInt"
-
 Map *global_variables;
 
 static void definePrintInt() {
@@ -23,11 +21,12 @@ static void definePrintInt() {
       },
     },
   );
+  type_data->label = GLOBAL_VAR_NAME_PRINT_INT;
   setVoidType(&(type_data->result_type));
 
-  mapSet(global_variables, GLOBAL_VAR_PRINT_INT, &(VariableData) {
+  mapSet(global_variables, GLOBAL_VAR_NAME_PRINT_INT, &(VariableData) {
     .scope = NULL,
-    .name = GLOBAL_VAR_PRINT_INT,
+    .name = GLOBAL_VAR_NAME_PRINT_INT,
     .scope_offset = 0,
     .type = (TypeDefinition) {
       .data = type_data,

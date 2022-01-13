@@ -8,7 +8,12 @@ unsigned expressionGetSize(ExpressionData *self) {
   unsigned size = 0;
   for (MapItterator *i = mapBegin(self->variables); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
     VariableData *var = (VariableData*) mapItteratorGet(i).value;
-    size += var->scope_offset;
+    char *err = NULL;
+    size += getTypeSize(&(var->type), &err);
+
+    if (err != NULL) {
+      printf("failed to allocate size on stack for type \"%s\"\n", getTypeName(&(var->type)));
+    }
   }
   return size;
 }

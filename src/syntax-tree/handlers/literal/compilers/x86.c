@@ -9,5 +9,5 @@ void compileLiteralX86(char *src, ExpressionData *self, FILE *out_stream) {
     throwSourceError(src, err, self->token);
   }
 
-  fprintf(out_stream, "\t\tmov\t\trax, %d\n", *(int*) self->value);
+  L("    push    %d", *(int*) self->value);
 }

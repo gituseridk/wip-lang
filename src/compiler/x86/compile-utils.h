@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 
+#define L(...) fprintf(out_stream, __VA_ARGS__);\
+               fprintf(out_stream, "\n");
+
 void copyNBytes(char *address_reg, unsigned size, FILE *out_stream);
 
 #endif

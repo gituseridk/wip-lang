@@ -6,18 +6,13 @@ static void compileSum(char *src, ExpressionData *self, ExpressionData *left, Ex
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    // save rbx
-    fprintf(out_stream, "\t\tpush\t\trbx\n");
-
     expressionCompile(left, ARCH_X86, src, out_stream);
-    fprintf(out_stream, "\t\tmov\t\trbx, rax\n");
-
     expressionCompile(right, ARCH_X86, src, out_stream);
 
-    fprintf(out_stream, "\t\tadd\t\trax, rbx\n");
-    
-    // restore rbx back
-    fprintf(out_stream, "\t\tpop\t\trbx\n");
+    L("    pop     rax");
+    L("    pop     rbx");
+    L("    add     rax, rbx");
+    L("    push    rax");
 
     return;
   default:

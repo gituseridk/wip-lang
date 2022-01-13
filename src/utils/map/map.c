@@ -308,8 +308,8 @@ bool mapItteratorNext(MapItterator *itterator) {
     itterator->current_node = itterator->current_node->left;
     return true;
   }
-  if (itterator->current_node->left->key != NULL) {
-    itterator->current_node = itterator->current_node->left;
+  if (itterator->current_node->right->key != NULL) {
+    itterator->current_node = itterator->current_node->right;
     return true;
   }
   while (itterator->current_node->parent != NULL) {

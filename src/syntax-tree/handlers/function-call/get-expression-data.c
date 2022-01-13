@@ -32,7 +32,7 @@ void getFunctionCallExpressionData(
     FunctionTypeData *function_data = (FunctionTypeData*) var->type.data;
 
     if (arrayGetLength(function_data->args) != arrayGetLength(data->arguments)) {
-      throwSourceError(src, "wrong number off arguments", token);
+      throwSourceError(src, "wrong number of arguments", token);
     }
 
     Array *args = createEmptyArray(arrayGetLength(data->arguments), sizeof(ExpressionData));
@@ -70,6 +70,7 @@ void getFunctionCallExpressionData(
 
     result->child_expressions = args;
     result->result_type = function_data->result_type;
+    result->value = function_data;
 
     return;
   }

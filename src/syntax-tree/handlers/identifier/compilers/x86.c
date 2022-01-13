@@ -15,5 +15,5 @@ void compileIdentifierX86(char *src, ExpressionData *self, FILE *out_stream) {
     throwSourceError(src, "can not use variables from upper scope (for now)", self->token);
   }
 
-  fprintf(out_stream, "\t\tmov\t\trax, QWORD [rbp - %d]\n", var->scope_offset);
+  L("    push    QWORD [rbp - %d]", var->scope_offset);
 }

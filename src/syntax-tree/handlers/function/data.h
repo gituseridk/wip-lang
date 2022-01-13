@@ -8,6 +8,9 @@
 typedef struct {
   Array *args; // array of VariableData
   TypeDefinition result_type;
+
+  // scope_label of function scope
+  char *label;
 } FunctionTypeData;
 
 typedef struct {

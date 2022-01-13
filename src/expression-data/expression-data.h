@@ -24,6 +24,11 @@
 #define EXPRESSION_OPERATIONS_POSTFIX     13
 #define EXPRESSION_OPERATIONS             15
 
+#define GLOBAL_VAR_NAME_PRINT_INT         "printInt"
+#define GLOBAL_VAR_NAME_PRINT             "print"
+#define GLOBAL_VAR_NAME_INT_TO_STR        "intToStr"
+#define GLOBAL_VAR_NAME_STR_LEN           "strLen"
+
 typedef struct ExpressionData ExpressionData;
 
 typedef struct {
@@ -43,6 +48,7 @@ struct ExpressionData {
   ExpressionData *parent_scope;
 
   Map *variables;
+  char *scope_label;
   Array * child_expressions;
 
   List *token;

@@ -11,6 +11,7 @@ void compileInitializationX86(char *src, ExpressionData *self, FILE *out_stream)
 
   VariableData *var = (VariableData*) self->value;
 
-  fprintf(out_stream, "\t\tmov\t\trax, rbp\n");
-  fprintf(out_stream, "\t\tsub\t\trax, %d\n", var->scope_offset);
+  L("    mov     rax, rbp");
+  L("    sub     rax, %d", var->scope_offset);
+  L("    push    rax");
 }

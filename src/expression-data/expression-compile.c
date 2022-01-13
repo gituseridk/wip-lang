@@ -3,6 +3,7 @@
 
 #include "token/token-data.h"
 #include "utils/logger/log-src-error.h"
+#include "compiler/x86/compile-utils.h"
 #include "./expression-data.h"
 
 void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream) {
@@ -19,9 +20,9 @@ void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE 
   }
 
   TokenData *token = (TokenData*) listGetValue(self->token);
-  fprintf(out_stream, "; expression \"%s\" (id: %d) at %d:%d (\n", self->name, self->id, token->col, token->row);
+  L("; expression \"%s\" (id: %d) at %d:%d (", self->name, self->id, token->row, token->col);
 
   self->compileX86(src, self, out_stream);
 
-  fprintf(out_stream, "; )\n");
+  L("; )");
 }

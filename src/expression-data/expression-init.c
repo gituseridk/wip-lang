@@ -7,6 +7,7 @@ void expressionInit(
   List *token,
   bool is_scope
 ) {
+  result->scope_label = NULL;
   result->id = id;
   result->name = name;
   result->token = token;

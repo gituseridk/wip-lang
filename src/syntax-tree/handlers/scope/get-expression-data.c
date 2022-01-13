@@ -1,8 +1,11 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "utils/logger/log-src-error.h"
 #include "syntax-tree/syntax-node.h"
 #include "./data.h"
+
+unsigned last_scope_id = 0;
 
 static Array *parseChildExpressions(
   const char *src,
@@ -48,6 +51,9 @@ void getScopeExpressionData(
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
   expressionInit(result, EXPRESSION_SCOPE, "scope", token, true);
   result->compileX86 = compileScopeX86;
+
+  // !TODO better scope id
+  asprintf(&(result->scope_label), "scope_%d", last_scope_id++);
 
   result->child_expressions = parseChildExpressions(
     src,

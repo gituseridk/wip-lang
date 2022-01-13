@@ -4,6 +4,8 @@
 #include "../scope/data.h"
 #include "./data.h"
 
+unsigned last_function_id = 0;
+
 void getFunctionExpressionData(
   const char *src,
   void *raw_data,
@@ -14,9 +16,11 @@ void getFunctionExpressionData(
 ) {
   SyntaxFunctionData *data = (SyntaxFunctionData*) raw_data;
   expressionInit(result, EXPRESSION_FUNCTION, "function", token, true);
+  asprintf(&(result->scope_label), "function_%d", last_function_id);
 
   FunctionTypeData *function_type_data = malloc(sizeof(FunctionTypeData));
   function_type_data->args = createEmptyArray(arrayGetLength(data->arguments), sizeof(VariableData));
+  function_type_data->label = result->scope_label;
 
   for (int i = 0; i != arrayGetLength(data->arguments); ++i) {
     FunctionArgument *arg = (FunctionArgument*)arrayAt(data->arguments, i);
