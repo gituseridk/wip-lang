@@ -55,10 +55,7 @@ void getScopeExpressionData(
   expressionInit(result, EXPRESSION_SCOPE, "scope", token, true);
   if (result->parent_scope == NULL) {
     free(result->variables);
-    result->variables = getGlobalVariables();
-    for (MapItterator *i = mapBegin(result->variables); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
-      *offset += getTypeSize(mapItteratorGet(i).value);
-    }
+    result->variables = getGlobalVariables(offset);
   }
   result->compileX86 = compileScopeX86;
 

@@ -40,11 +40,10 @@ static void definePrintInt(unsigned *offset) {
   *offset += getTypeSize(&type_def);
 }
 
-Map *getGlobalVariables(void) {
+Map *getGlobalVariables(unsigned *offset) {
   if (global_variables == NULL) {
     global_variables = createMap(sizeof(VariableData));
-    unsigned offset = 0;
-    definePrintInt(&offset);
+    definePrintInt(offset);
   }
 
   return global_variables;
