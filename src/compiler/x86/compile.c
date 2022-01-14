@@ -45,16 +45,11 @@ static void definePrint(FILE *out_stream) {
   L("    push    rbp");
   L("    mov     rbp, rsp");
 
-  L("    mov     rax, QWORD [rbp + 16]");
-  
-  L("    push    rax");
-
-  L("    push    rax");
-  L("    sub     rsp, 8");
+  L("    push    QWORD [rbp + 16]");
   L("    call    %s", GLOBAL_VAR_NAME_STR_LEN);
   L("    mov     rdx, rax");
 
-  L("    pop     rsi");
+  L("    mov     rsi, QWORD [rbp + 16]");
   L("    mov     rax, 1");
   L("    mov     rdi, 1");  
   L("    syscall");
@@ -159,6 +154,13 @@ void definePrintInt(FILE *out_stream) {
   L("    call    %s", GLOBAL_VAR_NAME_INT_TO_STR);
 
   L("    push    rbx");
+  L("    call    %s", GLOBAL_VAR_NAME_PRINT);
+
+  // !TODO remove later
+  // new line after number
+  L("    push    0Ah");
+  L("    mov     rax, rsp")
+  L("    push    rax");
   L("    call    %s", GLOBAL_VAR_NAME_PRINT);
 
   L("    mov     rsp, rbp");

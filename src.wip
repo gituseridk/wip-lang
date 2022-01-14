@@ -2,4 +2,4 @@
 const a = 2;
 const b = 3 + 5;
 
-printInt(a + b);
+printInt(a + b + 100);
