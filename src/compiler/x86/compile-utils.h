@@ -7,5 +7,6 @@
                fprintf(out_stream, "\n");
 
 void copyNBytes(char *address_reg, unsigned size, FILE *out_stream);
+void addIntToRegX86(char *reg, int value, FILE *out_stream);
 
 #endif

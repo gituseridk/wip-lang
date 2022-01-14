@@ -9,7 +9,6 @@ typedef struct {
   Array *args; // array of VariableData
   TypeDefinition result_type;
 
-  unsigned scope_offset;
   // scope_label of function scope
   char *label;
 } FunctionTypeData;
@@ -33,8 +32,10 @@ void getFunctionExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *offset,
   int handler_id
 );
+
+void compileFunctionX86(char *src, ExpressionData *self, FILE *out_stream);
 
 #endif

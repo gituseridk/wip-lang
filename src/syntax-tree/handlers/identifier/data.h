@@ -15,7 +15,7 @@ void getIdentifierExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *offset,
   int handler_id
 );
 

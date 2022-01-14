@@ -14,9 +14,8 @@ static Array *parseChildExpressions(
   SyntaxScopeData *data,
   Map *variables,
   TypeDefinition *result_type,
-  unsigned *offset
+  int *offset
 ) {
-
   Array *result = createEmptyArray(1u, sizeof(ExpressionData));
 
   for (int i = 0; i != arrayGetLength(data->nodes); ++i) {
@@ -46,16 +45,17 @@ void getScopeExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *parent_offset,
   int handler_id
 ) {
-  *offset = 0;
+  // reserve 8 bytes for upper scope pointer 
+  int offset = 8;
 
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
   expressionInit(result, EXPRESSION_SCOPE, "scope", token, true);
   if (result->parent_scope == NULL) {
     free(result->variables);
-    result->variables = getGlobalVariables(offset);
+    result->variables = getGlobalVariables(&offset);
   }
   result->compileX86 = compileScopeX86;
 
@@ -68,6 +68,6 @@ void getScopeExpressionData(
     data,
     result->variables,
     &(result->result_type),
-    offset
+    &offset
   );
 }

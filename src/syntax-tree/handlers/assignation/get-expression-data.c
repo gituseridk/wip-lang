@@ -9,7 +9,7 @@ void getAssignationExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *offset,
   int handler_id
 ) {
   SyntaxAssignationData *data = (SyntaxAssignationData*) raw_data;

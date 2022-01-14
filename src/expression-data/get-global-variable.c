@@ -5,7 +5,7 @@
 
 Map *global_variables;
 
-static void definePrintInt(unsigned *offset) {
+static void definePrintInt(int *offset) {
   FunctionTypeData *type_data = malloc(sizeof(FunctionTypeData));
 
   type_data->args = newArray(
@@ -40,7 +40,7 @@ static void definePrintInt(unsigned *offset) {
   *offset += getTypeSize(&type_def);
 }
 
-Map *getGlobalVariables(unsigned *offset) {
+Map *getGlobalVariables(int *offset) {
   if (global_variables == NULL) {
     global_variables = createMap(sizeof(VariableData));
     definePrintInt(offset);

@@ -9,7 +9,7 @@ void getIfExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *offset,
   int handler_id
 ) {
   SyntaxIfData *data = (SyntaxIfData*) raw_data;

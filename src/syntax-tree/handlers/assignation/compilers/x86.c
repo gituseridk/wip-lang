@@ -3,7 +3,10 @@
 #include "../data.h"
 
 void compileAssignationX86(char *src, ExpressionData *self, FILE *out_stream) {
-  if (self->result_type.type_id != TYPE_ID_INT) {
+  if (
+    self->result_type.type_id != TYPE_ID_INT &&
+    self->result_type.type_id != TYPE_ID_FUNCTION
+  ) {
     char err[100];
     sprintf(err, "assignation is not implemented for %s type", getTypeName(&(self->result_type)));
     throwSourceError(src, err, self->token);

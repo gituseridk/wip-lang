@@ -11,7 +11,7 @@ void getFunctionCallExpressionData(
   void *raw_data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *offset,
   int handler_id
 ) {
   SyntaxFunctionCallData *data = (SyntaxFunctionCallData*) raw_data;
@@ -22,6 +22,9 @@ void getFunctionCallExpressionData(
     char *identifier_name = ((SyntaxIdentifierData*) data->target.data)->name;
     
     VariableData *var = expressionDataGetVariable(result->parent_scope, identifier_name);
+    // if (var->scope != result->parent_scope) {
+    //   throwSourceError(src, "can not use functions from upper scope (for now)", token);
+    // }
 
     if (var == NULL) {
       char err[100];
@@ -70,7 +73,7 @@ void getFunctionCallExpressionData(
 
     result->child_expressions = args;
     result->result_type = function_data->result_type;
-    result->value = function_data;
+    result->value = var;
 
     return;
   }

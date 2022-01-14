@@ -20,7 +20,7 @@ void compileScopeX86(char *src, ExpressionData *self, FILE *out_stream) {
     if (var->type.type_id == TYPE_ID_FUNCTION) {
       FunctionTypeData *func_data = (FunctionTypeData*) var->type.data;
       L("    mov     rax, rbp");
-      L("    sub     rax, %d", var->scope_offset);
+      addIntToRegX86("rax", -var->scope_offset, out_stream);
       L("    mov     QWORD [rax], %s", func_data->label);
     }
   }
@@ -30,6 +30,6 @@ void compileScopeX86(char *src, ExpressionData *self, FILE *out_stream) {
     expressionCompile(child_expression, ARCH_X86, src, out_stream);
   }
 
-  L("    add     rsp, %d", size);
+  L("    mov     rsp, rbp");
   L("    pop     rbp");
 }

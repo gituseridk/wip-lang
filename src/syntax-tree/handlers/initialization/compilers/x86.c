@@ -3,7 +3,10 @@
 #include "compiler/x86/compile-utils.h"
 
 void compileInitializationX86(char *src, ExpressionData *self, FILE *out_stream) {
-  if (self->result_type.type_id != TYPE_ID_INT) {
+  if (
+    self->result_type.type_id != TYPE_ID_INT &&
+    self->result_type.type_id != TYPE_ID_FUNCTION
+  ) {
     char err[100];
     sprintf(err, "initialization with type %s is not implemented yet\n", getTypeName(&(self->result_type)));
     throwSourceError(src, err, self->token);
@@ -12,6 +15,6 @@ void compileInitializationX86(char *src, ExpressionData *self, FILE *out_stream)
   VariableData *var = (VariableData*) self->value;
 
   L("    mov     rax, rbp");
-  L("    sub     rax, %d", var->scope_offset);
+  addIntToRegX86("rax", -var->scope_offset, out_stream);
   L("    push    rax");
 }

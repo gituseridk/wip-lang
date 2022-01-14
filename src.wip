@@ -2,6 +2,6 @@
 const a = 2;
 const b = 3 + 5;
 
+const printSum = (left: int, right: int) => printInt(left + right);
 
-
-printInt(a + b + 100);
+printSum(300, a + b);

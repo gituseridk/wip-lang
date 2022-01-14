@@ -14,7 +14,7 @@ void getAssignationExpressionData(
   void *data,
   List *token,
   ExpressionData *result,
-  unsigned *offset,
+  int *offset,
   int handler_id
 );
 

@@ -32,7 +32,7 @@
 typedef struct ExpressionData ExpressionData;
 
 typedef struct {
-  unsigned scope_offset;
+  int scope_offset;
 
   char *name;
   TypeDefinition type;
@@ -62,7 +62,7 @@ struct ExpressionData {
 };
 
 VariableData *expressionDataGetVariable(ExpressionData *self, char *name);
-Map *getGlobalVariables(unsigned *offset);
+Map *getGlobalVariables(int *offset);
 void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream);
 void expressionInit(ExpressionData *result, int id, const char *name, List *token, bool is_scope);
 unsigned expressionGetSize(ExpressionData *self);

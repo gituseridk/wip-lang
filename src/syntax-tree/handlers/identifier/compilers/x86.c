@@ -10,10 +10,16 @@ void compileIdentifierX86(char *src, ExpressionData *self, FILE *out_stream) {
   }
 
   VariableData *var = (VariableData*) self->value;
+
   // !TODO implement closures
   if (var->scope != self->parent_scope) {
     throwSourceError(src, "can not use variables from upper scope (for now)", self->token);
   }
 
-  L("    push    QWORD [rbp - %d]", var->scope_offset);
+  int offset = var->scope_offset;
+  if (offset < 0) {
+    L("    push    QWORD [rbp + %d]", -var->scope_offset);
+  } else {
+    L("    push    QWORD [rbp - %d]", var->scope_offset);
+  }
 }
