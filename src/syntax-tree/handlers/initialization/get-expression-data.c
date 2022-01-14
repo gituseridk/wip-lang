@@ -44,11 +44,7 @@ void getInitializationExpressionData(
 
   result->value = new_var;
 
-  char *error = NULL;
-  *offset += getTypeSize(&(result->result_type), &error);
-  if (error != NULL) {
-    throwSourceError(src, error, token);
-  }
+  *offset += getTypeSize(&(result->result_type));
 
   mapSet(result->parent_scope->variables, data->identifier, new_var);
 }

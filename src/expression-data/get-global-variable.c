@@ -5,7 +5,7 @@
 
 Map *global_variables;
 
-static void definePrintInt() {
+static void definePrintInt(unsigned *offset) {
   FunctionTypeData *type_data = malloc(sizeof(FunctionTypeData));
 
   type_data->args = newArray(
@@ -13,7 +13,7 @@ static void definePrintInt() {
     (VariableData) {
       .scope = NULL,
       .name = "value",
-      .scope_offset = 0,
+      .scope_offset = *offset,
       .type = (TypeDefinition) {
         .type_id = TYPE_ID_INT,
         .data = NULL,
@@ -24,22 +24,27 @@ static void definePrintInt() {
   type_data->label = GLOBAL_VAR_NAME_PRINT_INT;
   setVoidType(&(type_data->result_type));
 
+  TypeDefinition type_def = (TypeDefinition) {
+    .data = type_data,
+    .is_constant = true,
+    .type_id = TYPE_ID_FUNCTION,
+  };
+
   mapSet(global_variables, GLOBAL_VAR_NAME_PRINT_INT, &(VariableData) {
     .scope = NULL,
     .name = GLOBAL_VAR_NAME_PRINT_INT,
-    .scope_offset = 0,
-    .type = (TypeDefinition) {
-      .data = type_data,
-      .is_constant = true,
-      .type_id = TYPE_ID_FUNCTION,
-    },
+    .scope_offset = *offset,
+    .type = type_def,
   });
+
+  *offset += getTypeSize(&type_def);
 }
 
 Map *getGlobalVariables(void) {
   if (global_variables == NULL) {
     global_variables = createMap(sizeof(VariableData));
-    definePrintInt();
+    unsigned offset = 0;
+    definePrintInt(&offset);
   }
 
   return global_variables;

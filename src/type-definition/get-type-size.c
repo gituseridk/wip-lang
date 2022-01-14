@@ -1,6 +1,6 @@
 #include "./type-definition.h"
 
-unsigned getTypeSize(const TypeDefinition *type, char **error) {
+unsigned getTypeSize(const TypeDefinition *type) {
   switch (type->type_id)
   {
   case TYPE_ID_VOID:
@@ -16,12 +16,8 @@ unsigned getTypeSize(const TypeDefinition *type, char **error) {
   case TYPE_ID_FUNCTION:
     return TYPE_SIZE_FUNCTION;
 
-  case TYPE_ID_STRUCT:
-    *error = "struct type size is not fully implemented yet";
-    return 0;
-
+  // !TODO add structs
   default:
-    *error = "unknown type";
     return 0;
   }
 }

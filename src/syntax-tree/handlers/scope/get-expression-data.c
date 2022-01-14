@@ -57,12 +57,7 @@ void getScopeExpressionData(
     free(result->variables);
     result->variables = getGlobalVariables();
     for (MapItterator *i = mapBegin(result->variables); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
-      char *err = NULL;
-      *offset += getTypeSize(mapItteratorGet(i).value, &err);
-      if (err != NULL) {
-        printf("iunternal error! Failed to get global var size: %s\n", err);
-        exit(1);
-      }
+      *offset += getTypeSize(mapItteratorGet(i).value);
     }
   }
   result->compileX86 = compileScopeX86;
