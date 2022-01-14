@@ -36,11 +36,11 @@ static void definePrintInt() {
   });
 }
 
-VariableData *getGlobalVariable(char *name) {
+Map *getGlobalVariables(void) {
   if (global_variables == NULL) {
     global_variables = createMap(sizeof(VariableData));
     definePrintInt();
   }
 
-  return mapGet(global_variables, name);
+  return global_variables;
 }

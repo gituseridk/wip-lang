@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "expression-data/expression-data.h"
 #include "utils/logger/log-src-error.h"
 #include "syntax-tree/syntax-node.h"
 #include "./data.h"
@@ -48,8 +49,22 @@ void getScopeExpressionData(
   unsigned *offset,
   int handler_id
 ) {
+  *offset = 0;
+
   SyntaxScopeData *data = (SyntaxScopeData*) raw_data;
   expressionInit(result, EXPRESSION_SCOPE, "scope", token, true);
+  if (result->parent_scope == NULL) {
+    free(result->variables);
+    result->variables = getGlobalVariables();
+    for (MapItterator *i = mapBegin(result->variables); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
+      char *err = NULL;
+      *offset += getTypeSize(mapItteratorGet(i).value, &err);
+      if (err != NULL) {
+        printf("iunternal error! Failed to get global var size: %s\n", err);
+        exit(1);
+      }
+    }
+  }
   result->compileX86 = compileScopeX86;
 
   // !TODO better scope id

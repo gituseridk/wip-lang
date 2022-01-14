@@ -63,8 +63,17 @@ int main() {
     tree->root_node.handler->id
   );
 
+
+  const char *out_file_name = "out.s";
+  FILE *out_file = fopen(out_file_name, "w");
+
+  if (file == NULL) {
+    printf("Failed to open result file '%s'.\n", out_file_name);
+    return 1;
+  }
+
   printf("===nasm===\n");
-  compile(src, ARCH_X86, root_expression, stdout);
+  compile(src, ARCH_X86, root_expression, out_file);
   printf("===NASM===\n");
 
   listFree(tokens);
