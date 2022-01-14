@@ -72,9 +72,7 @@ int main() {
     return 1;
   }
 
-  printf("===nasm===\n");
   compile(src, ARCH_X86, root_expression, out_file);
-  printf("===NASM===\n");
 
   listFree(tokens);
   free(src);
