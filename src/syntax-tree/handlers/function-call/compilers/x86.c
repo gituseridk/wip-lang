@@ -10,7 +10,9 @@ void compileFunctionCallX86(char *src, ExpressionData *self, FILE *out_stream) {
   }
 
   FunctionTypeData *function_data = (FunctionTypeData*) self->value;
-  L("    call    %s", function_data->label);
+  L("    mov     rax, rbp");
+  L("    sub     rax, %d", function_data->scope_offset);
+  L("    call    [rax]");
 
   // !TODO push reslt value to stack
 }

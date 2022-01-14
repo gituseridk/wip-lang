@@ -13,7 +13,7 @@ static void definePrintInt(unsigned *offset) {
     (VariableData) {
       .scope = NULL,
       .name = "value",
-      .scope_offset = *offset,
+      .scope_offset = 0,
       .type = (TypeDefinition) {
         .type_id = TYPE_ID_INT,
         .data = NULL,
