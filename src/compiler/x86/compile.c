@@ -174,7 +174,7 @@ void compileX86(char *src, ExpressionData root_expression, FILE *out_stream) {
   L("global _start\n");
   L("_start:");
 
-  expressionCompile(&root_expression, ARCH_X86, src, out_stream);
+  expressionCompile(&root_expression, ARCH_X86, src, false, out_stream);
 
   defineExit(out_stream);
   defineStrLen(out_stream);

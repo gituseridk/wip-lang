@@ -2,7 +2,11 @@
 #include "utils/logger/log-src-error.h"
 #include "compiler/x86/compile-utils.h"
 
-void compileInitializationX86(char *src, ExpressionData *self, FILE *out_stream) {
+void compileInitializationX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+  if (!address) {
+    return;
+  }
+
   if (
     self->result_type.type_id != TYPE_ID_INT &&
     self->result_type.type_id != TYPE_ID_FUNCTION

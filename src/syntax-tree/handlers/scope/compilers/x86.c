@@ -3,7 +3,9 @@
 #include "syntax-tree/handlers/function/data.h"
 #include "../data.h"
 
-void compileScopeX86(char *src, ExpressionData *self, FILE *out_stream) {
+void compileScopeX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+  FORBID_ADDRESS_AS_RESULT
+
   unsigned size = expressionGetSize(self);
 
   if (self->scope_label == NULL) {
@@ -27,7 +29,7 @@ void compileScopeX86(char *src, ExpressionData *self, FILE *out_stream) {
 
   for (int i = 0; i != arrayGetLength(self->child_expressions); ++i) {
     ExpressionData *child_expression = arrayAt(self->child_expressions, i);
-    expressionCompile(child_expression, ARCH_X86, src, out_stream);
+    expressionCompile(child_expression, ARCH_X86, src, false, out_stream);
   }
 
   L("    mov     rsp, rbp");

@@ -36,6 +36,6 @@ void getFunctionExpressionData(
   int handler_id
 );
 
-void compileFunctionX86(char *src, ExpressionData *self, FILE *out_stream);
+void compileFunctionX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

@@ -18,6 +18,6 @@ void getAssignationExpressionData(
   int handler_id
 );
 
-void compileAssignationX86(char *src, ExpressionData *self, FILE *out_stream);
+void compileAssignationX86(char *src, ExpressionData *self, bool address, FILE *out_strea);
 
 #endif

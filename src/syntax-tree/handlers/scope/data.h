@@ -19,6 +19,6 @@ void getScopeExpressionData(
   int handler_id
 );
 
-void compileScopeX86(char *src, ExpressionData *self, FILE *out_stream);
+void compileScopeX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

@@ -6,7 +6,7 @@
 #include "compiler/x86/compile-utils.h"
 #include "./expression-data.h"
 
-void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream) {
+void expressionCompile(ExpressionData *self, Architecture arch, char *src, bool address, FILE *out_stream) {
   if (arch != ARCH_X86) {
     printf("only x86 arch is supported\n");
     exit(1);
@@ -22,7 +22,7 @@ void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE 
   TokenData *token = (TokenData*) listGetValue(self->token);
   L("; expression \"%s\" (id: %d) at %d:%d (", self->name, self->id, token->row, token->col);
 
-  self->compileX86(src, self, out_stream);
+  self->compileX86(src, self, address, out_stream);
 
   L("; )");
 }

@@ -18,6 +18,6 @@ void getIfExpressionData(
   int handler_id
 );
 
-void compileIfX86(char *src, ExpressionData *self, FILE *out_stream);
+void compileIfX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

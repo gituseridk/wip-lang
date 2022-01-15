@@ -2,7 +2,9 @@
 #include "compiler/x86/compile-utils.h"
 #include "../data.h"
 
-void compileAssignationX86(char *src, ExpressionData *self, FILE *out_stream) {
+void compileAssignationX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+  FORBID_ADDRESS_AS_RESULT
+  
   if (
     self->result_type.type_id != TYPE_ID_INT &&
     self->result_type.type_id != TYPE_ID_FUNCTION
@@ -16,8 +18,8 @@ void compileAssignationX86(char *src, ExpressionData *self, FILE *out_stream) {
   ExpressionData *right = (ExpressionData*) arrayAt(self->child_expressions, 1);
 
   // calc result to rbx
-  expressionCompile(right, ARCH_X86, src, out_stream);
-  expressionCompile(left, ARCH_X86, src, out_stream);
+  expressionCompile(right, ARCH_X86, src, false, out_stream);
+  expressionCompile(left, ARCH_X86, src, true, out_stream);
 
   L("    pop     rax");
   L("    pop     rbx");

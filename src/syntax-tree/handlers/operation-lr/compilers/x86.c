@@ -6,8 +6,8 @@ static void compileSum(char *src, ExpressionData *self, ExpressionData *left, Ex
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(left, ARCH_X86, src, out_stream);
-    expressionCompile(right, ARCH_X86, src, out_stream);
+    expressionCompile(left, ARCH_X86, src, false, out_stream);
+    expressionCompile(right, ARCH_X86, src, false, out_stream);
 
     L("    pop     rax");
     L("    pop     rbx");
@@ -21,7 +21,9 @@ static void compileSum(char *src, ExpressionData *self, ExpressionData *left, Ex
   }
 }
 
-void compileOperationLRX86(char *src, ExpressionData *self, FILE *out_stream) {
+void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+  FORBID_ADDRESS_AS_RESULT
+
   ExpressionData *left = (ExpressionData*) arrayAt(self->child_expressions, 0);
   ExpressionData *right = (ExpressionData*) arrayAt(self->child_expressions, 1);
 

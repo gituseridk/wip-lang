@@ -26,6 +26,6 @@ void getIdentifierExpressionData(
   int handler_id
 );
 
-void compileIdentifierX86(char *src, ExpressionData *self, FILE *out_stream);
+void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

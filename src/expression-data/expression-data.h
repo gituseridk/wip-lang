@@ -40,7 +40,7 @@ typedef struct {
   ExpressionData *scope;
 } VariableData;
 
-typedef void (*ExpressionCompile)(char *src, ExpressionData *self, FILE *out_stream);
+typedef void (*ExpressionCompile)(char *src, ExpressionData *self, bool address, FILE *out_stream);
 
 struct ExpressionData {
   const char *name;
@@ -63,7 +63,7 @@ struct ExpressionData {
 
 VariableData *expressionDataGetVariable(ExpressionData *self, char *name, unsigned *scope_diff);
 Map *getGlobalVariables(int *offset);
-void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream);
+void expressionCompile(ExpressionData *self, Architecture arch, char *src, bool address, FILE *out_stream);
 void expressionInit(ExpressionData *result, int id, const char *name, List *token, bool is_scope);
 unsigned expressionGetSize(ExpressionData *self);
 

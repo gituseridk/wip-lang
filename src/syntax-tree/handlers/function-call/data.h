@@ -19,6 +19,6 @@ void getFunctionCallExpressionData(
   int handler_id
 );
 
-void compileFunctionCallX86(char *src, ExpressionData *self, FILE *out_stream);
+void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
 
 #endif
