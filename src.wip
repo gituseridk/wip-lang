@@ -1,6 +1,6 @@
 
 var a = 10;
 
-while a-- {
+while --a-- {
   printInt(a)
 }

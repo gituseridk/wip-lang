@@ -15,6 +15,7 @@ void getOperationPrefixExpressionData(
 ) {
   SyntaxOperationPrefixData *data = (SyntaxOperationPrefixData*) raw_data;
   expressionInit(result, EXPRESSION_OPERATIONS_PREFIX + data->operation_id, "operation_prefix", token, false);
+  result->compileX86 = compileOperationPrefixX86;
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;

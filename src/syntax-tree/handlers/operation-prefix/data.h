@@ -25,4 +25,6 @@ void getOperationPrefixExpressionData(
   int handler_id
 );
 
+void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+
 #endif
