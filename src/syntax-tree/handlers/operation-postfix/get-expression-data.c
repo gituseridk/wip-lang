@@ -13,6 +13,7 @@ void getOperationPostfixExpressionData(
 ) {
   SyntaxOperationPostfixData *data = (SyntaxOperationPostfixData*) raw_data;
   expressionInit(result, EXPRESSION_OPERATIONS_POSTFIX + data->operation_id, "operation_postfix", token, false);
+  result->compileX86 = compileOperationPostfixX86;
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;

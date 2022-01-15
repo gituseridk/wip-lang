@@ -24,4 +24,6 @@ void getOperationPostfixExpressionData(
   int handler_id
 );
 
+void compileOperationPostfixX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+
 #endif

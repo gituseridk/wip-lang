@@ -23,7 +23,12 @@ static void compileSum(
 
     return;
   default:
-    sprintf(err, "sum for %s type is not implemented yet", getTypeName(&(self->result_type)));
+    sprintf(
+      err,
+      "%s for %s type is not implemented yet",
+      difference ? "diff" : "sum",
+      getTypeName(&(self->result_type))
+    );
     throwSourceError(src, err, self->token);
   }
 }
