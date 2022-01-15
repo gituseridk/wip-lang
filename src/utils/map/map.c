@@ -296,6 +296,10 @@ struct MapItterator {
 
 MapItterator *mapBegin(Map *self) {
   MapItterator *result = malloc(sizeof(MapItterator));
+  if (self->root_node->key == NULL) {
+    result->current_node = NULL;
+    return result;
+  }
   result->current_node = self->root_node;
   return result;
 }

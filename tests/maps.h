@@ -45,6 +45,10 @@ void testMaps() {
 
   printf("\t- ittrerate through map\n");
   Map *map_to_itterate = createMap(sizeof(int));
+
+  MapItterator *it = mapBegin(map_to_itterate);
+  assert(mapItteratorIsEnded(it));
+
   val = 0;
   mapSet(map_to_itterate, "0", &val);
   val = 1;
@@ -54,7 +58,7 @@ void testMaps() {
   val = 3;
   mapSet(map_to_itterate, "3", &val);
 
-  int size = 1;
+  int size = 0;
   for (MapItterator *i = mapBegin(map_to_itterate); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
     ++size;
     assert(mapItteratorGet(i).key[0] - '0' == *(int*) mapItteratorGet(i).value);
