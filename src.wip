@@ -2,7 +2,7 @@
 var a = 2;
 const b = 3 + 5;
 
-a = 3;
+a = 10;
 
 printInt(2345)
 
@@ -11,18 +11,7 @@ const printSum = (left: int, right: int) => {
   printInt(result);
 };
 
-if (a) {
-  printInt(a);
+while a {
+  printInt(a)
+  a = a + -1
 }
-
-const zero = 0;
-if zero {
-  printInt(222222);
-}
-
-
-printInt(7654)
-
-printSum(123, 8765)
-
-printSum(0, 0)

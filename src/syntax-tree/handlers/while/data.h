@@ -18,4 +18,6 @@ void getWhileExpressionData(
   int handler_id
 );
 
+void compileWhileX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+
 #endif

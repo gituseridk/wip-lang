@@ -14,6 +14,7 @@ void getWhileExpressionData(
 ) {
   SyntaxWhileData *data = (SyntaxWhileData*) raw_data;
   expressionInit(result, EXPRESSION_WHILE, "while", token, false);
+  result->compileX86 = compileWhileX86;
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;
