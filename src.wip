@@ -1,17 +1,7 @@
 
-var a = 2;
-const b = 3 + 5;
-
-a = 10;
-
-printInt(2345)
-
-const printSum = (left: int, right: int) => {
-  const result = left + right;
-  printInt(result);
-};
+var a = 10;
 
 while a {
   printInt(a)
-  a = a + -1
+  a = a - 1
 }
