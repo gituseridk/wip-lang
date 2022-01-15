@@ -88,6 +88,7 @@ void defineIntToStr(FILE *out_stream) {
   L("    mov     r8, rbx");
   L("    pop     rbx");
   L("    add     rbx, r8");
+  L("    mov     byte [rbx], 0");
   L("uint_to_str_iteration:");
   L("    dec     rbx");
 
@@ -101,7 +102,6 @@ void defineIntToStr(FILE *out_stream) {
   L("    cmp     rax, 0");
   L("    jne     uint_to_str_iteration");
 
-  L("uint_to_str_end:");
   L("    pop     r8");
   L("    pop     rax");
   L("    pop     rbx");

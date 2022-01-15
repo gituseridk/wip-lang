@@ -14,6 +14,7 @@ void getIfExpressionData(
 ) {
   SyntaxIfData *data = (SyntaxIfData*) raw_data;
   expressionInit(result, EXPRESSION_IF, "if", token, false);
+  result->compileX86 = compileIfX86;
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;
@@ -29,16 +30,9 @@ void getIfExpressionData(
     data->condition.handler->id
   );
 
-  // !TODO move out check for boolean compatability
-  int condition_type = condition.result_type.type_id;
-  if (
-    condition_type != TYPE_ID_INT &&
-    condition_type != TYPE_ID_FLOAT &&
-    condition_type != TYPE_ID_POINTER
-  ) {
+  if (!isBool(&(condition.result_type))) {
     throwSourceError(src, "if condition is not convertable to boolean", data->condition.token);
   }
-
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;
