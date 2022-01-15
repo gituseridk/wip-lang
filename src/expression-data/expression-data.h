@@ -61,7 +61,7 @@ struct ExpressionData {
   void *value;
 };
 
-VariableData *expressionDataGetVariable(ExpressionData *self, char *name);
+VariableData *expressionDataGetVariable(ExpressionData *self, char *name, unsigned *scope_diff);
 Map *getGlobalVariables(int *offset);
 void expressionCompile(ExpressionData *self, Architecture arch, char *src, FILE *out_stream);
 void expressionInit(ExpressionData *result, int id, const char *name, List *token, bool is_scope);

@@ -15,11 +15,17 @@ void getIdentifierExpressionData(
   expressionInit(result, EXPRESSION_IDENTIFIER, "identifier", token, false);
   result->compileX86 = compileIdentifierX86;
 
-  VariableData *var_data = expressionDataGetVariable(result, data->name);
+  unsigned scope_diff;
+  VariableData *var_data = expressionDataGetVariable(result, data->name, &scope_diff);
   if (var_data == NULL) {
     throwSourceError(src, "ubdefined identifier", token);
   }
 
+  ExpressionIdentifierValue *expression_value = (ExpressionIdentifierValue*) malloc(sizeof(ExpressionIdentifierValue));
+
+  expression_value->var = var_data;
+  expression_value->scope_diff = scope_diff;
+
   result->result_type = var_data->type;
-  result->value = var_data;
+  result->value = expression_value;
 }

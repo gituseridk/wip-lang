@@ -4,6 +4,13 @@
 #include <stdbool.h>
 #include "syntax-tree/syntax-node.h"
 
+typedef struct
+{
+  unsigned scope_diff;
+  VariableData *var;
+} ExpressionIdentifierValue;
+
+
 typedef struct {
   char *name;
 } SyntaxIdentifierData;

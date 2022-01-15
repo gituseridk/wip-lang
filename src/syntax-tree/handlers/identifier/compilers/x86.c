@@ -3,23 +3,26 @@
 #include "compiler/x86/compile-utils.h"
 
 void compileIdentifierX86(char *src, ExpressionData *self, FILE *out_stream) {
-  if (self->result_type.type_id != TYPE_ID_INT) {
+  if (
+    self->result_type.type_id != TYPE_ID_INT &&
+    self->result_type.type_id != TYPE_ID_FUNCTION
+  ) {
     char err[100];
     sprintf(err, "variables with type %s is not implemented yet\n", getTypeName(&(self->result_type)));
     throwSourceError(src, err, self->token);
   }
 
-  VariableData *var = (VariableData*) self->value;
+  ExpressionIdentifierValue *identifier = (ExpressionIdentifierValue*) self->value;
 
-  // !TODO implement closures
-  if (var->scope != self->parent_scope) {
-    throwSourceError(src, "can not use variables from upper scope (for now)", self->token);
+  L("    mov     rax, rbp");
+  for (unsigned i = 0; i != identifier->scope_diff; ++i) {
+    L("    mov     rax, [rax]");
   }
 
-  int offset = var->scope_offset;
+  int offset = identifier->var->scope_offset;
   if (offset < 0) {
-    L("    push    QWORD [rbp + %d]", -var->scope_offset);
+    L("    push    QWORD [rax + %d]", -offset);
   } else {
-    L("    push    QWORD [rbp - %d]", var->scope_offset);
+    L("    push    QWORD [rax - %d]", offset);
   }
 }
