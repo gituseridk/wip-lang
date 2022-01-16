@@ -43,6 +43,7 @@ void getFunctionCallExpressionData(
   }
 
   Array *args = createEmptyArray(arrayGetLength(data->arguments), sizeof(ExpressionData));
+
   for (int i = 0; i != arrayGetLength(data->arguments); ++i) {
     SyntaxNode *node = (SyntaxNode*) arrayAt(data->arguments, i);
     ExpressionData arg_expression;

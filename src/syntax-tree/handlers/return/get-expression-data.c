@@ -17,6 +17,7 @@ void getReturnExpressionData(
 ) {
   SyntaxReturnData *data = (SyntaxReturnData*)raw_data;
   expressionInit(result, EXPRESSION_RETURN, "return", token, false);
+  result->compileX86 = compileReturnX86;
 
   if (data->expression == NULL) {
     return;
@@ -35,6 +36,4 @@ void getReturnExpressionData(
     offset,
     data->expression->handler->id
   );
-
-  
 }

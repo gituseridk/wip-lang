@@ -10,9 +10,15 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
 
   ExpressionData *target = (ExpressionData*) self->value;
 
-  for (int i = 0; i != arrayGetLength(self->child_expressions); ++i) {
+  for (int i = arrayGetLength(self->child_expressions) - 1; i != -1; --i) {
     expressionCompile(arrayAt(self->child_expressions, i), ARCH_X86, src, false, out_stream);
   } 
+
+  if (self->result_type.type_id != TYPE_ID_VOID) {
+    unsigned size = getTypeSize(&(self->result_type));
+    size = size / TYPE_SIZE_POINTER * TYPE_SIZE_POINTER + (TYPE_SIZE_POINTER - size % TYPE_SIZE_POINTER);
+    L("    sub     rsp, %d", size);
+  }
 
   expressionCompile(target, ARCH_X86, src, false, out_stream);
 

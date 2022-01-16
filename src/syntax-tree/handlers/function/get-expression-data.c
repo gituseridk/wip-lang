@@ -24,7 +24,7 @@ void getFunctionExpressionData(
   function_type_data->args = createEmptyArray(arrayGetLength(data->arguments), sizeof(VariableData));
   function_type_data->label = result->scope_label;
 
-  int arg_offset = -8;
+  int arg_offset = data->return_type.type_id == TYPE_ID_VOID ? -8: -8 - TYPE_SIZE_POINTER;
   for (int i = 0; i != arrayGetLength(data->arguments); ++i) {
     FunctionArgument *arg = (FunctionArgument*)arrayAt(data->arguments, i);
     if (mapGet(result->variables, arg->name) != NULL) {

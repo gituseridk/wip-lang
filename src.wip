@@ -1,6 +1,20 @@
 const a = 123;
 const b = 456;
 
+const sum = (a: int, b: int): int => {
+  const result = a + b;
+  return result;
+};
+
+const sumResult = sum(a, b);
+
 print("a + b = ");
-printInt(a + b);
+printInt(sumResult);
 print("\n");
+
+const printConcat = (a: *char, b: *char) => {
+  print(a);
+  print(b);
+}
+
+printConcat("aaa\n", "bbb\n");

@@ -8,6 +8,7 @@ void compileAssignationX86(char *src, ExpressionData *self, bool address, FILE *
   if (
     self->result_type.type_id != TYPE_ID_INT &&
     self->result_type.type_id != TYPE_ID_POINTER &&
+    self->result_type.type_id != TYPE_ID_VOID &&
     self->result_type.type_id != TYPE_ID_FUNCTION
   ) {
     char err[100];

@@ -17,4 +17,6 @@ void getReturnExpressionData(
   int handler_id
 );
 
+void compileReturnX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+
 #endif

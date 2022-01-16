@@ -5,6 +5,8 @@
 void compileFunctionX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
+  FunctionTypeData *func_type_data = (FunctionTypeData*) self->result_type.data;
+
   // !TODO move function definitions to the end
   L("\n    jmp     %s_end", self->scope_label);
 
@@ -12,7 +14,7 @@ void compileFunctionX86(char *src, ExpressionData *self, bool address, FILE *out
   L("    push    rbp");
   L("    mov     rbp, rsp");
 
-  unsigned size = 0;
+  unsigned size = getTypeSize(&(func_type_data->result_type));
   for (MapItterator *i = mapBegin(self->variables); !mapItteratorIsEnded(i); mapItteratorNext(i)) {
     VariableData *arg = (VariableData*) mapItteratorGet(i).value;
 
