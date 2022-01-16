@@ -156,13 +156,6 @@ void definePrintInt(FILE *out_stream) {
   L("    push    rbx");
   L("    call    %s", GLOBAL_VAR_NAME_PRINT);
 
-  // !TODO remove later
-  // new line after number
-  L("    push    0Ah");
-  L("    mov     rax, rsp")
-  L("    push    rax");
-  L("    call    %s", GLOBAL_VAR_NAME_PRINT);
-
   L("    mov     rsp, rbp");
   L("    pop     rbp");
 

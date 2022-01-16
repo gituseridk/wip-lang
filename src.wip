@@ -1,6 +1,6 @@
+const a = 123;
+const b = 456;
 
-var a = 10;
-
-while --a-- {
-  printInt(a)
-}
+print("a + b = ");
+printInt(a + b);
+print("\n");

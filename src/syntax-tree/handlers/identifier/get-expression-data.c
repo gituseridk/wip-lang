@@ -18,7 +18,7 @@ void getIdentifierExpressionData(
   unsigned scope_diff;
   VariableData *var_data = expressionDataGetVariable(result, data->name, &scope_diff);
   if (var_data == NULL) {
-    throwSourceError(src, "ubdefined identifier", token);
+    throwSourceError(src, "undefined identifier", token);
   }
 
   ExpressionIdentifierValue *expression_value = (ExpressionIdentifierValue*) malloc(sizeof(ExpressionIdentifierValue));

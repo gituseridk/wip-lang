@@ -5,6 +5,7 @@
 void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   if (
     self->result_type.type_id != TYPE_ID_INT &&
+    self->result_type.type_id != TYPE_ID_POINTER &&
     self->result_type.type_id != TYPE_ID_FUNCTION
   ) {
     char err[100];
