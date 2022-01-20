@@ -13,6 +13,7 @@ static void compileSum(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
+  case TYPE_ID_POINTER:
     expressionCompile(left, ARCH_X86, src, false, out_stream);
     expressionCompile(right, ARCH_X86, src, false, out_stream);
 

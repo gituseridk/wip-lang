@@ -5,6 +5,8 @@
 
 #include "../data.h"
 
+// !TODO handle return to not scope functions
+
 void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
@@ -16,7 +18,9 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
 
   if (self->result_type.type_id != TYPE_ID_VOID) {
     unsigned size = getTypeSize(&(self->result_type));
-    size = size / TYPE_SIZE_POINTER * TYPE_SIZE_POINTER + (TYPE_SIZE_POINTER - size % TYPE_SIZE_POINTER);
+    if (size % TYPE_SIZE_POINTER) {
+      size += TYPE_SIZE_POINTER - size % TYPE_SIZE_POINTER;
+    }
     L("    sub     rsp, %d", size);
   }
 

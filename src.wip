@@ -1,17 +1,6 @@
-const size = 100;
+const ptr = allocateInt(100);
+*(ptr + 10) = 100
 
-const arr = allocateInt(size);
+printInt(*(ptr + 10));
 
-var i = arr;
-
-var j = 0;
-
-while j - size {
-  *i = j + j;
-  ++j;
-}
-
-j = 0
-while j - size {
-  print(*(i + j));
-}
+print("\n");

@@ -172,12 +172,11 @@ void defineAllocateInt(FILE *out_stream) {
   L("    xor     rdi, rdi");
   L("    syscall");
 
-  L("    mov     rbx, QWORD [rbp]");
-  L("    mov     QWORD [rbx + 16], rax");
+  L("    mov     QWORD [rbp + 16], rax");
 
-
+  L("    mov     rdi, rax");
+  L("    add     rdi, QWORD [rbp + 24]");
   L("    mov     rax, 12");
-  L("    mov     rdi, QWORD [rbp + 24]");
   L("    syscall");
 
   L("    mov     rsp, rbp");

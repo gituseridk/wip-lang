@@ -6,7 +6,7 @@
 #include "syntax-tree/syntax-helpers.h"
 #include "./data.h"
 
-
+// !TODO typechecking
 void getReturnExpressionData(
   const char *src,
   void *raw_data,
@@ -35,4 +35,6 @@ void getReturnExpressionData(
     offset,
     data->expression->handler->id
   );
+
+  result->child_expressions = newArray(ExpressionData, child_expression);
 }
