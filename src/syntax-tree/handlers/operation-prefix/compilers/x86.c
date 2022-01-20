@@ -35,6 +35,36 @@ static void compileIncDec(
   }
 }
 
+static void compileDereference(
+  char *src,
+  ExpressionData *self,
+  ExpressionData *target,
+  bool address,
+  FILE *out_stream
+) {
+  char err[100];
+  switch (self->result_type.type_id) {
+  case TYPE_ID_INT:
+    expressionCompile(target, ARCH_X86, src, false, out_stream);
+
+    if (address) {
+      return;
+    }
+
+    L("    pop     rax");
+    L("    push    QWORD [rax]");
+
+    return;
+  default:
+    sprintf(
+      err,
+      "dereferencing for %s type is not implemented yet",
+      getTypeName(&(self->result_type))
+    );
+    throwSourceError(src, err, self->token);
+  }
+}
+
 void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   ExpressionData *target = (ExpressionData*) arrayAt(self->child_expressions, 0);
 
@@ -44,6 +74,9 @@ void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FI
     return;
   case OPERATION_PREFIX_ID_DEC:
     compileIncDec(src, self, target, true, address, out_stream);
+    return;
+  case OPERATION_PREFIX_ID_DEREFERENCING:
+    compileDereference(src, self, target, address, out_stream);
     return;
   
   default:
