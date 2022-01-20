@@ -21,8 +21,7 @@ static Array *parseChildExpressions(
   for (int i = 0; i != arrayGetLength(data->nodes); ++i) {
     SyntaxNode *node = (SyntaxNode*) arrayAt(data->nodes, i);
     ExpressionData child_expression;
-    child_expression.result_type.type_id = TYPE_ID_VOID;
-    child_expression.result_type.data = NULL;
+    setVoidType(&(child_expression.result_type));
     child_expression.parent_scope = self;
 
     node->handler->getExpressionData(

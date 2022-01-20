@@ -35,7 +35,7 @@ List *parseFunctionCall(List *start_token, SyntaxNode *left, SyntaxNode *result,
   Array *arguments = createEmptyArray(1, sizeof(SyntaxNode));
   while (true) {
     SyntaxNode arg;
-    current_token = parseExpression(current_token, &arg, error);
+    current_token = parseExpression(current_token, &arg, error, false);
     if (*error != NULL) {
       arrayFree(arguments);
       return current_token;

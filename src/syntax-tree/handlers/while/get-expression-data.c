@@ -18,8 +18,7 @@ void getWhileExpressionData(
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;
-  condition.result_type.type_id = TYPE_ID_VOID;
-  condition.result_type.data = NULL;
+  setVoidType(&(condition.result_type));
 
   data->condition.handler->getExpressionData(
     src,

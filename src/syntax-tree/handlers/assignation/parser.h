@@ -3,6 +3,6 @@
 
 #include "syntax-tree/syntax-node.h"
 
-List *parseAssignation(List *tokens, SyntaxNode *result, char **error);
+List *parseAssignation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **error);
 
 #endif

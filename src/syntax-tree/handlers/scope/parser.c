@@ -61,7 +61,7 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
 
     SyntaxNode node;
     current_token = trimTokensLeftHard(current_token);
-    current_token = parseExpression(current_token, &node, error);
+    current_token = parseExpression(current_token, &node, error, true);
     if (*error != NULL) {
       return current_token;
     }

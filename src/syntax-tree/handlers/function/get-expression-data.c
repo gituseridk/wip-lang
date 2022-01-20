@@ -59,7 +59,7 @@ void getFunctionExpressionData(
     data->body_expression.handler->id
   );
 
-  if (!isSameType(&(body.result_type), &(data->return_type))) {
+  if (!isTypesCompatible(&(body.result_type), &(data->return_type))) {
     throwSourceError(src, "the return type of the function is invalid", data->body_expression.token);
   }
 

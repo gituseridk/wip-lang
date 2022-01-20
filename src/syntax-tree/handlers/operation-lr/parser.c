@@ -91,7 +91,7 @@ List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error);
+  current_token = parseExpression(current_token, &right_syntax_node, error, false);
   if (*error != NULL) {
     return current_token;
   }

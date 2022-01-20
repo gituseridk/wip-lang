@@ -38,7 +38,7 @@ typedef struct {
   bool is_constant;
 } TypeDefinition;
 
-bool isSameType(const TypeDefinition *left, const TypeDefinition *right);
+bool isTypesCompatible(const TypeDefinition *left, const TypeDefinition *right);
 unsigned getTypeSize(const TypeDefinition *type);
 bool isBool(const TypeDefinition *type);
 char *getTypeName(const TypeDefinition *type);

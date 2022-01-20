@@ -5,4 +5,5 @@
 void setVoidType(TypeDefinition *type) {
   type->type_id = TYPE_ID_VOID;
   type->data = NULL;
+  type->is_constant = true;
 }

@@ -18,8 +18,7 @@ void getIfExpressionData(
 
   ExpressionData condition;
   condition.parent_scope = result->parent_scope;
-  condition.result_type.type_id = TYPE_ID_VOID;
-  condition.result_type.data = NULL;
+  setVoidType(&(condition.result_type));
 
   data->condition.handler->getExpressionData(
     src,
@@ -36,8 +35,7 @@ void getIfExpressionData(
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;
-  expression.result_type.type_id = TYPE_ID_VOID;
-  expression.result_type.data = NULL;
+  setVoidType(&(expression.result_type));
 
   data->expression.handler->getExpressionData(
     src,

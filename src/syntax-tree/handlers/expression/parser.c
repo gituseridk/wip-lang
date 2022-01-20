@@ -31,7 +31,6 @@ static Array *getExpressions() {
       &parseScope,
       &parseIf,
       &parseWhile,
-      &parseAssignation,
       &parseOperationPrefix,
       &parseParentheses,
       &parseInitialization,
@@ -52,12 +51,13 @@ static Array *getLeftExpressions() {
       &parseOperation,
       &parseFunctionCall,
       &parseOperationPostfix,
+      &parseAssignation,
     );
   }
   return left_expressions;
 }
 
-List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *result, char **error) {
+List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *result, char **error, bool allow_void) {
   Array *expressions = getLeftExpressions();
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     *error = NULL;
@@ -66,6 +66,9 @@ List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *resul
     List *token_end = chopLeftExpression(start_token, left, result, error);
 
     if (*error == NULL) {
+      if (!allow_void && result->handler->is_void_expression) {
+        *error = "expression cannot be of type void";
+      }
       return token_end;
     }
   }
@@ -73,7 +76,7 @@ List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *resul
   return start_token;
 }
 
-List *parseExpression(List *start_token, SyntaxNode *result, char **error) {
+List *parseExpression(List *start_token, SyntaxNode *result, char **error, bool allow_void) {
   *error = NULL;
   Array *expressions = getExpressions();
 
@@ -88,10 +91,16 @@ List *parseExpression(List *start_token, SyntaxNode *result, char **error) {
 
     *error = NULL;
     List *token_end = chopExpression(current_token, result, error);
+
     if (*error == NULL) {
+      if (!allow_void && result->handler->is_void_expression) {
+        *error = "expression cannot be of type void";
+        return token_end;
+      }
       for(;;) {
         SyntaxNode left_expression_result;
-        List *new_token_end = parseLeftExpression(token_end, result, &left_expression_result, error);
+        List *new_token_end = parseLeftExpression(token_end, result, &left_expression_result, error, allow_void);
+
         if (*error == NULL) {
           *result = left_expression_result;
           token_end = new_token_end;

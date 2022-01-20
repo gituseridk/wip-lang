@@ -17,13 +17,11 @@ void getOperationLRExpressionData(
 
   ExpressionData left;
   left.parent_scope = result->parent_scope;
-  left.result_type.type_id = TYPE_ID_VOID;
-  left.result_type.data = NULL;
+  setVoidType(&(left.result_type));
 
   ExpressionData right;
   right.parent_scope = result->parent_scope;
-  right.result_type.type_id = TYPE_ID_VOID;
-  right.result_type.data = NULL;
+  setVoidType(&(right.result_type));
 
   data->left.handler->getExpressionData(
     src,
@@ -47,7 +45,7 @@ void getOperationLRExpressionData(
     data->left.handler->id
   );
 
-  if (left.result_type.type_id != right.result_type.type_id || left.result_type.data != right.result_type.data) {
+  if (!isTypesCompatible(&(left.result_type), &(right.result_type))) {
     throwSourceError(src, "right side and left side expressions are of different types", token);
   }
 

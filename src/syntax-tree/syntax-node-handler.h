@@ -33,6 +33,7 @@ typedef void (*GetExpressionData)(
 typedef struct {
   int id;
   char *name;
+  bool is_void_expression;
   PrintData printData;
   GetExpressionData getExpressionData;
 } SyntaxNodeHandler;

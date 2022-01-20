@@ -162,6 +162,30 @@ void definePrintInt(FILE *out_stream) {
   L("    ret");
 }
 
+void defineAllocateInt(FILE *out_stream) {
+  L("\n\n%s:", GLOBAL_VAR_NAME_ALLOCATE_INT);
+
+  L("    push    rbp");
+  L("    mov     rbp, rsp");
+
+  L("    mov     rax, 12");
+  L("    xor     rdi, rdi");
+  L("    syscall");
+
+  L("    mov     rbx, QWORD [rbp]");
+  L("    mov     QWORD [rbx + 16], rax");
+
+
+  L("    mov     rax, 12");
+  L("    mov     rdi, QWORD [rbp + 24]");
+  L("    syscall");
+
+  L("    mov     rsp, rbp");
+  L("    pop     rbp");
+
+  L("    ret");
+}
+
 void compileX86(char *src, ExpressionData root_expression, FILE *out_stream) {
   L("section .text");
   L("global _start\n");
@@ -174,4 +198,5 @@ void compileX86(char *src, ExpressionData root_expression, FILE *out_stream) {
   definePrint(out_stream);
   defineIntToStr(out_stream);
   definePrintInt(out_stream);
+  defineAllocateInt(out_stream);
 }

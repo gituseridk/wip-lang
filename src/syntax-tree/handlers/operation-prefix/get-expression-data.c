@@ -19,8 +19,7 @@ void getOperationPrefixExpressionData(
 
   ExpressionData expression;
   expression.parent_scope = result->parent_scope;
-  expression.result_type.type_id = TYPE_ID_VOID;
-  expression.result_type.data = NULL;
+  setVoidType(&(expression.result_type));
 
   data->expression.handler->getExpressionData(
     src,

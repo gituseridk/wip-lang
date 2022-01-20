@@ -1,20 +1,17 @@
-const a = 123;
-const b = 456;
+const size = 100;
 
-const sum = (a: int, b: int): int => {
-  const result = a + b;
-  return result;
-};
+const arr = allocateInt(size);
 
-const sumResult = sum(a, b);
+var i = arr;
 
-print("a + b = ");
-printInt(sumResult);
-print("\n");
+var j = 0;
 
-const printConcat = (a: *char, b: *char) => {
-  print(a);
-  print(b);
+while j - size {
+  *i = j + j;
+  ++j;
 }
 
-printConcat("aaa\n", "bbb\n");
+j = 0
+while j - size {
+  print(*(i + j));
+}

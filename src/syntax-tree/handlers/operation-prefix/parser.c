@@ -54,7 +54,7 @@ List *parseOperationPrefix(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode expression_syntax_node;
-  current_token = parseExpression(current_token, &expression_syntax_node, error);
+  current_token = parseExpression(current_token, &expression_syntax_node, error, false);
   if (*error != NULL) {
     return current_token;
   }

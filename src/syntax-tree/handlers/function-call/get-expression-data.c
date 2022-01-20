@@ -48,8 +48,7 @@ void getFunctionCallExpressionData(
     SyntaxNode *node = (SyntaxNode*) arrayAt(data->arguments, i);
     ExpressionData arg_expression;
     arg_expression.parent_scope = result->parent_scope;
-    arg_expression.result_type.type_id = TYPE_ID_VOID;
-    arg_expression.result_type.data = NULL;
+    setVoidType(&(arg_expression.result_type));
 
     node->handler->getExpressionData(
       src,
@@ -62,7 +61,7 @@ void getFunctionCallExpressionData(
 
     VariableData *original_arg = (VariableData*) arrayAt(function_data->args, i);
 
-    if (!isSameType(&(arg_expression.result_type), &(original_arg->type))) {
+    if (!isTypesCompatible(&(arg_expression.result_type), &(original_arg->type))) {
       char err[100];
       sprintf(
         err,

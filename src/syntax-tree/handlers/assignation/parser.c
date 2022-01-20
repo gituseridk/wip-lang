@@ -10,19 +10,7 @@
 #include "./parser.h"
 #include "./data.h"
 
-Array *left_expression;
-static Array *getLeftExpressions() {
-  if (left_expression == NULL) {
-    left_expression = newArray(
-      ChopExpression,
-      &parseInitialization,
-      &parseIdentifier,
-    );
-  }
-  return left_expression;
-}
-
-List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
+List *parseAssignation(List *tokens, SyntaxNode *left_syntax_node, SyntaxNode *result, char **error) {
   *error = NULL;
   *result = (SyntaxNode) {
     .data = NULL,
@@ -34,20 +22,6 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   
   if (current_token == NULL) {
     *error = "Failed to parse assignation, end of scope";
-    return current_token;
-  }
-
-  SyntaxNode left_syntax_node;
-  Array *left_expression = getLeftExpressions();
-  for (int i = 0; i != arrayGetLength(left_expression); ++i) {
-    ChopExpression chopExpression = *(ChopExpression*) arrayAt(left_expression, i);
-    List *token_end = chopExpression(current_token, &left_syntax_node, error);
-    if (*error == NULL) {
-      current_token = token_end;
-      break;
-    }
-  }
-  if (*error != NULL) {
     return current_token;
   }
 
@@ -70,13 +44,13 @@ List *parseAssignation(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error);
+  current_token = parseExpression(current_token, &right_syntax_node, error, false);
   if (*error != NULL) {
     return current_token;
   }
 
   SyntaxAssignationData *data = malloc(sizeof(SyntaxAssignationData));
-  data->left = left_syntax_node;
+  data->left = *left_syntax_node;
   data->right = right_syntax_node;
   result->data = data;
 
