@@ -1,4 +1,4 @@
-const size = 64;
+const size = 128;
 
 const arr1 = allocateInt(size * 8);
 const arr2 = allocateInt(size * 8);
@@ -49,8 +49,7 @@ const processLine = (arr1: *int, arr2: *int, size: int) => {
   }
 };
 
-print("=====\n");
-
+print("\nRule 110:\n");
 
 var j = size;
 while (j--) {
@@ -76,5 +75,3 @@ while (j--) {
   drawLine(arr2, size);
   processLine(arr2, arr1, size);
 }
-
-print("=====\n");
