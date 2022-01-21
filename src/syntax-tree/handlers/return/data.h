@@ -4,6 +4,11 @@
 #include "syntax-tree/syntax-node.h"
 
 typedef struct {
+  unsigned scope_level;
+} ReturnExpressionData;
+
+
+typedef struct {
   SyntaxNode *expression;
 } SyntaxReturnData;
 

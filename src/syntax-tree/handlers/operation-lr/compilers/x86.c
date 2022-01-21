@@ -34,6 +34,35 @@ static void compileSum(
   }
 }
 
+static void compileProduct(
+  char *src,
+  ExpressionData *self,
+  ExpressionData *left,
+  ExpressionData *right,
+  FILE *out_stream
+) {
+  char err[100];
+  switch (self->result_type.type_id) {
+  case TYPE_ID_INT:
+    expressionCompile(left, ARCH_X86, src, false, out_stream);
+    expressionCompile(right, ARCH_X86, src, false, out_stream);
+
+    L("    pop     rax");
+    L("    pop     rdx");
+    L("    mul     rdx");
+    L("    push    rax");
+
+    return;
+  default:
+    sprintf(
+      err,
+      "product for %s type is not implemented yet",
+      getTypeName(&(self->result_type))
+    );
+    throwSourceError(src, err, self->token);
+  }
+}
+
 void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
@@ -46,6 +75,9 @@ void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *
     return;
   case OPERATION_ID_DIFFERENCE:
     compileSum(src, self, left, right, true, out_stream);
+    return;
+  case OPERATION_ID_PRODUCT:
+    compileProduct(src, self, left, right, out_stream);
     return;
   
   default:

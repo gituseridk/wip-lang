@@ -3,7 +3,8 @@
 #include "expression-data/expression-data.h"
 
 static void defineExit(FILE *out_stream) {
-  L("\n\nexit:");
+  L("\n\n    mov     rax, 0");
+  L("exit:");
   L("    mov     rbx, rax");
   L("    mov     rax, 1");
   L("    int     80h");

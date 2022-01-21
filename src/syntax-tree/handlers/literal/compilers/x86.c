@@ -5,9 +5,10 @@
 unsigned str_counter = 0;
 
 static void compilePointerLiteral(char *src, ExpressionData *self, FILE *out_stream) {
-  L("    jmp     string_literal_end_%d", str_counter);
+  int str_id = str_counter++;
+  L("    jmp     string_literal_end_%d", str_id);
 
-  fprintf(out_stream, "string_literal_%d db ", str_counter);
+  fprintf(out_stream, "string_literal_%d db ", str_id);
 
   char *current_char = (char*) self->value;
   while (*current_char) {
@@ -17,10 +18,8 @@ static void compilePointerLiteral(char *src, ExpressionData *self, FILE *out_str
   }
   fprintf(out_stream, "0\n");
   
-  L("string_literal_end_%d:", str_counter);
-  L("    push    string_literal_%d", str_counter);
-
-  ++str_counter;
+  L("string_literal_end_%d:", str_id);
+  L("    push    string_literal_%d", str_id);
 }
 
 void compileLiteralX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {

@@ -22,10 +22,10 @@
   - [x] char
 - [ ] Compile
   - [ ] arm macos assembly
-  - [ ] x86 linux assembly
+  - [x] x86 linux assembly
   - [ ] WebAssembly
   - [ ] other
-- [ ] Turing-complete
+- [x] Turing-complete (check examples)
 - [ ] Rewrite compiler on itself
 
 ## About project

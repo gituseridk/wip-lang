@@ -34,4 +34,5 @@ void compileScopeX86(char *src, ExpressionData *self, bool address, FILE *out_st
 
   L("    mov     rsp, rbp");
   L("    pop     rbp");
+  L("%s_end:\n", self->scope_label);
 }

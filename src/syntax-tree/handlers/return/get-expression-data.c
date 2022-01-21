@@ -36,5 +36,13 @@ void getReturnExpressionData(
     data->expression->handler->id
   );
 
+  int scope_level = getFunctionScopeLevel(result->parent_scope);
+  if (scope_level < 0) {
+    throwSourceError(src, "unexpected return", token);
+  }
+  ReturnExpressionData *value = malloc(sizeof(ReturnExpressionData));
+  value->scope_level = scope_level;
+  
+  result->value = value;
   result->child_expressions = newArray(ExpressionData, child_expression);
 }

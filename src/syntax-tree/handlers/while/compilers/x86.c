@@ -7,7 +7,9 @@ int whiles_counter = 0;
 void compileWhileX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
-  L("while_condition_%d:", whiles_counter);
+  int while_id = whiles_counter++;
+
+  L("while_condition_%d:", while_id);
 
   ExpressionData *condition = (ExpressionData*) arrayAt(self->child_expressions, 0);
 
@@ -17,10 +19,10 @@ void compileWhileX86(char *src, ExpressionData *self, bool address, FILE *out_st
 
   L("    pop     rax");
   L("    cmp     rax, 0");
-  L("    jz      while_end_%d", whiles_counter);
+  L("    jz      while_end_%d", while_id);
 
   expressionCompile(body, ARCH_X86, src, false, out_stream);
-  L("    jmp     while_condition_%d", whiles_counter);
+  L("    jmp     while_condition_%d", while_id);
   
-  L("while_end_%d:\n", whiles_counter++);
+  L("while_end_%d:\n", while_id);
 }

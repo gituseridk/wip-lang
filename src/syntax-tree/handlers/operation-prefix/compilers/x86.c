@@ -22,8 +22,20 @@ static void compileIncDec(
     } else {
       L("    push    QWORD [rax]");
     }
-
     return;
+
+  case TYPE_ID_POINTER:
+    expressionCompile(target, ARCH_X86, src, true, out_stream);
+
+    L("    pop     rax");
+    L("    %s     QWORD [rax], %d", dec ? "sub" : "add", TYPE_SIZE_POINTER);
+    if (address) {
+      L("    push    rax");
+    } else {
+      L("    push    QWORD [rax]");
+    }
+    return;
+
   default:
     sprintf(
       err,

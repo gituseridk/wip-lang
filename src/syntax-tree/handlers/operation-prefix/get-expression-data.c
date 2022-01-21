@@ -43,8 +43,13 @@ void getOperationPrefixExpressionData(
   }
 
   // !TODO add expression overload
-  if (expression.result_type.type_id != TYPE_ID_INT) {
-    throwSourceError(src, "wrong expression type, expected int", token);
+  if (
+    expression.result_type.type_id != TYPE_ID_INT &&
+    expression.result_type.type_id != TYPE_ID_POINTER
+  ) {
+    char err[100];
+    sprintf(err, "prefix operarion for type \"$%s\" is not supported yet", getTypeName(&(expression.result_type)));
+    throwSourceError(src, err, token);
   }
 
   result->result_type = expression.result_type;

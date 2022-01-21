@@ -27,6 +27,15 @@ void compileReturnX86(char *src, ExpressionData *self, bool address, FILE *out_s
 
   L("    pop     rax");
 
-  L("    mov     rbx, QWORD [rbp]");
-  L("    mov     QWORD [rbx + 16], rax");
+  ReturnExpressionData *return_data = (ReturnExpressionData*) self->value;
+  unsigned fucntion_scope_level = return_data->scope_level;
+  while (fucntion_scope_level--) {
+    L("    mov     rbp, QWORD [rbp]");
+  }
+
+  L("    mov     QWORD [rbp + 16], rax");
+
+  L("    mov     rsp, rbp");
+  L("    pop     rbp");
+  L("    ret");
 }
