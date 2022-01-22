@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
   if (argc != 2) {
-    printf("wrong number of args, expected input file name");
+    printf("wrong number of args, expected input file name\n");
     exit(1);
   }
 
