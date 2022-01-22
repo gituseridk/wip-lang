@@ -12,9 +12,15 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
 
   ExpressionData *target = (ExpressionData*) self->value;
 
+  L("    push    rbp");
+
+  unsigned args_size = 0;
+
   for (int i = arrayGetLength(self->child_expressions) - 1; i != -1; --i) {
-    expressionCompile(arrayAt(self->child_expressions, i), ARCH_X86, src, false, out_stream);
-  } 
+    ExpressionData *arg = (ExpressionData*) arrayAt(self->child_expressions, i);
+    expressionCompile(arg, ARCH_X86, src, false, out_stream);
+    args_size += getTypeSize(&(arg->result_type));
+  }
 
   if (self->result_type.type_id != TYPE_ID_VOID) {
     unsigned size = getTypeSize(&(self->result_type));
@@ -28,7 +34,31 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
 
   L("    pop     rax");
   L("    pop     rbx");
+
+  L("    mov     rbp, rbx");
+
   L("    call    rax");
 
-  // !TODO push reslt value to stack
+  switch (self->result_type.type_id)
+  {
+  case TYPE_ID_VOID:
+    L("    add     rsp, %d", args_size);
+    L("    pop     rbp");
+    break;
+
+  case TYPE_ID_INT:
+  case TYPE_ID_POINTER:
+    L("    pop     rax");
+    L("    add     rsp, %d", args_size);
+    L("    pop     rbp");
+    L("    push    rax");
+    break;
+  
+  default: {
+    char err[100];
+    sprintf(err, "function call with result type \"%s\" is not implemented yet", getTypeName(&(self->result_type)));
+    throwSourceError(src, err, self->token);
+    break;
+  }
+  }
 }
