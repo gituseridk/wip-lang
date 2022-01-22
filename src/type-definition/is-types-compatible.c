@@ -10,6 +10,7 @@ bool isTypesCompatible(const TypeDefinition *left, const TypeDefinition *right) 
   if (left_id + right_id - TYPE_ID_INT - TYPE_ID_POINTER == 0) {
     return true;
   }
+
   if (left_id != right_id) {
     return false;
   }
@@ -20,7 +21,10 @@ bool isTypesCompatible(const TypeDefinition *left, const TypeDefinition *right) 
   if (left_id == TYPE_ID_POINTER && right_id == TYPE_ID_POINTER) {
     TypePointerData *left_ptr_data = (TypePointerData*) left->data;
     TypePointerData *right_ptr_data = (TypePointerData*) right->data;
-    return isTypesCompatible(&(left_ptr_data->type), &(right_ptr_data->type));
+    return
+      right_ptr_data->type.type_id == TYPE_ID_VOID ||
+      left_ptr_data->type.type_id == TYPE_ID_VOID ||
+      isTypesCompatible(&(left_ptr_data->type), &(right_ptr_data->type));
   }
 
   return left->data == right->data;

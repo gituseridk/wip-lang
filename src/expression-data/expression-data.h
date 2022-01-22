@@ -25,7 +25,7 @@
 #define EXPRESSION_OPERATIONS             15
 
 #define GLOBAL_VAR_NAME_PRINT_INT         "printInt"
-#define GLOBAL_VAR_NAME_ALLOCATE_INT      "allocateInt"
+#define GLOBAL_VAR_NAME_ALLOCATE          "allocate"
 #define GLOBAL_VAR_NAME_PRINT             "print"
 #define GLOBAL_VAR_NAME_INT_TO_STR        "intToStr"
 #define GLOBAL_VAR_NAME_STR_LEN           "strLen"

@@ -66,11 +66,11 @@ static void defineAllocateInt(int *offset) {
       },
     },
   );
-  type_data->label = GLOBAL_VAR_NAME_ALLOCATE_INT;
+  type_data->label = GLOBAL_VAR_NAME_ALLOCATE;
 
   TypePointerData *result_ptr_data = malloc(sizeof(TypePointerData));
   result_ptr_data->type = (TypeDefinition) {
-    .type_id = TYPE_ID_INT,
+    .type_id = TYPE_SIZE_VOID,
     .is_constant = false,
     .data = NULL,
   };
@@ -87,9 +87,9 @@ static void defineAllocateInt(int *offset) {
     .type_id = TYPE_ID_FUNCTION,
   };
 
-  mapSet(global_variables, GLOBAL_VAR_NAME_ALLOCATE_INT, &(VariableData) {
+  mapSet(global_variables, GLOBAL_VAR_NAME_ALLOCATE, &(VariableData) {
     .scope = NULL,
-    .name = GLOBAL_VAR_NAME_ALLOCATE_INT,
+    .name = GLOBAL_VAR_NAME_ALLOCATE,
     .scope_offset = *offset,
     .type = type_def,
   });

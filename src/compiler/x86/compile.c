@@ -163,8 +163,8 @@ void definePrintInt(FILE *out_stream) {
   L("    ret");
 }
 
-void defineAllocateInt(FILE *out_stream) {
-  L("\n\n%s:", GLOBAL_VAR_NAME_ALLOCATE_INT);
+void defineAllocate(FILE *out_stream) {
+  L("\n\n%s:", GLOBAL_VAR_NAME_ALLOCATE);
 
   L("    push    rbp");
   L("    mov     rbp, rsp");
@@ -198,5 +198,5 @@ void compileX86(char *src, ExpressionData root_expression, FILE *out_stream) {
   definePrint(out_stream);
   defineIntToStr(out_stream);
   definePrintInt(out_stream);
-  defineAllocateInt(out_stream);
+  defineAllocate(out_stream);
 }

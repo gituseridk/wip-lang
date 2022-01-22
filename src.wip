@@ -1,7 +1,7 @@
 const size = 128;
 
-const arr1 = allocateInt(size * 8);
-const arr2 = allocateInt(size * 8);
+const arr1: *int = allocate(size * 8);
+const arr2: *int = allocate(size * 8);
 
 var i = 0;
 
