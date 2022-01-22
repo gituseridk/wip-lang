@@ -6,8 +6,13 @@
 #include "syntax-tree/syntax-tree.h"
 #include "compiler/compiler.h"
 
-int main() {
-  char *file_name = "./src.wip";
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    printf("wrong number of args, expected input file name");
+    exit(1);
+  }
+
+  char *file_name = argv[1];
   FILE *file = fopen(file_name, "r"); // read mode
 
   if (file == NULL) {
