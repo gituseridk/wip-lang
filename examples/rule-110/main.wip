@@ -12,6 +12,7 @@ while (i - size) {
 
 *(arr1 + ((size - 1) * 8)) = 1
 
+
 const processLine = (arr1: *int, arr2: *int, size: int) => {
 
   var i = 0;

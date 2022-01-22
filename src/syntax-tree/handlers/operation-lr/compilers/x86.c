@@ -10,19 +10,32 @@ static void compileSum(
   bool difference,
   FILE *out_stream
 ) {
+  expressionCompile(left, ARCH_X86, src, false, out_stream);
+  expressionCompile(right, ARCH_X86, src, false, out_stream);
+
   char err[100];
   switch (self->result_type.type_id) {
-  case TYPE_ID_INT:
-  case TYPE_ID_POINTER:
-    expressionCompile(left, ARCH_X86, src, false, out_stream);
-    expressionCompile(right, ARCH_X86, src, false, out_stream);
-
+  case TYPE_ID_INT: {
     L("    pop     rbx");
     L("    pop     rax");
     L("    %s     rax, rbx", difference ? "sub" : "add");
     L("    push    rax");
+    break;
+  }
+  case TYPE_ID_POINTER: {
+    unsigned type_size = getTypeSize(&(left->result_type));
+
+    L("    pop     rax");
+    L("    mov     rbx, %d", type_size);
+    L("    mul     rbx");
+
+    L("    pop     rbx");
+    
+    L("    %s     rbx, rax", difference ? "sub" : "add");
+    L("    push    rbx");
 
     return;
+  }
   default:
     sprintf(
       err,
