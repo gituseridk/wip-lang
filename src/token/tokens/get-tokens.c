@@ -25,6 +25,7 @@ Array *getTokens() {
     return tokens;
   }
   tokens = newArray(Token, 
+    createToken(comment, TOKEN_COMMENT),
     createToken(literal_string, TOKEN_LITERAL_STRING),
     createToken(literal_float, TOKEN_LITERAL_FLOAT),
     createToken(literal_int, TOKEN_LITERAL_INT),
@@ -62,8 +63,6 @@ Array *getTokens() {
     createToken(operator_ratio, TOKEN_OPERATOR_RATIO),
     createToken(operator_bit_or, TOKEN_OPERATOR_BIT_OR),
     createToken(operator_bit_and, TOKEN_OPERATOR_BIT_AND),
-
-    createToken(comment, TOKEN_COMMENT),
   );
 
   return tokens;

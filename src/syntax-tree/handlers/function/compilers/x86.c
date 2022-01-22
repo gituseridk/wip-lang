@@ -34,5 +34,6 @@ void compileFunctionX86(char *src, ExpressionData *self, bool address, FILE *out
 
   L("%s_end:\n", self->scope_label);
 
+  L("    push    rbp");
   L("    push    %s", self->scope_label);
 }

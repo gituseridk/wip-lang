@@ -23,7 +23,8 @@ void compileScopeX86(char *src, ExpressionData *self, bool address, FILE *out_st
       FunctionTypeData *func_data = (FunctionTypeData*) var->type.data;
       L("    mov     rax, rbp");
       addIntToRegX86("rax", -var->scope_offset, out_stream);
-      L("    mov     QWORD [rax], %s", func_data->label);
+      L("    mov     QWORD [rax], rbp");
+      L("    mov     QWORD [rax - %d], %s", TYPE_SIZE_POINTER, func_data->label);
     }
   }
 

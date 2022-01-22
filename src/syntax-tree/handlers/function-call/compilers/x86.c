@@ -27,6 +27,7 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
   expressionCompile(target, ARCH_X86, src, false, out_stream);
 
   L("    pop     rax");
+  L("    pop     rbx");
   L("    call    rax");
 
   // !TODO push reslt value to stack

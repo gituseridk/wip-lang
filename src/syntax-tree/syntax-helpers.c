@@ -22,8 +22,14 @@ List *chopToken(List *start_token, int token_id, const char *token_value, char *
   return listNext(start_token);
 }
 
+static bool isWhiteSpaceToken(List *token) {
+  TokenData *token_data = (TokenData*)listGetValue(token);
+  int id = token_data->token.id;
+  return id == TOKEN_WHITE_SPACE || id == TOKEN_COMMENT;
+}
+
 List *trimTokensLeft(List *start_token) {
-  while (start_token != NULL && ((TokenData*)listGetValue(start_token))->token.id == TOKEN_WHITE_SPACE) {
+  while (start_token != NULL && isWhiteSpaceToken(start_token)) {
     start_token = listNext(start_token);
   }
   return start_token;
@@ -47,7 +53,9 @@ List *chopExpressionEnd(List *start_token, char **error) {
 
 static bool isTrmableHard(TokenData *token) {
   return token != NULL && (
-    token->token.id == TOKEN_WHITE_SPACE || token->token.id == TOKEN_SEPARATOR_EXPRESSION
+    token->token.id == TOKEN_WHITE_SPACE ||
+    token->token.id == TOKEN_COMMENT ||
+    token->token.id == TOKEN_SEPARATOR_EXPRESSION
   );
 }
 

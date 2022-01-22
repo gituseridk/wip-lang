@@ -25,7 +25,7 @@
 #define TYPE_ID_POINTER           4
 #define TYPE_NAME_POINTER         "pointer"
 
-#define TYPE_SIZE_FUNCTION        TYPE_SIZE_POINTER
+#define TYPE_SIZE_FUNCTION        TYPE_SIZE_POINTER * 2
 #define TYPE_ID_FUNCTION          5
 #define TYPE_NAME_FUNCTION        "function"
 

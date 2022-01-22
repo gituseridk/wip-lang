@@ -3,16 +3,6 @@
 #include "compiler/x86/compile-utils.h"
 
 void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
-  if (
-    self->result_type.type_id != TYPE_ID_INT &&
-    self->result_type.type_id != TYPE_ID_POINTER &&
-    self->result_type.type_id != TYPE_ID_FUNCTION
-  ) {
-    char err[100];
-    sprintf(err, "variables with type %s is not implemented yet\n", getTypeName(&(self->result_type)));
-    throwSourceError(src, err, self->token);
-  }
-
   ExpressionIdentifierValue *identifier = (ExpressionIdentifierValue*) self->value;
 
   L("    mov     rax, rbp");
@@ -26,11 +16,36 @@ void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *o
     L("    push    rax");
     return;
   }
-
   int offset = identifier->var->scope_offset;
-  if (offset < 0) {
-    L("    push    QWORD [rax + %d]", -offset);
-  } else {
-    L("    push    QWORD [rax - %d]", offset);
+
+  switch (self->result_type.type_id)
+  {
+  case TYPE_ID_INT:
+  case TYPE_ID_POINTER: {
+    if (offset < 0) {
+      L("    push    QWORD [rax + %d]", -offset);
+    } else {
+      L("    push    QWORD [rax - %d]", offset);
+    }
+
+    break;
+  }
+  case TYPE_ID_FUNCTION: {
+    if (offset < 0) {
+      L("    push    QWORD [rax + %d]", -offset + TYPE_SIZE_POINTER);
+      L("    push    QWORD [rax + %d]", -offset);
+    } else {
+      L("    push    QWORD [rax - %d]", offset);
+      L("    push    QWORD [rax - %d]", offset + TYPE_SIZE_POINTER);
+    }
+
+    break;
+  }
+  
+  default: {
+    char err[100];
+    sprintf(err, "variables with type %s is not implemented yet\n", getTypeName(&(self->result_type)));
+    throwSourceError(src, err, self->token);
+  }
   }
 }
