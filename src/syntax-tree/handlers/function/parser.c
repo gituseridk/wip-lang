@@ -54,6 +54,13 @@ List* trimArguments(List *start_token, Array *arguments, char **error) {
     return current_token;
   }
 
+  current_token = trimTokensLeft(current_token);
+  current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
+  if (*error == NULL) {
+    return current_token;
+  }
+  *error = NULL;
+
   while (true) {
     current_token = trimTokensLeft(current_token);
     FunctionArgument argument;

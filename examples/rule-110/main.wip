@@ -6,12 +6,11 @@ const arr2: *int = allocate(size * 8);
 var i = 0;
 
 while (i - size) {
-  *(arr1 + (i*8)) = 0;
+  *(arr1 + i) = 0;
   ++i;
 }
 
-*(arr1 + ((size - 1) * 8)) = 1
-
+*(arr1 + (size - 1)) = 1;
 
 const processLine = (arr1: *int, arr2: *int, size: int) => {
 
@@ -19,16 +18,16 @@ const processLine = (arr1: *int, arr2: *int, size: int) => {
   while (i - size) {
     var left = 0;
     if (i) {
-      left = *(arr1 + ((i - 1) * 8));
+      left = *(arr1 + (i - 1));
     }
     var right = 0;
     if (i - size - 1) {
-      right = *(arr1 + ((i + 1) * 8));
+      right = *(arr1 + (i + 1));
     }
 
-    const current =  *(arr1 + (i * 8));
+    const current =  *(arr1 + i);
 
-    (*(arr2 + (i * 8))) = ((left: int, middle: int, right: int): int => {
+    (*(arr2 + i)) = ((left: int, middle: int, right: int): int => {
       if (left) {
         if (middle) {
           if (right) {
@@ -57,7 +56,7 @@ while (j--) {
   const drawLine = (arr: *int, size: int) => {
     var i = 0;
     while (i - size) {
-      const current = *(arr + (i*8));
+      const current = *(arr + i);
 
       if (current) {
         print("#");
