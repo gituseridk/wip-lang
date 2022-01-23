@@ -2,7 +2,6 @@
 #include "utils/logger/log-src-error.h"
 #include "compiler/x86/compile-utils.h"
 
-unsigned negotation_id = 0;
 
 static void compileIncDec(
   char *src,
@@ -93,19 +92,11 @@ static void compileNegotation(
   case TYPE_ID_INT:
     expressionCompile(target, ARCH_X86, src, false, out_stream);
 
-    // !TODO optimize negotation
-    int current_id = negotation_id++;
     L("    pop     rax");
     L("    cmp     rax, 0");
-    L("    jz      neg_%d", current_id);
-
-    L("    push    0");
-    L("    jmp     neg_end_%d", current_id);
-    
-    L("neg_%d:", current_id);
-    L("    push    1");
-
-    L("neg_end_%d:", current_id);
+    L("    sete    al");
+    L("    movzx   rax, al");
+    L("    push    rax");
 
     return;
   default:
