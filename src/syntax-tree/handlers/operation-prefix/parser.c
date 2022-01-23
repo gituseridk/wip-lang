@@ -29,6 +29,7 @@ List *parseOperationPrefix(List *tokens, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_OPERATION_PREFIX),
+    .priority = SYNTAX_OPERATION_PREFIX * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(tokens);
@@ -54,7 +55,7 @@ List *parseOperationPrefix(List *tokens, SyntaxNode *result, char **error) {
   }
   
   SyntaxNode expression_syntax_node;
-  current_token = parseExpression(current_token, &expression_syntax_node, error, false);
+  current_token = parseExpression(current_token, &expression_syntax_node, error, false, result->priority);
   if (*error != NULL) {
     return current_token;
   }

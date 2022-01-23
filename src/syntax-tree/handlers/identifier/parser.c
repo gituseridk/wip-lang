@@ -13,6 +13,7 @@ List* parseIdentifier(List *token, SyntaxNode *result, char **error) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_IDENTIFIER), 
     .token = token,
+    .priority = SYNTAX_IDENTIFIER * SYNTAX_PRIORITY_OFFSET,
   };
 
   TokenData *token_data = listGetValue(token);

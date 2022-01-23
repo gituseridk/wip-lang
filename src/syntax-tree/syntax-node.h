@@ -9,6 +9,7 @@ typedef struct SyntaxNode SyntaxNode;
 struct SyntaxNode {
   List *token;
   SyntaxNodeHandler *handler;
+  int priority;
   void *data;
 };
 

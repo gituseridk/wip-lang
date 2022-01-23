@@ -94,6 +94,7 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_FUNCTION),
+    .priority = SYNTAX_FUNCTION * SYNTAX_PRIORITY_OFFSET,
   };
   
   List *current_token = trimTokensLeft(tokens);
@@ -139,7 +140,7 @@ List *parseFunction(List *tokens, SyntaxNode *result, char **error) {
 
   current_token = trimTokensLeft(current_token);
 
-  current_token = parseExpression(current_token, &(result_data->body_expression), error, true);
+  current_token = parseExpression(current_token, &(result_data->body_expression), error, true, 0);
   if (*error != NULL)  {
     free(result_data);
     return current_token;

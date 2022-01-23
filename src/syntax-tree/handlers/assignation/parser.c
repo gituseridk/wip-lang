@@ -15,6 +15,7 @@ List *parseAssignation(List *tokens, SyntaxNode *left_syntax_node, SyntaxNode *r
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_ASSIGNATION),
+    .priority = SYNTAX_ASSIGNATION * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(tokens);
@@ -44,7 +45,7 @@ List *parseAssignation(List *tokens, SyntaxNode *left_syntax_node, SyntaxNode *r
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error, false);
+  current_token = parseExpression(current_token, &right_syntax_node, error, false, result->priority);
   if (*error != NULL) {
     return current_token;
   }

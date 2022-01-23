@@ -28,7 +28,9 @@ Array *createEmptyArray(unsigned reserved, unsigned el_size) {
 Array* createArray(unsigned length, unsigned el_size, const void *data) {
   unsigned dataSize = el_size * length;
   void *value = malloc(el_size * length);
-  memcpy(value, data, dataSize);
+  if (data != NULL) {
+    memcpy(value, data, dataSize);
+  }
 
   Array *result = malloc(sizeof(struct Array));
   result->el_size = el_size;

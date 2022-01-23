@@ -66,6 +66,7 @@ List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_OPERATION_LR),
+    .priority = SYNTAX_OPERATION_LR * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(tokens);
@@ -91,7 +92,7 @@ List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **
   }
   
   SyntaxNode right_syntax_node;
-  current_token = parseExpression(current_token, &right_syntax_node, error, false);
+  current_token = parseExpression(current_token, &right_syntax_node, error, false, result->priority);
   if (*error != NULL) {
     return current_token;
   }

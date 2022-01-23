@@ -12,6 +12,7 @@ List *parseIf(List *tokens, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_IF),
+    .priority = SYNTAX_IF * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(tokens);
@@ -26,7 +27,7 @@ List *parseIf(List *tokens, SyntaxNode *result, char **error) {
   SyntaxIfData *data = malloc(sizeof(SyntaxIfData));
 
   current_token = trimTokensLeft(current_token);
-  current_token = parseExpression(current_token, &(data->condition), error, false);
+  current_token = parseExpression(current_token, &(data->condition), error, false, result->priority);
   if (*error != NULL) {
     free(data);
     return current_token;

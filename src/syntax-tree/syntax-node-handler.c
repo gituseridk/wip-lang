@@ -38,107 +38,169 @@ static Array *getSyntaxNodeHandlers() {
   if (handlers != NULL) {
     return handlers;
   }
-  handlers = newArray(
-    SyntaxNodeHandler,
-    (SyntaxNodeHandler) {
+
+  handlers = createArray(
+    SYNTAX_ID_SIZE,
+    sizeof(SyntaxNodeHandler),
+    NULL
+  );
+
+
+  arraySetElementAt(
+    handlers,
+    SYNTAX_SCOPE,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_SCOPE,
       .name = "scope",
       .is_void_expression = true,
       .printData = (PrintData) printSyntaxScopeData,
       .getExpressionData = (GetExpressionData) getScopeExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_IF,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_IF,
       .name = "if",
       .is_void_expression = true,
       .printData = (PrintData) printSyntaxIfData,
       .getExpressionData = (GetExpressionData) getIfExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_WHILE,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_WHILE,
       .name = "while",
       .is_void_expression = true,
       .printData = (PrintData) printSyntaxWhileData,
       .getExpressionData = (GetExpressionData) getWhileExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_FUNCTION_CALL,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_FUNCTION_CALL,
       .name = "function-call",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxFunctionCallData,
       .getExpressionData = (GetExpressionData) getFunctionCallExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_ASSIGNATION,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_ASSIGNATION,
       .name = "assignation",
       .is_void_expression = true,
       .printData = (PrintData) printSyntaxAssignationData,
       .getExpressionData = (GetExpressionData) getAssignationExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_OPERATION_PREFIX,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_OPERATION_PREFIX,
       .name = "operation-prefix",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxOperationPrefixData,
       .getExpressionData = (GetExpressionData) getOperationPrefixExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_OPERATION_POSTFIX,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_OPERATION_POSTFIX,
       .name = "operation-postfix",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxOperationPostfixData,
       .getExpressionData = (GetExpressionData) getOperationPostfixExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_OPERATION_LR,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_OPERATION_LR,
       .name = "operation-lr",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxOperationLRData,
       .getExpressionData = (GetExpressionData) getOperationLRExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_INITIALIZATION,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_INITIALIZATION,
       .name = "initialization",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxInitializationData,
       .getExpressionData = (GetExpressionData) getInitializationExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_LITERAL,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_LITERAL,
       .name = "literal",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxLiteralData,
       .getExpressionData = (GetExpressionData) getLiteralExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_IDENTIFIER,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_IDENTIFIER,
       .name = "identifier",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxIdentifierData,
       .getExpressionData = (GetExpressionData) getIdentifierExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_FUNCTION,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_FUNCTION,
       .name = "function",
       .is_void_expression = false,
       .printData = (PrintData) printSyntaxFunctionData,
       .getExpressionData = (GetExpressionData) getFunctionExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_RETURN,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_RETURN,
       .name = "return",
       .is_void_expression = true,
       .printData = (PrintData) printSyntaxReturnData,
       .getExpressionData = (GetExpressionData) getReturnExpressionData,
-    },
-    (SyntaxNodeHandler) {
+    })
+  );
+  arraySetElementAt(
+    handlers,
+    SYNTAX_TYPE_DEFINITION,
+    &((SyntaxNodeHandler) {
       .id = SYNTAX_TYPE_DEFINITION,
       .name = "type_definition",
       .is_void_expression = true,
       .printData = (PrintData) printSyntaxTypeDefinitionData,
       .getExpressionData = (GetExpressionData) getNotImplementedExpressionData,
-    },
+    })
   );
+
   return handlers;
 }
 

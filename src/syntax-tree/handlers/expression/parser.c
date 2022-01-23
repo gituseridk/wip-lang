@@ -57,7 +57,14 @@ static Array *getLeftExpressions() {
   return left_expressions;
 }
 
-List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *result, char **error, bool allow_void) {
+static List *parseLeftExpression(
+  List *start_token,
+  SyntaxNode *left,
+  SyntaxNode *result,
+  char **error,
+  bool allow_void,
+  int min_priority
+) {
   Array *expressions = getLeftExpressions();
   for (int i = 0; i != arrayGetLength(expressions); ++i) {
     *error = NULL;
@@ -66,6 +73,9 @@ List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *resul
     List *token_end = chopLeftExpression(start_token, left, result, error);
 
     if (*error == NULL) {
+      if (result->priority < min_priority) {
+        continue;
+      }
       if (!allow_void && result->handler->is_void_expression) {
         *error = "expression cannot be of type void";
       }
@@ -76,7 +86,7 @@ List *parseLeftExpression(List *start_token, SyntaxNode *left, SyntaxNode *resul
   return start_token;
 }
 
-List *parseExpression(List *start_token, SyntaxNode *result, char **error, bool allow_void) {
+List *parseExpression(List *start_token, SyntaxNode *result, char **error, bool allow_void, int min_priority) {
   *error = NULL;
   Array *expressions = getExpressions();
 
@@ -93,13 +103,23 @@ List *parseExpression(List *start_token, SyntaxNode *result, char **error, bool 
     List *token_end = chopExpression(current_token, result, error);
 
     if (*error == NULL) {
+      if (result->priority < min_priority) {
+        continue;
+      }
       if (!allow_void && result->handler->is_void_expression) {
         *error = "expression cannot be of type void";
         return token_end;
       }
       for(;;) {
         SyntaxNode left_expression_result;
-        List *new_token_end = parseLeftExpression(token_end, result, &left_expression_result, error, allow_void);
+        List *new_token_end = parseLeftExpression(
+          token_end,
+          result,
+          &left_expression_result,
+          error,
+          allow_void,
+          min_priority
+        );
 
         if (*error == NULL) {
           *result = left_expression_result;

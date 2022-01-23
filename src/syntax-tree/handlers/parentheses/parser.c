@@ -20,11 +20,13 @@ List* parseParentheses(List *start_token, SyntaxNode *result, char **error) {
   List *current_token = trimTokensLeft(listNext(start_token));
   result->token = current_token;
 
-  current_token = parseExpression(current_token, result, error, false);
+  current_token = parseExpression(current_token, result, error, false, 0);
 
   if (*error != NULL) {
     return current_token;
   }
+
+  result->priority = SYNTAX_ID_SIZE * SYNTAX_PRIORITY_OFFSET;
 
   current_token = trimTokensLeft(current_token);
 

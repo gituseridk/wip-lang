@@ -15,6 +15,7 @@ List *parseReturn(List *start_token, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_RETURN),
+    .priority = SYNTAX_RETURN * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(start_token);
@@ -30,7 +31,7 @@ List *parseReturn(List *start_token, SyntaxNode *result, char **error) {
   result->data = malloc(sizeof(SyntaxReturnData));
 
   // !TODO check if "return" without value ends properly;
-  List *new_token = parseExpression(current_token, expression, error, false);
+  List *new_token = parseExpression(current_token, expression, error, false, result->priority);
   if (*error != NULL) {
     *error = NULL;
     ((SyntaxReturnData*) result->data)->expression = NULL;

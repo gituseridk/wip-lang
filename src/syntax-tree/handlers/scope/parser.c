@@ -44,6 +44,7 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
     .data = data,
     .token = tokens,
     .handler = getSyntaxNodeHandler(SYNTAX_SCOPE),
+    .priority = SYNTAX_SCOPE * SYNTAX_PRIORITY_OFFSET,
   };
 
   data->nodes = createEmptyArray(1, sizeof(SyntaxNode));
@@ -61,7 +62,7 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
 
     SyntaxNode node;
     current_token = trimTokensLeftHard(current_token);
-    current_token = parseExpression(current_token, &node, error, true);
+    current_token = parseExpression(current_token, &node, error, true, result->priority);
     if (*error != NULL) {
       return current_token;
     }

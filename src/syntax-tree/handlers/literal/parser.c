@@ -16,6 +16,7 @@ List* parseLiteral(List *token, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_LITERAL), 
+    .priority = SYNTAX_LITERAL * SYNTAX_PRIORITY_OFFSET,
   };
   result->token = token;
 

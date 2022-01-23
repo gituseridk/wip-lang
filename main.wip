@@ -10,8 +10,6 @@ while (i - size) {
   ++i;
 }
 
-*(arr1 + (size - 1)) = 1;
-
 const calcCell = (left: int, middle: int, right: int): int => {
   if (left) {
     if (middle) {
@@ -31,8 +29,9 @@ const calcCell = (left: int, middle: int, right: int): int => {
   return 0;
 }
 
-const processLine = (arr1: *int, arr2: *int, size: int) => {
+*(arr1 + (size - 1)) = 1;
 
+const processLine = (arr1: *int, arr2: *int, size: int) => {
   var i = 0;
   while (i - size) {
     var left = 0;

@@ -5,20 +5,30 @@
 #include "utils/array/array.h"
 #include "utils/list/list.h"
 
-#define SYNTAX_SCOPE                0
-#define SYNTAX_IF                   1
-#define SYNTAX_WHILE                2
-#define SYNTAX_FUNCTION_CALL        3
-#define SYNTAX_ASSIGNATION          4
-#define SYNTAX_OPERATION_PREFIX     5
-#define SYNTAX_OPERATION_POSTFIX    6
-#define SYNTAX_OPERATION_LR         7
-#define SYNTAX_INITIALIZATION       8
-#define SYNTAX_LITERAL              9
-#define SYNTAX_IDENTIFIER           10
-#define SYNTAX_FUNCTION             11
-#define SYNTAX_RETURN               12
-#define SYNTAX_TYPE_DEFINITION      13
+#define SYNTAX_PRIORITY_OFFSET 100
+
+enum SyntaxId {
+  SYNTAX_SCOPE,
+
+  SYNTAX_ASSIGNATION,
+  SYNTAX_RETURN,
+  SYNTAX_OPERATION_LR,
+
+  SYNTAX_OPERATION_PREFIX,
+  SYNTAX_OPERATION_POSTFIX,
+
+  SYNTAX_INITIALIZATION,
+  SYNTAX_LITERAL,
+  SYNTAX_FUNCTION_CALL,
+  SYNTAX_IDENTIFIER,
+  SYNTAX_FUNCTION,
+  SYNTAX_TYPE_DEFINITION,
+
+  SYNTAX_IF,
+  SYNTAX_WHILE,
+
+  SYNTAX_ID_SIZE,
+};
 
 typedef void (*PrintData)(void *data);
 typedef void (*GetExpressionData)(

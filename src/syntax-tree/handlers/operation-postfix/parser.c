@@ -26,6 +26,7 @@ List *parseOperationPostfix(List *tokens, SyntaxNode *left, SyntaxNode *result, 
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_OPERATION_POSTFIX),
+    .priority = SYNTAX_OPERATION_POSTFIX * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(tokens);

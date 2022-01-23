@@ -15,6 +15,7 @@ List* parseTypeDefinition(List *start_token, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_TYPE_DEFINITION), 
+    .priority = SYNTAX_TYPE_DEFINITION * SYNTAX_PRIORITY_OFFSET,
   };
 
   List *current_token = trimTokensLeft(start_token);

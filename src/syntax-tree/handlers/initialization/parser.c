@@ -39,6 +39,7 @@ List *parseInitialization(List *token, SyntaxNode *result, char **error) {
   *result = (SyntaxNode) {
     .data = NULL,
     .handler = getSyntaxNodeHandler(SYNTAX_INITIALIZATION), 
+    .priority = SYNTAX_INITIALIZATION * SYNTAX_PRIORITY_OFFSET,
     .token = token,
   };
 
