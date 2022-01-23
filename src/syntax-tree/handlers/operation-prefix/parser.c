@@ -20,6 +20,9 @@ static int getOperationId(int token_id) {
   if (token_id == TOKEN_OPERATOR_PRODUCT) {
     return OPERATION_PREFIX_ID_DEREFERENCING;
   }
+  if (token_id == TOKEN_OPERATOR_NOT) {
+    return OPERATION_PREFIX_ID_NEGOTATION;
+  }
 
   return -1;
 }

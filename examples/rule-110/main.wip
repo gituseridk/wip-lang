@@ -1,7 +1,7 @@
 const size = 128;
 
-const arr1: *int = allocate(size * 8);
-const arr2: *int = allocate(size * 8);
+var arr1: *int = allocate(size * 8);
+var arr2: *int = allocate(size * 8);
 
 var i = 0;
 
@@ -13,15 +13,9 @@ while i - size {
 const calcCell = (left: int, middle: int, right: int): int => {
   if left {
     if middle {
-      if right {
-        return 0;
-      }
-      return 1;
+      return !right;
     }
-    if right {
-      return 1;
-    }
-    return 0;
+    return right;
   }
   if middle + right {
     return 1;
@@ -33,14 +27,14 @@ const calcCell = (left: int, middle: int, right: int): int => {
 
 const processLine = (arr1: *int, arr2: *int, size: int) => {
   var i = 0;
-  while (i - size) {
+  while i - size {
     var left = 0;
-    if (i) {
-      left = *(arr1 + (i - 1));
+    if i {
+      left = *(arr1 + i - 1);
     }
     var right = 0;
-    if (i - size - 1) {
-      right = *(arr1 + (i + 1));
+    if i - size - 1 {
+      right = *(arr1 + i + 1);
     }
 
     const current =  *(arr1 + i);
@@ -54,14 +48,14 @@ print("\nRule 110:\n");
 
 const drawLine = (arr: *int, size: int) => {
   var i = 0;
-  while (i - size) {
+  while i - size {
     const current = *(arr + i);
 
-    if (current) {
+    if current {
       print("#");
     }
 
-    if (current - 1) {
+    if !current {
       print(" ");
     }
     ++i;
@@ -70,9 +64,12 @@ const drawLine = (arr: *int, size: int) => {
 };
 
 var j = size;
-while (j--) {
+while j-- {
   drawLine(arr1, size);
   processLine(arr1, arr2, size);
-  drawLine(arr2, size);
-  processLine(arr2, arr1, size);
+
+  // swap cell arrays
+  const tmpArr = arr1;
+  arr1 = arr2;
+  arr2 = tmpArr;
 }

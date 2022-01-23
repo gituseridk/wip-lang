@@ -1,7 +1,75 @@
-print("2 + 2 * 2 = ");
-printInt(2 + 2 * 2);
-print("\n");
+const size = 128;
 
-print("2 * 2 + 2 = ");
-printInt(2 * 2 + 2);
-print("\n");
+var arr1: *int = allocate(size * 8);
+var arr2: *int = allocate(size * 8);
+
+var i = 0;
+
+while i - size {
+  *(arr1 + i) = 0;
+  ++i;
+}
+
+const calcCell = (left: int, middle: int, right: int): int => {
+  if left {
+    if middle {
+      return !right;
+    }
+    return right;
+  }
+  if middle + right {
+    return 1;
+  }
+  return 0;
+}
+
+*(arr1 + size - 1) = 1;
+
+const processLine = (arr1: *int, arr2: *int, size: int) => {
+  var i = 0;
+  while i - size {
+    var left = 0;
+    if i {
+      left = *(arr1 + i - 1);
+    }
+    var right = 0;
+    if i - size - 1 {
+      right = *(arr1 + i + 1);
+    }
+
+    const current =  *(arr1 + i);
+
+    *(arr2 + i) = calcCell(left, current, right);
+    ++i;
+  }
+};
+
+print("\nRule 110:\n");
+
+const drawLine = (arr: *int, size: int) => {
+  var i = 0;
+  while i - size {
+    const current = *(arr + i);
+
+    if current {
+      print("#");
+    }
+
+    if !current {
+      print(" ");
+    }
+    ++i;
+  }
+  print("\n");
+};
+
+var j = size;
+while j-- {
+  drawLine(arr1, size);
+  processLine(arr1, arr2, size);
+
+  // swap cell arrays
+  const tmpArr = arr1;
+  arr1 = arr2;
+  arr2 = tmpArr;
+}

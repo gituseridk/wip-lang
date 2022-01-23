@@ -42,7 +42,15 @@ void getOperationPrefixExpressionData(
     throwSourceError(src, err, token);
   }
 
-  // !TODO add expression overload
+  if (data->operation_id == OPERATION_PREFIX_ID_NEGOTATION) {
+    setVoidType(&(result->result_type));
+    // !TODO return boolean
+    result->result_type.type_id = TYPE_ID_INT;
+
+    result->child_expressions = newArray(ExpressionData, expression);
+    return;
+  }
+
   if (
     expression.result_type.type_id != TYPE_ID_INT &&
     expression.result_type.type_id != TYPE_ID_POINTER

@@ -2,6 +2,8 @@
 #include "utils/logger/log-src-error.h"
 #include "compiler/x86/compile-utils.h"
 
+unsigned negotation_id = 0;
+
 static void compileIncDec(
   char *src,
   ExpressionData *self,
@@ -77,6 +79,45 @@ static void compileDereference(
   }
 }
 
+static void compileNegotation(
+  char *src,
+  ExpressionData *self,
+  ExpressionData *target,
+  bool address,
+  FILE *out_stream
+) {
+  FORBID_ADDRESS_AS_RESULT
+
+  char err[100];
+  switch (self->result_type.type_id) {
+  case TYPE_ID_INT:
+    expressionCompile(target, ARCH_X86, src, false, out_stream);
+
+    // !TODO optimize negotation
+    int current_id = negotation_id++;
+    L("    pop     rax");
+    L("    cmp     rax, 0");
+    L("    jz      neg_%d", current_id);
+
+    L("    push    0");
+    L("    jmp     neg_end_%d", current_id);
+    
+    L("neg_%d:", current_id);
+    L("    push    1");
+
+    L("neg_end_%d:", current_id);
+
+    return;
+  default:
+    sprintf(
+      err,
+      "negotation for %s type is not implemented yet",
+      getTypeName(&(self->result_type))
+    );
+    throwSourceError(src, err, self->token);
+  }
+}
+
 void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   ExpressionData *target = (ExpressionData*) arrayAt(self->child_expressions, 0);
 
@@ -89,6 +130,9 @@ void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FI
     return;
   case OPERATION_PREFIX_ID_DEREFERENCING:
     compileDereference(src, self, target, address, out_stream);
+    return;
+  case OPERATION_PREFIX_ID_NEGOTATION:
+    compileNegotation(src, self, target, address, out_stream);
     return;
   
   default:

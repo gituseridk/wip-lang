@@ -3,11 +3,14 @@
 
 #include "syntax-tree/syntax-node.h"
 
-#define OPERATION_PREFIX_ID_INC             0
-#define OPERATION_PREFIX_ID_DEC             1
-#define OPERATION_PREFIX_ID_DEREFERENCING   2
+enum OperatioPrefixIds {
+  OPERATION_PREFIX_ID_INC,
+  OPERATION_PREFIX_ID_DEC,
+  OPERATION_PREFIX_ID_DEREFERENCING,
+  OPERATION_PREFIX_ID_NEGOTATION,
 
-#define OPERATION_PREFIX_COUNT              3
+  OPERATION_PREFIX_IDS_END,
+};
 
 typedef struct {
   int operation_id;
