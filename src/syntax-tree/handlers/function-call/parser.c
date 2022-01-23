@@ -19,6 +19,7 @@ List *parseFunctionCall(List *start_token, SyntaxNode *left, SyntaxNode *result,
   current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
   if (*error == NULL) {
     SyntaxNode result_node;
+    result_node.priority = SYNTAX_FUNCTION_CALL * SYNTAX_PRIORITY_OFFSET;
     result_node.token = trimTokensLeft(start_token);
     result_node.data = malloc(sizeof(SyntaxFunctionCallData));
     ((SyntaxFunctionCallData*)result_node.data)->target = *left;
@@ -58,6 +59,7 @@ List *parseFunctionCall(List *start_token, SyntaxNode *left, SyntaxNode *result,
     current_token = chopToken(current_token, TOKEN_BRACKET_CLOSE, ")", error);
     if (*error == NULL) {
       SyntaxNode result_node;
+      result_node.priority = SYNTAX_FUNCTION_CALL * SYNTAX_PRIORITY_OFFSET;
       result_node.token = trimTokensLeft(start_token);
       result_node.data = malloc(sizeof(SyntaxFunctionCallData));
       ((SyntaxFunctionCallData*)result_node.data)->target = *left;

@@ -5,31 +5,31 @@ const arr2: *int = allocate(size * 8);
 
 var i = 0;
 
-while (i - size) {
+while i - size {
   *(arr1 + i) = 0;
   ++i;
 }
 
 const calcCell = (left: int, middle: int, right: int): int => {
-  if (left) {
-    if (middle) {
-      if (right) {
+  if left {
+    if middle {
+      if right {
         return 0;
       }
       return 1;
     }
-    if (right) {
+    if right {
       return 1;
     }
     return 0;
   }
-  if (middle + right) {
+  if middle + right {
     return 1;
   }
   return 0;
 }
 
-*(arr1 + (size - 1)) = 1;
+*(arr1 + size - 1) = 1;
 
 const processLine = (arr1: *int, arr2: *int, size: int) => {
   var i = 0;
@@ -45,7 +45,7 @@ const processLine = (arr1: *int, arr2: *int, size: int) => {
 
     const current =  *(arr1 + i);
 
-    (*(arr2 + i)) = calcCell(left, current, right);
+    *(arr2 + i) = calcCell(left, current, right);
     ++i;
   }
 };

@@ -27,7 +27,7 @@ List *parseWhile(List *tokens, SyntaxNode *result, char **error) {
   SyntaxWhileData *data = malloc(sizeof(SyntaxWhileData));
 
   current_token = trimTokensLeft(current_token);
-  current_token = parseExpression(current_token, &(data->condition), error, false, result->priority);
+  current_token = parseExpression(current_token, &(data->condition), error, false, 0);
   if (*error != NULL) {
     free(data);
     return current_token;
