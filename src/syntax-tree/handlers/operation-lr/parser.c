@@ -85,6 +85,8 @@ List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **
     return current_token;
   }
 
+  result->priority += operation_id;
+
   current_token = trimTokensLeft(listNext(current_token));
   if (current_token == NULL) {
     *error = "Failed to parse operation, end of scope";
