@@ -7,5 +7,11 @@ void printSyntaxIfData(SyntaxIfData *data) {
   syntaxNodePrint(&(data->condition));
   printf(",\"expression\":");
   syntaxNodePrint(&(data->expression));
+  printf(",\"else_expression\":");
+  if (data->else_expression != NULL) {
+    syntaxNodePrint(data->else_expression);
+  } else {
+    printf("null");
+  }
   printf("}");
 }

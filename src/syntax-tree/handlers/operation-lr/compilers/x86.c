@@ -76,6 +76,86 @@ static void compileProduct(
   }
 }
 
+static void compileCmp(
+  char *src,
+  ExpressionData *self,
+  ExpressionData *left,
+  ExpressionData *right,
+  char *instruction,
+  FILE *out_stream
+) {
+  char err[100];
+  switch (self->result_type.type_id) {
+  case TYPE_ID_INT:
+    expressionCompile(left, ARCH_X86, src, false, out_stream);
+    expressionCompile(right, ARCH_X86, src, false, out_stream);
+
+    L("    pop     rbx");
+    L("    pop     rax");
+
+    L("    cmp     rax, rbx");
+    L("    %s    al", instruction);
+    L("    movzx   rax, al");
+    
+    L("    push    rax");
+
+    return;
+  default:
+    sprintf(
+      err,
+      "cmp operations for %s type is not implemented yet",
+      getTypeName(&(self->result_type))
+    );
+    throwSourceError(src, err, self->token);
+  }
+}
+
+int logical_last_id = 0;
+
+static void compileLogical(
+  char *src,
+  ExpressionData *self,
+  ExpressionData *left,
+  ExpressionData *right,
+  bool or,
+  FILE *out_stream
+) {
+  int operation_id = logical_last_id++;
+
+  char err[100];
+  switch (self->result_type.type_id) {
+  case TYPE_ID_INT:
+    expressionCompile(left, ARCH_X86, src, false, out_stream);
+
+    L("    pop     rax");
+    L("    cmp     rax, 0");
+    L("    %s     logical_op_%d", or ? "jne" : "je ", operation_id);
+
+    expressionCompile(right, ARCH_X86, src, false, out_stream);
+
+    L("    pop     rax");
+    L("    cmp     rax, 0");
+    L("    %s     logical_op_%d", or ? "jne" : "je ", operation_id);
+
+    L("    push    %d", or ? 0 : 1);
+    L("    jmp     logical_op_end_%d", operation_id);
+
+    L("logical_op_%d:", operation_id);
+    L("    push    %d", or ? 1 : 0);
+
+    L("logical_op_end_%d:", operation_id);
+
+    return;
+  default:
+    sprintf(
+      err,
+      "cmp operations for %s type is not implemented yet",
+      getTypeName(&(self->result_type))
+    );
+    throwSourceError(src, err, self->token);
+  }
+}
+
 void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
@@ -91,6 +171,32 @@ void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *
     return;
   case OPERATION_ID_PRODUCT:
     compileProduct(src, self, left, right, out_stream);
+    return;
+
+  case OPERATION_ID_LESS:
+    compileCmp(src, self, left, right, "setl", out_stream);
+    return;
+  case OPERATION_ID_GRATER:
+    compileCmp(src, self, left, right, "setg", out_stream);
+    return;
+  case OPERATION_ID_LESS_OR_EQUAL:
+    compileCmp(src, self, left, right, "setle", out_stream);
+    return;
+  case OPERATION_ID_GRATER_OR_EQUAL:
+    compileCmp(src, self, left, right, "setge", out_stream);
+    return;
+  case OPERATION_ID_EQUALS:
+    compileCmp(src, self, left, right, "sete", out_stream);
+    return;
+  case OPERATION_ID_NOT_EQUALS:
+    compileCmp(src, self, left, right, "setne", out_stream);
+    return;
+
+  case OPERATION_ID_AND:
+    compileLogical(src, self, left, right, false, out_stream);
+    return;
+  case OPERATION_ID_OR:
+    compileLogical(src, self, left, right, true, out_stream);
     return;
   
   default:

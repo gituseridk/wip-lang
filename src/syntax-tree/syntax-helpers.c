@@ -44,7 +44,7 @@ List *chopExpressionEnd(List *start_token, char **error) {
   }
   TokenData *token_data = (TokenData*) listGetValue(token);
   if (token_data->token.id != TOKEN_SEPARATOR_EXPRESSION) {
-    *error = "Unexpected token, ';' expected";
+    *error = "Unexpected token";
     return token;
   }
 

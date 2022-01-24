@@ -6,6 +6,7 @@
 typedef struct {
   SyntaxNode condition;
   SyntaxNode expression;
+  SyntaxNode* else_expression;
 } SyntaxIfData;
 
 void printSyntaxIfData(SyntaxIfData *data);

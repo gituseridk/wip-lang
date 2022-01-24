@@ -16,9 +16,17 @@ void compileIfX86(char *src, ExpressionData *self, bool address, FILE *out_strea
 
   L("    pop     rax");
   L("    cmp     rax, 0");
-  L("    jz      if_end_%d", current_if_id);
+  L("    jz      if_else_%d", current_if_id);
 
   expressionCompile(body, ARCH_X86, src, false, out_stream);
+  L("    jmp     if_end_%d", current_if_id);
   
+  L("if_else_%d:\n", current_if_id);
+
+  if (arrayGetLength(self->child_expressions) > 2) {
+    ExpressionData *else_body = (ExpressionData*) arrayAt(self->child_expressions, 2);
+    expressionCompile(else_body, ARCH_X86, src, false, out_stream);
+  }
+
   L("if_end_%d:\n", current_if_id);
 }

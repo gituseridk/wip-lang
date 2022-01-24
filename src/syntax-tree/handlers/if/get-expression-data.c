@@ -47,4 +47,25 @@ void getIfExpressionData(
   );
 
   result->child_expressions = newArray(ExpressionData, condition, expression);
+
+  if (data->else_expression == NULL) {
+    return;
+  }
+
+  // parse else part
+
+  ExpressionData else_expression;
+  else_expression.parent_scope = result->parent_scope;
+  setVoidType(&(else_expression.result_type));
+
+  data->else_expression->handler->getExpressionData(
+    src,
+    data->else_expression->data,
+    data->else_expression->token,
+    &else_expression,
+    offset,
+    data->else_expression->handler->id
+  );
+
+  arrayPush(result->child_expressions, &else_expression);
 }

@@ -10,55 +10,92 @@
 #include "./parser.h"
 #include "./data.h"
 
+static int getOperationPriority(int operation_id) {
+  switch (operation_id)
+  {
+  case OPERATION_ID_AND:
+  case OPERATION_ID_OR:
+    return 0;
+
+  case OPERATION_ID_EQUALS:
+  case OPERATION_ID_NOT_EQUALS:
+  case OPERATION_ID_EQUALS_STRICT:
+  case OPERATION_ID_NOT_EQUALS_STRICT:
+  case OPERATION_ID_GRATER_OR_EQUAL:
+  case OPERATION_ID_LESS_OR_EQUAL:
+  case OPERATION_ID_GRATER:
+  case OPERATION_ID_LESS:
+    return 1;
+
+  case OPERATION_ID_SUM:
+  case OPERATION_ID_DIFFERENCE:
+    return 2;
+
+  case OPERATION_ID_RATIO:
+  case OPERATION_ID_PRODUCT:
+    return 3;
+
+  case OPERATION_ID_BIT_OR:
+  case OPERATION_ID_BIT_AND:
+    return 4;
+  
+  default:
+    return 5;
+  }
+}
+
 static int getOperationId(int token_id) {
-  if (token_id == TOKEN_OPERATOR_SUM) {
+  switch (token_id)
+  {
+  case TOKEN_OPERATOR_SUM:
     return OPERATION_ID_SUM;
-  }
-  if (token_id == TOKEN_OPERATOR_DIFFERENCE) {
+
+  case TOKEN_OPERATOR_DIFFERENCE:
     return OPERATION_ID_DIFFERENCE;
-  }
-  if (token_id == TOKEN_OPERATOR_RATIO) {
+  
+  case TOKEN_OPERATOR_RATIO:
     return OPERATION_ID_RATIO;
-  }
-  if (token_id == TOKEN_OPERATOR_PRODUCT) {
+  
+  case TOKEN_OPERATOR_PRODUCT:
     return OPERATION_ID_PRODUCT;
-  }
-  if (token_id == TOKEN_OPERATOR_BIT_OR) {
+  
+  case TOKEN_OPERATOR_BIT_OR:
     return OPERATION_ID_BIT_OR;
-  }
-  if (token_id == TOKEN_OPERATOR_AND) {
+  
+  case TOKEN_OPERATOR_AND:
     return OPERATION_ID_AND;
-  }
-  if (token_id == TOKEN_OPERATOR_OR) {
+  
+  case TOKEN_OPERATOR_OR:
     return OPERATION_ID_OR;
-  }
-  if (token_id == TOKEN_OPERATOR_EQUALS) {
+  
+  case TOKEN_OPERATOR_EQUALS:
     return OPERATION_ID_EQUALS;
-  }
-  if (token_id == TOKEN_OPERATOR_EQUALS_STRICT) {
+  
+  case TOKEN_OPERATOR_EQUALS_STRICT:
     return OPERATION_ID_EQUALS_STRICT;
-  }
-  if (token_id == TOKEN_OPERATOR_NOT_EQUALS) {
+  
+  case TOKEN_OPERATOR_NOT_EQUALS:
     return OPERATION_ID_NOT_EQUALS;
-  }
-  if (token_id == TOKEN_OPERATOR_NOT_EQUALS_STRICT) {
+  
+  case TOKEN_OPERATOR_NOT_EQUALS_STRICT:
     return OPERATION_ID_NOT_EQUALS_STRICT;
-  }
 
-  if (token_id == TOKEN_OPERATOR_GRATER_OR_EQUAL) {
+  case TOKEN_OPERATOR_GRATER_OR_EQUAL:
     return OPERATION_ID_GRATER_OR_EQUAL;
-  }
-  if (token_id == TOKEN_OPERATOR_LESS_OR_EQUAL) {
+  
+  case TOKEN_OPERATOR_LESS_OR_EQUAL:
     return OPERATION_ID_LESS_OR_EQUAL;
-  }
-  if (token_id == TOKEN_OPERATOR_GRATER) {
+  
+  case TOKEN_OPERATOR_GRATER:
     return OPERATION_ID_GRATER;
-  }
-  if (token_id == TOKEN_OPERATOR_LESS) {
+  
+  case TOKEN_OPERATOR_LESS:
     return OPERATION_ID_LESS;
+  
+  default:
+    return -1;
   }
 
-  return -1;
 }
 
 List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **error) {
@@ -85,7 +122,7 @@ List *parseOperation(List *tokens, SyntaxNode *left, SyntaxNode *result, char **
     return current_token;
   }
 
-  result->priority += operation_id / 2;
+  result->priority += getOperationPriority(operation_id);
 
   current_token = trimTokensLeft(listNext(current_token));
   if (current_token == NULL) {
