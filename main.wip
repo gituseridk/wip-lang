@@ -1,3 +1,6 @@
+// rule 110 implementation on wip-lang
+// https://en.wikipedia.org/wiki/Rule_110
+
 const size = 128;
 
 var arr1: *int = allocate(size * 8);
@@ -26,7 +29,7 @@ const processLine = (arr1: *int, arr2: *int, size: int) => {
   var i = 0;
   while i < size {
     const left = (i != 0) && *(arr1 + i - 1);
-    const middle =  *(arr1 + i);
+    const middle = *(arr1 + i);
     const right = (i != size - 1) && *(arr1 + i + 1);
 
     *(arr2 + i) = calcCell(left, middle, right);

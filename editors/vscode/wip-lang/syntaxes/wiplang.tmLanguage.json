@@ -1,0 +1,114 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "wip-lang",
+  "patterns": [
+    {
+      "include": "#white-space"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#identifier"
+    },
+    {
+      "include": "#ints"
+    },
+    {
+      "include": "#function-arrow"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#comments"
+    }
+  ],
+  "repository": {
+    "white-space": {
+      "patterns": [
+        {
+          "name": "meta.block.wiplang",
+          "match": "\\s"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "support.type.primitive.wiplang",
+          "match": "(\\b|(\\*|\\s)*)(int|char|void|float)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.wiplang",
+          "match": "\\b(if|else|while|return|var|const)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.wiplang",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.wiplang",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "identifier": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.wiplang",
+          "match": "\\b[a-zA-Z_][\\w_]*"
+        }
+      ]
+    },
+    "ints": {
+      "patterns": [
+        {
+          "name": "constant.numeric.decimal.wiplang",
+          "match": "(\\+|\\-)?\\d+"
+        }
+      ]
+    },
+    "function-arrow": {
+      "patterns": [
+        {
+          "name": "storage.type.function.arrow.wiplang",
+          "match": "=>"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.wiplang",
+          "match": "\\+\\+|\\+|\\-\\-|\\-|\\*|<=|>=|<|>|==|=|!|\\|\\||\\||&&|&|::|:"
+        }
+      ]
+    },
+    "comments": {
+      "name": "comment.line.double-slash.wiplang",
+      "begin": "\\/\\/",
+      "end": "$",
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.wiplang",
+          "match": ".*"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.wip"
+}

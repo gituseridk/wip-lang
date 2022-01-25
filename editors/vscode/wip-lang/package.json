@@ -1,0 +1,37 @@
+{
+  "name": "wip-lang",
+  "displayName": "wip-lang",
+  "description": "wip-lang syntax highlighting",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "1.63.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "wiplang",
+        "aliases": [
+          "wip-lang",
+          "wiplang"
+        ],
+        "extensions": [
+          ".wip"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wiplang",
+        "scopeName": "source.wip",
+        "path": "./syntaxes/wiplang.tmLanguage.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "js-yaml": "4.1.0"
+  }
+}
