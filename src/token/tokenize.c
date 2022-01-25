@@ -57,7 +57,7 @@ List* tokenize(const SourceData *src) {
   int row = 1;
 
   while (*token_start != '\0') {
-    Array *token_chop_results = arrayMap(getTokens(), sizeof(TokenChopResult), findTokenHandler, token_start);
+    Array *token_chop_results = arrayMap(getTokens(), sizeof(TokenChopResult), findTokenHandler, (void*)token_start);
 
     TokenChopResult *token_result = (TokenChopResult*) arrayFind(token_chop_results, hasResult, NULL);
 
@@ -90,7 +90,7 @@ List* tokenize(const SourceData *src) {
       result = last_token_result;
     }
 
-    for (char *i = token_start; i != token_end; ++i) {
+    for (const char *i = token_start; i != token_end; ++i) {
       ++col;
       if (*i == '\n') {
         col = 1;
