@@ -1,7 +1,7 @@
 // rule 110 implementation on wip-lang
 // https://en.wikipedia.org/wiki/Rule_110
 
-const size = 128;
+const size = 64;
 
 var arr1: *int = allocate(size * 8);
 var arr2: *int = allocate(size * 8);
@@ -22,8 +22,7 @@ const calcCell = (left: int, middle: int, right: int): int => {
     return !!right;
   }
   return middle || right;
-}
-
+};
 
 const processLine = (arr1: *int, arr2: *int, size: int) => {
   var i = 0;
@@ -32,12 +31,12 @@ const processLine = (arr1: *int, arr2: *int, size: int) => {
     const middle = *(arr1 + i);
     const right = (i != size - 1) && *(arr1 + i + 1);
 
+    +
+
     *(arr2 + i) = calcCell(left, middle, right);
     ++i;
   }
 };
-
-print("\nRule 110:\n");
 
 const drawLine = (arr: *int, size: int) => {
   var i = 0;
@@ -54,6 +53,8 @@ const drawLine = (arr: *int, size: int) => {
   }
   print("\n");
 };
+
+print("\nRule 110:\n");
 
 var j = size;
 while j-- {

@@ -47,11 +47,11 @@ static bool hasResult(void *self, void *_chop_result, int index, const Array *ar
   return chop_result->token_end != NULL;
 }
 
-List* tokenize(char *src) {
+List* tokenize(const SourceData *src) {
   List *result = NULL;
   List *last_token_result = NULL;
 
-  char *token_start = src;
+  const char *token_start = src->content;
 
   int col = 1;
   int row = 1;
@@ -83,6 +83,7 @@ List* tokenize(char *src) {
       .value = token_value,
       .row = row,
       .col = col,
+      .src = src,
     };
     last_token_result = listPushAfter(last_token_result, &token_data, sizeof(TokenData));
     if (result == NULL) {

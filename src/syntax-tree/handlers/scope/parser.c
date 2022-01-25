@@ -3,6 +3,7 @@
 
 #include "syntax-tree/syntax-helpers.h"
 #include "syntax-tree/handlers/expression/parser.h"
+#include "utils/logger/log-src-error.h"
 
 #include "./data.h"
 #include "./parser.h"
@@ -64,7 +65,7 @@ static List *parseScopeExpressions(List *tokens, SyntaxNode *result, char **erro
     current_token = trimTokensLeftHard(current_token);
     current_token = parseExpression(current_token, &node, error, true, result->priority);
     if (*error != NULL) {
-      return current_token;
+      throwSourceError("failed to parse scope, unknown expression", current_token);
     }
     current_token = chopExpressionEnd(current_token, error);
     if (*error != NULL) {

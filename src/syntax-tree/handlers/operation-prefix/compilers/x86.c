@@ -4,7 +4,6 @@
 
 
 static void compileIncDec(
-  char *src,
   ExpressionData *self,
   ExpressionData *target,
   bool dec,
@@ -14,7 +13,7 @@ static void compileIncDec(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(target, ARCH_X86, src, true, out_stream);
+    expressionCompile(target, ARCH_X86, true, out_stream);
 
     L("    pop     rax");
     L("    %s     QWORD [rax]", dec ? "dec" : "inc");
@@ -26,7 +25,7 @@ static void compileIncDec(
     return;
 
   case TYPE_ID_POINTER:
-    expressionCompile(target, ARCH_X86, src, true, out_stream);
+    expressionCompile(target, ARCH_X86, true, out_stream);
 
     L("    pop     rax");
     L("    %s     QWORD [rax], %d", dec ? "sub" : "add", TYPE_SIZE_POINTER);
@@ -44,12 +43,11 @@ static void compileIncDec(
       dec ? "dec" : "inc",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
 static void compileDereference(
-  char *src,
   ExpressionData *self,
   ExpressionData *target,
   bool address,
@@ -58,7 +56,7 @@ static void compileDereference(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(target, ARCH_X86, src, false, out_stream);
+    expressionCompile(target, ARCH_X86, false, out_stream);
 
     if (address) {
       return;
@@ -74,12 +72,11 @@ static void compileDereference(
       "dereferencing for %s type is not implemented yet",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
 static void compileNegotation(
-  char *src,
   ExpressionData *self,
   ExpressionData *target,
   bool address,
@@ -90,7 +87,7 @@ static void compileNegotation(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(target, ARCH_X86, src, false, out_stream);
+    expressionCompile(target, ARCH_X86, false, out_stream);
 
     L("    pop     rax");
     L("    cmp     rax, 0");
@@ -105,28 +102,28 @@ static void compileNegotation(
       "negotation for %s type is not implemented yet",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
-void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileOperationPrefixX86(ExpressionData *self, bool address, FILE *out_stream) {
   ExpressionData *target = (ExpressionData*) arrayAt(self->child_expressions, 0);
 
   switch (self->id - EXPRESSION_OPERATIONS_PREFIX) {
   case OPERATION_PREFIX_ID_INC:
-    compileIncDec(src, self, target, false, address, out_stream);
+    compileIncDec(self, target, false, address, out_stream);
     return;
   case OPERATION_PREFIX_ID_DEC:
-    compileIncDec(src, self, target, true, address, out_stream);
+    compileIncDec(self, target, true, address, out_stream);
     return;
   case OPERATION_PREFIX_ID_DEREFERENCING:
-    compileDereference(src, self, target, address, out_stream);
+    compileDereference(self, target, address, out_stream);
     return;
   case OPERATION_PREFIX_ID_NEGOTATION:
-    compileNegotation(src, self, target, address, out_stream);
+    compileNegotation(self, target, address, out_stream);
     return;
   
   default:
-    throwSourceError(src, "this prefix expression is not supported yet", self->token);
+    throwSourceError("this prefix expression is not supported yet", self->token);
   }
 }

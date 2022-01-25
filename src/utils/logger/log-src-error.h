@@ -3,6 +3,7 @@
 
 #include "utils/array/array.h"
 #include "utils/list/list.h"
+#include "token/source-data.h"
 
 typedef struct {
   const char *text;
@@ -10,7 +11,7 @@ typedef struct {
   int row;
 } SourceError;
 
-void printSourceError(const char *src, const char *error, int row, int col);
-void throwSourceError(const char *src, const char *error, List *token);
+void printSourceError(const SourceData *src, const char *error, int row, int col);
+void throwSourceError(const char *error, List *token);
 
 #endif

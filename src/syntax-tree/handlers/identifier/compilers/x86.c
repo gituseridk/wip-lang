@@ -2,7 +2,7 @@
 #include "utils/logger/log-src-error.h"
 #include "compiler/x86/compile-utils.h"
 
-void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileIdentifierX86(ExpressionData *self, bool address, FILE *out_stream) {
   ExpressionIdentifierValue *identifier = (ExpressionIdentifierValue*) self->value;
 
   L("    mov     rax, rbp");
@@ -45,7 +45,7 @@ void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *o
   default: {
     char err[100];
     sprintf(err, "variables with type %s is not implemented yet\n", getTypeName(&(self->result_type)));
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
   }
 }

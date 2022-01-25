@@ -7,7 +7,7 @@
 
 // !TODO handle return to not scope functions
 
-void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileFunctionCallX86(ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
   ExpressionData *target = (ExpressionData*) self->value;
@@ -18,7 +18,7 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
 
   for (int i = arrayGetLength(self->child_expressions) - 1; i != -1; --i) {
     ExpressionData *arg = (ExpressionData*) arrayAt(self->child_expressions, i);
-    expressionCompile(arg, ARCH_X86, src, false, out_stream);
+    expressionCompile(arg, ARCH_X86, false, out_stream);
     args_size += getTypeSize(&(arg->result_type));
   }
 
@@ -30,7 +30,7 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
     L("    sub     rsp, %d", size);
   }
 
-  expressionCompile(target, ARCH_X86, src, false, out_stream);
+  expressionCompile(target, ARCH_X86, false, out_stream);
 
   L("    pop     rax");
   L("    pop     rbx");
@@ -57,7 +57,7 @@ void compileFunctionCallX86(char *src, ExpressionData *self, bool address, FILE 
   default: {
     char err[100];
     sprintf(err, "function call with result type \"%s\" is not implemented yet", getTypeName(&(self->result_type)));
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
     break;
   }
   }

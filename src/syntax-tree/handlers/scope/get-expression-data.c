@@ -9,7 +9,6 @@
 unsigned last_scope_id = 0;
 
 static Array *parseChildExpressions(
-  const char *src,
   ExpressionData* self,
   SyntaxScopeData *data,
   Map *variables,
@@ -25,7 +24,6 @@ static Array *parseChildExpressions(
     child_expression.parent_scope = self;
 
     node->handler->getExpressionData(
-      src,
       node->data,
       node->token,
       &child_expression,
@@ -40,7 +38,6 @@ static Array *parseChildExpressions(
 }
 
 void getScopeExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -62,7 +59,6 @@ void getScopeExpressionData(
   asprintf(&(result->scope_label), "scope_%d", last_scope_id++);
 
   result->child_expressions = parseChildExpressions(
-    src,
     result,
     data,
     result->variables,

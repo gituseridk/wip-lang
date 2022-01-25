@@ -3,15 +3,14 @@
 #include "compiler/x86/compile-utils.h"
 
 static void compileSum(
-  char *src,
   ExpressionData *self,
   ExpressionData *left,
   ExpressionData *right,
   bool difference,
   FILE *out_stream
 ) {
-  expressionCompile(left, ARCH_X86, src, false, out_stream);
-  expressionCompile(right, ARCH_X86, src, false, out_stream);
+  expressionCompile(left, ARCH_X86, false, out_stream);
+  expressionCompile(right, ARCH_X86, false, out_stream);
 
   char err[100];
   switch (self->result_type.type_id) {
@@ -43,12 +42,11 @@ static void compileSum(
       difference ? "diff" : "sum",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
 static void compileProduct(
-  char *src,
   ExpressionData *self,
   ExpressionData *left,
   ExpressionData *right,
@@ -57,8 +55,8 @@ static void compileProduct(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(left, ARCH_X86, src, false, out_stream);
-    expressionCompile(right, ARCH_X86, src, false, out_stream);
+    expressionCompile(left, ARCH_X86, false, out_stream);
+    expressionCompile(right, ARCH_X86, false, out_stream);
 
     L("    pop     rax");
     L("    pop     rdx");
@@ -72,12 +70,11 @@ static void compileProduct(
       "product for %s type is not implemented yet",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
 static void compileCmp(
-  char *src,
   ExpressionData *self,
   ExpressionData *left,
   ExpressionData *right,
@@ -87,8 +84,8 @@ static void compileCmp(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(left, ARCH_X86, src, false, out_stream);
-    expressionCompile(right, ARCH_X86, src, false, out_stream);
+    expressionCompile(left, ARCH_X86, false, out_stream);
+    expressionCompile(right, ARCH_X86, false, out_stream);
 
     L("    pop     rbx");
     L("    pop     rax");
@@ -106,14 +103,13 @@ static void compileCmp(
       "cmp operations for %s type is not implemented yet",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
 int logical_last_id = 0;
 
 static void compileLogical(
-  char *src,
   ExpressionData *self,
   ExpressionData *left,
   ExpressionData *right,
@@ -125,13 +121,13 @@ static void compileLogical(
   char err[100];
   switch (self->result_type.type_id) {
   case TYPE_ID_INT:
-    expressionCompile(left, ARCH_X86, src, false, out_stream);
+    expressionCompile(left, ARCH_X86, false, out_stream);
 
     L("    pop     rax");
     L("    cmp     rax, 0");
     L("    %s     logical_op_%d", or ? "jne" : "je ", operation_id);
 
-    expressionCompile(right, ARCH_X86, src, false, out_stream);
+    expressionCompile(right, ARCH_X86, false, out_stream);
 
     L("    pop     rax");
     L("    cmp     rax, 0");
@@ -152,11 +148,11 @@ static void compileLogical(
       "cmp operations for %s type is not implemented yet",
       getTypeName(&(self->result_type))
     );
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }
 
-void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileOperationLRX86(ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
   ExpressionData *left = (ExpressionData*) arrayAt(self->child_expressions, 0);
@@ -164,42 +160,42 @@ void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *
 
   switch (self->id - EXPRESSION_OPERATIONS) {
   case OPERATION_ID_SUM:
-    compileSum(src, self, left, right, false, out_stream);
+    compileSum(self, left, right, false, out_stream);
     return;
   case OPERATION_ID_DIFFERENCE:
-    compileSum(src, self, left, right, true, out_stream);
+    compileSum(self, left, right, true, out_stream);
     return;
   case OPERATION_ID_PRODUCT:
-    compileProduct(src, self, left, right, out_stream);
+    compileProduct(self, left, right, out_stream);
     return;
 
   case OPERATION_ID_LESS:
-    compileCmp(src, self, left, right, "setl", out_stream);
+    compileCmp(self, left, right, "setl", out_stream);
     return;
   case OPERATION_ID_GRATER:
-    compileCmp(src, self, left, right, "setg", out_stream);
+    compileCmp(self, left, right, "setg", out_stream);
     return;
   case OPERATION_ID_LESS_OR_EQUAL:
-    compileCmp(src, self, left, right, "setle", out_stream);
+    compileCmp(self, left, right, "setle", out_stream);
     return;
   case OPERATION_ID_GRATER_OR_EQUAL:
-    compileCmp(src, self, left, right, "setge", out_stream);
+    compileCmp(self, left, right, "setge", out_stream);
     return;
   case OPERATION_ID_EQUALS:
-    compileCmp(src, self, left, right, "sete", out_stream);
+    compileCmp(self, left, right, "sete", out_stream);
     return;
   case OPERATION_ID_NOT_EQUALS:
-    compileCmp(src, self, left, right, "setne", out_stream);
+    compileCmp(self, left, right, "setne", out_stream);
     return;
 
   case OPERATION_ID_AND:
-    compileLogical(src, self, left, right, false, out_stream);
+    compileLogical(self, left, right, false, out_stream);
     return;
   case OPERATION_ID_OR:
-    compileLogical(src, self, left, right, true, out_stream);
+    compileLogical(self, left, right, true, out_stream);
     return;
   
   default:
-    throwSourceError(src, "this expression is not supported yet", self->token);
+    throwSourceError("this expression is not supported yet", self->token);
   }
 }

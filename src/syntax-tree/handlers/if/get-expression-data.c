@@ -5,7 +5,6 @@
 #include "./data.h"
 
 void getIfExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -21,7 +20,6 @@ void getIfExpressionData(
   setVoidType(&(condition.result_type));
 
   data->condition.handler->getExpressionData(
-    src,
     data->condition.data,
     data->condition.token,
     &condition,
@@ -30,7 +28,7 @@ void getIfExpressionData(
   );
 
   if (!isBool(&(condition.result_type))) {
-    throwSourceError(src, "if condition is not convertable to boolean", data->condition.token);
+    throwSourceError("if condition is not convertable to boolean", data->condition.token);
   }
 
   ExpressionData expression;
@@ -38,7 +36,6 @@ void getIfExpressionData(
   setVoidType(&(expression.result_type));
 
   data->expression.handler->getExpressionData(
-    src,
     data->expression.data,
     data->expression.token,
     &expression,
@@ -59,7 +56,6 @@ void getIfExpressionData(
   setVoidType(&(else_expression.result_type));
 
   data->else_expression->handler->getExpressionData(
-    src,
     data->else_expression->data,
     data->else_expression->token,
     &else_expression,

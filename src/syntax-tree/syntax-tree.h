@@ -7,7 +7,7 @@ typedef struct {
   SyntaxNode root_node;
 } SyntaxTree;
 
-SyntaxTree* createSyntaxTree(List *tokens, char *src);
+SyntaxTree* createSyntaxTree(List *tokens);
 void printSyntaxTree(SyntaxTree *tree);
 
 #endif

@@ -18,7 +18,6 @@ typedef struct {
 void printSyntaxIdentifierData(SyntaxIdentifierData *data);
 
 void getIdentifierExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -26,6 +25,6 @@ void getIdentifierExpressionData(
   int handler_id
 );
 
-void compileIdentifierX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileIdentifierX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

@@ -6,7 +6,6 @@
 #include "./data.h"
 
 void getOperationPrefixExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -22,7 +21,6 @@ void getOperationPrefixExpressionData(
   setVoidType(&(expression.result_type));
 
   data->expression.handler->getExpressionData(
-    src,
     data->expression.data,
     data->expression.token,
     &expression,
@@ -39,7 +37,7 @@ void getOperationPrefixExpressionData(
     }
     char err[100];
     sprintf(err, "cannot dereference %s type", getTypeName(&(expression.result_type)));
-    throwSourceError(src, err, token);
+    throwSourceError(err, token);
   }
 
   if (data->operation_id == OPERATION_PREFIX_ID_NEGOTATION) {
@@ -57,7 +55,7 @@ void getOperationPrefixExpressionData(
   ) {
     char err[100];
     sprintf(err, "prefix operarion for type \"$%s\" is not supported yet", getTypeName(&(expression.result_type)));
-    throwSourceError(src, err, token);
+    throwSourceError(err, token);
   }
 
   result->result_type = expression.result_type;

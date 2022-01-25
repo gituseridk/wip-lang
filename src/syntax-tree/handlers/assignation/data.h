@@ -10,7 +10,6 @@ typedef struct {
 
 void printSyntaxAssignationData(SyntaxAssignationData *data);
 void getAssignationExpressionData(
-  const char *src,
   void *data,
   List *token,
   ExpressionData *result,
@@ -18,6 +17,6 @@ void getAssignationExpressionData(
   int handler_id
 );
 
-void compileAssignationX86(char *src, ExpressionData *self, bool address, FILE *out_strea);
+void compileAssignationX86(ExpressionData *self, bool address, FILE *out_strea);
 
 #endif

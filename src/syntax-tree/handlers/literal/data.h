@@ -12,7 +12,6 @@ typedef struct {
 
 void printSyntaxLiteralData(SyntaxLiteralData *data);
 void getLiteralExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -20,6 +19,6 @@ void getLiteralExpressionData(
   int handler_id
 );
 
-void compileLiteralX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileLiteralX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

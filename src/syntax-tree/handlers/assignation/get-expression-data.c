@@ -5,7 +5,6 @@
 #include "./data.h"
 
 void getAssignationExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -22,7 +21,6 @@ void getAssignationExpressionData(
   right.parent_scope = result->parent_scope;
 
   data->right.handler->getExpressionData(
-    src,
     data->right.data,
     data->right.token,
     &right,
@@ -32,7 +30,7 @@ void getAssignationExpressionData(
   result->result_type = right.result_type;
 
   if (right.result_type.type_id == TYPE_ID_VOID) {
-    throwSourceError(src, "unexpected right side expression with void type", data->right.token);
+    throwSourceError("unexpected right side expression with void type", data->right.token);
   }
 
   if (data->left.handler->getExpressionData == getInitializationExpressionData) {
@@ -45,7 +43,6 @@ void getAssignationExpressionData(
   }
 
   data->left.handler->getExpressionData(
-    src,
     data->left.data,
     data->left.token,
     &left,
@@ -54,11 +51,11 @@ void getAssignationExpressionData(
   );
 
   if (left.result_type.is_constant && left.id != EXPRESSION_INITIALIZATION) {
-    throwSourceError(src, "left expression is constant", data->left.token);
+    throwSourceError("left expression is constant", data->left.token);
   }
 
   if (!isTypesCompatible(&(left.result_type), &(right.result_type))) {
-    throwSourceError(src, "type mismatch", data->left.token);
+    throwSourceError("type mismatch", data->left.token);
   }
 
   result->child_expressions = newArray(ExpressionData, left, right);

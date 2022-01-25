@@ -7,7 +7,7 @@
 #include "./handlers/scope/parser.h"
 #include "./syntax-node.h"
 
-SyntaxTree* createSyntaxTree(List *tokens, char *src) {
+SyntaxTree* createSyntaxTree(List *tokens) {
   char *error = NULL;
   SyntaxNode node;
   List *last_loken = parseScopeGlobal(tokens, &node, &error);
@@ -16,8 +16,7 @@ SyntaxTree* createSyntaxTree(List *tokens, char *src) {
     if (last_loken == NULL) {
       return NULL;
     }
-    TokenData *token_data = (TokenData*) listGetValue(last_loken);
-    printSourceError(src, error, token_data->row, token_data->col);
+    throwSourceError(error, last_loken);
     return NULL;
   }
 

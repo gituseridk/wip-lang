@@ -4,7 +4,7 @@
 
 unsigned str_counter = 0;
 
-static void compilePointerLiteral(char *src, ExpressionData *self, FILE *out_stream) {
+static void compilePointerLiteral(ExpressionData *self, FILE *out_stream) {
   int str_id = str_counter++;
   L("    jmp     string_literal_end_%d", str_id);
 
@@ -22,7 +22,7 @@ static void compilePointerLiteral(char *src, ExpressionData *self, FILE *out_str
   L("    push    string_literal_%d", str_id);
 }
 
-void compileLiteralX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileLiteralX86(ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
   char err[100];
@@ -33,10 +33,10 @@ void compileLiteralX86(char *src, ExpressionData *self, bool address, FILE *out_
     L("    push    %d", *(int*) self->value);
     break;
   case TYPE_ID_POINTER:
-    compilePointerLiteral(src, self, out_stream);
+    compilePointerLiteral(self, out_stream);
     break;
   default:
     sprintf(err, "literals with type of %s is not implemented yet\n", getTypeName(&(self->result_type)));
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 }

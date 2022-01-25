@@ -4,7 +4,7 @@
 
 int ifs_counter = 0;
 
-void compileIfX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileIfX86(ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
   int current_if_id = ifs_counter++;
 
@@ -12,20 +12,20 @@ void compileIfX86(char *src, ExpressionData *self, bool address, FILE *out_strea
 
   ExpressionData *body = (ExpressionData*) arrayAt(self->child_expressions, 1);
 
-  expressionCompile(condition, ARCH_X86, src, false, out_stream);
+  expressionCompile(condition, ARCH_X86, false, out_stream);
 
   L("    pop     rax");
   L("    cmp     rax, 0");
   L("    jz      if_else_%d", current_if_id);
 
-  expressionCompile(body, ARCH_X86, src, false, out_stream);
+  expressionCompile(body, ARCH_X86, false, out_stream);
   L("    jmp     if_end_%d", current_if_id);
   
   L("if_else_%d:\n", current_if_id);
 
   if (arrayGetLength(self->child_expressions) > 2) {
     ExpressionData *else_body = (ExpressionData*) arrayAt(self->child_expressions, 2);
-    expressionCompile(else_body, ARCH_X86, src, false, out_stream);
+    expressionCompile(else_body, ARCH_X86, false, out_stream);
   }
 
   L("if_end_%d:\n", current_if_id);

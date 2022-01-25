@@ -20,7 +20,6 @@ typedef struct {
 void printSyntaxOperationPrefixData(SyntaxOperationPrefixData *data);
 
 void getOperationPrefixExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -28,6 +27,6 @@ void getOperationPrefixExpressionData(
   int handler_id
 );
 
-void compileOperationPrefixX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileOperationPrefixX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

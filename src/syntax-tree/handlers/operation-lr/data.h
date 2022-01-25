@@ -37,7 +37,6 @@ typedef struct {
 void printSyntaxOperationLRData(SyntaxOperationData *data);
 
 void getOperationLRExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -45,6 +44,6 @@ void getOperationLRExpressionData(
   int handler_id
 );
 
-void compileOperationLRX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileOperationLRX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

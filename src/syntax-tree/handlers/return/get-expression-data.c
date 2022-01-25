@@ -8,7 +8,6 @@
 
 // !TODO typechecking
 void getReturnExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -28,7 +27,6 @@ void getReturnExpressionData(
   setVoidType(&(child_expression.result_type));
 
   data->expression->handler->getExpressionData(
-    src,
     data->expression->data,
     data->expression->token,
     &child_expression,
@@ -38,7 +36,7 @@ void getReturnExpressionData(
 
   int scope_level = getFunctionScopeLevel(result->parent_scope);
   if (scope_level < 0) {
-    throwSourceError(src, "unexpected return", token);
+    throwSourceError("unexpected return", token);
   }
   ReturnExpressionData *value = malloc(sizeof(ReturnExpressionData));
   value->scope_level = scope_level;

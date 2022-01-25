@@ -5,9 +5,9 @@
 #include "token/token-data.h"
 #include "./log-src-error.h"
 
-void printSourceError(const char *src, const char *error, int row, int col) {
+void printSourceError(const SourceData *src, const char *error, int row, int col) {
   printf("Error at %d:%d\n", row, col);
-  Array *lines = stringSplit(src, "\n", true);
+  Array *lines = stringSplit(src->content, "\n", true);
   char **line = (char**) arrayAt(lines, row - 1);
  
   int row_num_length = 0;
@@ -23,9 +23,9 @@ void printSourceError(const char *src, const char *error, int row, int col) {
   freeSplittedString(lines);
 }
 
-void throwSourceError(const char *src, const char *error, List *token) {
+void throwSourceError(const char *error, List *token) {
   TokenData *token_data = (TokenData*) listGetValue(token);
 
-  printSourceError(src, error, token_data->row, token_data->col);
+  printSourceError(token_data->src, error, token_data->row, token_data->col);
   exit(1);
 }

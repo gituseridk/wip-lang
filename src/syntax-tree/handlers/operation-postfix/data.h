@@ -16,7 +16,6 @@ typedef struct {
 void printSyntaxOperationPostfixData(SyntaxOperationPostfixData *data);
 
 void getOperationPostfixExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -24,6 +23,6 @@ void getOperationPostfixExpressionData(
   int handler_id
 );
 
-void compileOperationPostfixX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileOperationPostfixX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

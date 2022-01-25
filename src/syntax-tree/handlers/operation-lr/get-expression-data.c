@@ -4,7 +4,6 @@
 #include "./data.h"
 
 void getOperationLRExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -24,7 +23,6 @@ void getOperationLRExpressionData(
   setVoidType(&(right.result_type));
 
   data->left.handler->getExpressionData(
-    src,
     data->left.data,
     data->left.token,
     &left,
@@ -33,11 +31,10 @@ void getOperationLRExpressionData(
   );
   
   if (left.result_type.type_id == TYPE_ID_VOID) {
-    throwSourceError(src, "left side expression is void type", token);
+    throwSourceError("left side expression is void type", token);
   }
 
   data->right.handler->getExpressionData(
-    src,
     data->right.data,
     data->right.token,
     &right,
@@ -46,7 +43,7 @@ void getOperationLRExpressionData(
   );
 
   if (!isTypesCompatible(&(left.result_type), &(right.result_type))) {
-    throwSourceError(src, "right side and left side expressions are of different types", token);
+    throwSourceError("right side and left side expressions are of different types", token);
   }
 
   result->result_type = left.result_type;

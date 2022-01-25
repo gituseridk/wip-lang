@@ -28,7 +28,6 @@ typedef struct {
 void printSyntaxFunctionData(SyntaxFunctionData *data);
 
 void getFunctionExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -36,6 +35,6 @@ void getFunctionExpressionData(
   int handler_id
 );
 
-void compileFunctionX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileFunctionX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

@@ -4,8 +4,11 @@
 #include "utils/list/list.h"
 
 #include "./token.h"
+#include "./source-data.h"
+
 
 typedef struct {
+  const SourceData *src;
   Token token;
   char *value;
 
@@ -14,7 +17,7 @@ typedef struct {
   int size;
 } TokenData;
 
-List* tokenize(char *src);
+List* tokenize(const SourceData *src);
 void tokenDataPrint(TokenData *self);
 
 #endif

@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include "expression-data/expression-data.h"
 
-void compileX86(char *src, ExpressionData root_expression, FILE *out_stream);
+void compileX86(ExpressionData root_expression, FILE *out_stream);
 
 #endif

@@ -8,7 +8,6 @@
 
 
 void getInitializationExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -23,14 +22,14 @@ void getInitializationExpressionData(
   if (data->type != NULL) {
     result->result_type = *(data->type);
   } else if (result->result_type.type_id == TYPE_ID_VOID) {
-    throwSourceError(src, "missing initialization type", token);
+    throwSourceError("missing initialization type", token);
   }
 
   if (mapGet(result->parent_scope->variables, data->identifier) != NULL) {
     List *identifier_token = trimTokensLeft(listNext(token));
     char msg[100];
     sprintf(msg, "name \"%s\" is already used", data->identifier);
-    throwSourceError(src, msg, identifier_token);
+    throwSourceError(msg, identifier_token);
   }
 
   result->result_type.is_constant = data->is_constant;

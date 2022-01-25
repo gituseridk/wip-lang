@@ -7,7 +7,6 @@
 unsigned last_function_id = 0;
 
 void getFunctionExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -28,7 +27,7 @@ void getFunctionExpressionData(
   for (int i = 0; i != arrayGetLength(data->arguments); ++i) {
     FunctionArgument *arg = (FunctionArgument*)arrayAt(data->arguments, i);
     if (mapGet(result->variables, arg->name) != NULL) {
-      throwSourceError(src, "name is already used in this scope", arg->token);
+      throwSourceError("name is already used in this scope", arg->token);
     }
     arg_offset -= getTypeSize(&(arg->type_definition));
     VariableData data = (VariableData) {
@@ -51,7 +50,6 @@ void getFunctionExpressionData(
   body.parent_scope = result;
 
   data->body_expression.handler->getExpressionData(
-    src,
     data->body_expression.data,
     data->body_expression.token,
     &body,
@@ -60,7 +58,7 @@ void getFunctionExpressionData(
   );
 
   if (!isTypesCompatible(&(body.result_type), &(data->return_type))) {
-    throwSourceError(src, "the return type of the function is invalid", data->body_expression.token);
+    throwSourceError("the return type of the function is invalid", data->body_expression.token);
   }
 
   result->child_expressions = newArray(ExpressionData, body);

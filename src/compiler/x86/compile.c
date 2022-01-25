@@ -186,12 +186,12 @@ void defineAllocate(FILE *out_stream) {
   L("    ret");
 }
 
-void compileX86(char *src, ExpressionData root_expression, FILE *out_stream) {
+void compileX86(ExpressionData root_expression, FILE *out_stream) {
   L("section .text");
   L("global _start\n");
   L("_start:");
 
-  expressionCompile(&root_expression, ARCH_X86, src, false, out_stream);
+  expressionCompile(&root_expression, ARCH_X86, false, out_stream);
 
   defineExit(out_stream);
   defineStrLen(out_stream);

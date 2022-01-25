@@ -4,7 +4,6 @@
 #include "./data.h"
 
 void getOperationPostfixExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -20,7 +19,6 @@ void getOperationPostfixExpressionData(
   setVoidType(&(expression.result_type));
 
   data->expression.handler->getExpressionData(
-    src,
     data->expression.data,
     data->expression.token,
     &expression,
@@ -30,7 +28,7 @@ void getOperationPostfixExpressionData(
 
   // !TODO add expression overload
   if (expression.result_type.type_id != TYPE_ID_INT) {
-    throwSourceError(src, "wrong expression type, expected int", token);
+    throwSourceError("wrong expression type, expected int", token);
   }
 
   result->result_type = expression.result_type;

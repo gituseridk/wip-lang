@@ -22,7 +22,6 @@
 Array *handlers;
 
 void getNotImplementedExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -31,7 +30,7 @@ void getNotImplementedExpressionData(
 ) {
   char err[100];
   sprintf(err, "\"%s\" syntax node is not implemented yet", getSyntaxNodeHandler(handler_id)->name);
-  throwSourceError(src, err, token);
+  throwSourceError(err, token);
 }
 
 static Array *getSyntaxNodeHandlers() {

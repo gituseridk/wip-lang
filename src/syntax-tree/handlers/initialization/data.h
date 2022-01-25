@@ -12,7 +12,6 @@ typedef struct {
 
 void printSyntaxInitializationData(SyntaxInitializationData *data);
 void getInitializationExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -20,6 +19,6 @@ void getInitializationExpressionData(
   int handler_id
 );
 
-void compileInitializationX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileInitializationX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

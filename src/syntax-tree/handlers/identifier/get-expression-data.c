@@ -4,7 +4,6 @@
 #include "./data.h"
 
 void getIdentifierExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -18,7 +17,7 @@ void getIdentifierExpressionData(
   unsigned scope_diff;
   VariableData *var_data = expressionDataGetVariable(result, data->name, &scope_diff);
   if (var_data == NULL) {
-    throwSourceError(src, "undefined identifier", token);
+    throwSourceError("undefined identifier", token);
   }
 
   ExpressionIdentifierValue *expression_value = (ExpressionIdentifierValue*) malloc(sizeof(ExpressionIdentifierValue));

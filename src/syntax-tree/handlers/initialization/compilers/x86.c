@@ -2,7 +2,7 @@
 #include "utils/logger/log-src-error.h"
 #include "compiler/x86/compile-utils.h"
 
-void compileInitializationX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileInitializationX86(ExpressionData *self, bool address, FILE *out_stream) {
   if (!address) {
     return;
   }
@@ -14,7 +14,7 @@ void compileInitializationX86(char *src, ExpressionData *self, bool address, FIL
   ) {
     char err[100];
     sprintf(err, "initialization with type %s is not implemented yet\n", getTypeName(&(self->result_type)));
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
 
   VariableData *var = (VariableData*) self->value;

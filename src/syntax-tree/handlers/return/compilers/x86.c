@@ -2,7 +2,7 @@
 #include "utils/logger/log-src-error.h"
 #include "compiler/x86/compile-utils.h"
 
-void compileReturnX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileReturnX86(ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
   ExpressionData *result = (ExpressionData*) arrayAt(self->child_expressions, 0);
@@ -14,7 +14,6 @@ void compileReturnX86(char *src, ExpressionData *self, bool address, FILE *out_s
     expressionCompile(
       result,
       ARCH_X86,
-      src,
       false,
       out_stream
     );
@@ -37,13 +36,13 @@ void compileReturnX86(char *src, ExpressionData *self, bool address, FILE *out_s
   case TYPE_ID_FUNCTION: {
     char err[100];
     sprintf(err, "closure is not supported yet\n");
-    throwSourceError(src, err, result->token);
+    throwSourceError(err, result->token);
     break;
   }
   default: {
     char err[100];
     sprintf(err, "return for type %s is not implemented yet\n", getTypeName(&(result->result_type)));
-    throwSourceError(src, err, result->token);
+    throwSourceError(err, result->token);
   }
   }
 

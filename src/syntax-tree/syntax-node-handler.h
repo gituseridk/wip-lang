@@ -32,7 +32,6 @@ enum SyntaxId {
 
 typedef void (*PrintData)(void *data);
 typedef void (*GetExpressionData)(
-  const char *src,
   void *data,
   List *token,
   ExpressionData *result,

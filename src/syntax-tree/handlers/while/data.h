@@ -10,7 +10,6 @@ typedef struct {
 
 void printSyntaxWhileData(SyntaxWhileData *data);
 void getWhileExpressionData(
-  const char *src,
   void *data,
   List *token,
   ExpressionData *result,
@@ -18,6 +17,6 @@ void getWhileExpressionData(
   int handler_id
 );
 
-void compileWhileX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileWhileX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif

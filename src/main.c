@@ -22,14 +22,17 @@ int main(int argc, char **argv) {
   fseek(file, 0, SEEK_END);
   long length = ftell(file);
   fseek(file, 0, SEEK_SET);
-  char *src = malloc(length+1);
-  if (src) {
-    fread(src, 1, length, file);
-  }
-  fclose(file);
-  src[length] = 0;
 
-  List *tokens = tokenize(src);
+
+  SourceData src = (SourceData) {
+    .path = file_name,
+    .content = malloc(length+1),
+  };
+
+  fread(src.content, 1, length, file);
+  fclose(file);
+  src.content[length] = 0;
+  List *tokens = tokenize(&src);
 
   if (tokens == NULL) {
     printf("failed to tokenize sources\n");
@@ -44,7 +47,7 @@ int main(int argc, char **argv) {
   }
   printf("==TOKENS==\n");
 
-  SyntaxTree *tree = createSyntaxTree(tokens, src);
+  SyntaxTree *tree = createSyntaxTree(tokens);
   if (tree == NULL) {
     printf("failed to parse syntax tree\n");
     return 1;
@@ -59,7 +62,6 @@ int main(int argc, char **argv) {
   int global_offset = 8;
 
   tree->root_node.handler->getExpressionData(
-    src,
     tree->root_node.data,
     tree->root_node.token,
     &root_expression,
@@ -76,10 +78,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  compile(src, ARCH_X86, root_expression, out_file);
+  compile(ARCH_X86, root_expression, out_file);
 
   listFree(tokens);
-  free(src);
 
   return 0;
 }

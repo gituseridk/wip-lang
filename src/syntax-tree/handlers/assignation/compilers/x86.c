@@ -2,15 +2,15 @@
 #include "compiler/x86/compile-utils.h"
 #include "../data.h"
 
-void compileAssignationX86(char *src, ExpressionData *self, bool address, FILE *out_stream) {
+void compileAssignationX86(ExpressionData *self, bool address, FILE *out_stream) {
   FORBID_ADDRESS_AS_RESULT
 
   ExpressionData *left = (ExpressionData*) arrayAt(self->child_expressions, 0);
   ExpressionData *right = (ExpressionData*) arrayAt(self->child_expressions, 1);
 
   // calc result to rbx
-  expressionCompile(right, ARCH_X86, src, false, out_stream);
-  expressionCompile(left, ARCH_X86, src, true, out_stream);
+  expressionCompile(right, ARCH_X86, false, out_stream);
+  expressionCompile(left, ARCH_X86, true, out_stream);
 
   switch (self->result_type.type_id)
   {
@@ -36,7 +36,7 @@ void compileAssignationX86(char *src, ExpressionData *self, bool address, FILE *
   default: {
     char err[100];
     sprintf(err, "assignation is not implemented for %s type", getTypeName(&(self->result_type)));
-    throwSourceError(src, err, self->token);
+    throwSourceError(err, self->token);
   }
   }
 }

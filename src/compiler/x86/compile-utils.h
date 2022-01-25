@@ -9,7 +9,7 @@
 #define FORBID_ADDRESS_AS_RESULT if (address) {\
                                    char err[100]; \
                                    sprintf(err, "address as result is not implemented for \"%s\" expression", self->name); \
-                                   throwSourceError(src, err, self->token); \
+                                   throwSourceError(err, self->token); \
                                  }
 
 void copyNBytes(char *address_reg, unsigned size, FILE *out_stream);

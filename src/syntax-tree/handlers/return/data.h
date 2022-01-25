@@ -14,7 +14,6 @@ typedef struct {
 
 void printSyntaxReturnData(SyntaxReturnData *data);
 void getReturnExpressionData(
-  const char *src,
   void *raw_data,
   List *token,
   ExpressionData *result,
@@ -22,6 +21,6 @@ void getReturnExpressionData(
   int handler_id
 );
 
-void compileReturnX86(char *src, ExpressionData *self, bool address, FILE *out_stream);
+void compileReturnX86(ExpressionData *self, bool address, FILE *out_stream);
 
 #endif
