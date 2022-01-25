@@ -10,6 +10,9 @@ void *listGetValue(List *self);
 List *listNext(List *self);
 List *listPrev(List *self);
 
+void listSetNext(List *self, List *next);
+void listSetPrev(List *self, List *prev);
+
 void listPop(List *self, void *result, int element_size);
 
 List *listPushAfter(List *self, void *value, int element_size);

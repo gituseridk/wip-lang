@@ -1,1 +1,0 @@
-./test.sh && ./build.sh && ./build/out

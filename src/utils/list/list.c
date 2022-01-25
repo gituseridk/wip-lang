@@ -31,6 +31,16 @@ List *listPrev(List *self) {
   return self->prev;
 }
 
+void listSetNext(List *self, List *next) {
+  self->next = next;
+  next->prev = self;
+}
+
+void listSetPrev(List *self, List *prev) {
+  self->prev = prev;
+  prev->next = self;
+}
+
 void listPop(List *self, void *result, int element_size) {
   if (result != NULL) {
     memcpy(result, self->value, element_size);

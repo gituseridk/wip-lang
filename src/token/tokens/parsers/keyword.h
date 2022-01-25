@@ -14,6 +14,7 @@ static Map *getKeywords() {
     mapSet(keywords, "if", NULL);
     mapSet(keywords, "else", NULL);
     mapSet(keywords, "while", NULL);
+    mapSet(keywords, "include", NULL);
     mapSet(keywords, TYPE_NAME_VOID, NULL);
     mapSet(keywords, TYPE_NAME_STRUCT, NULL);
     mapSet(keywords, TYPE_NAME_INT, NULL);

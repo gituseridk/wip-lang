@@ -17,7 +17,12 @@ typedef struct {
   int size;
 } TokenData;
 
-List* tokenize(const SourceData *src);
+typedef struct {
+  List *first_token;
+  List *last_token;
+} TokenizeResult;
+
+TokenizeResult tokenize(const SourceData *src);
 void tokenDataPrint(TokenData *self);
 
 #endif

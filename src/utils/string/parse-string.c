@@ -39,6 +39,10 @@ static char chopSpecialChar(const char *src) {
 int parseString(const char *src, char **result) {
   // -2 stands for start and end quotes
   int src_size = strlen(src) - 2;
+  if (src_size < 0) {
+    *result = "";
+    return 0;
+  }
   *result = malloc(sizeof(char) * src_size);
   unsigned offset = 0;
 

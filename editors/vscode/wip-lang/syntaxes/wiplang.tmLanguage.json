@@ -51,7 +51,7 @@
       "patterns": [
         {
           "name": "keyword.control.wiplang",
-          "match": "\\b(if|else|while|return|var|const)\\b"
+          "match": "\\b(if|else|while|return|var|const|include)\\b"
         }
       ]
     },

@@ -4,6 +4,7 @@
 #include "token/token-data.h"
 #include "syntax-tree/syntax-tree.h"
 #include "compiler/compiler.h"
+#include "preprocessor/preprocessor.h"
 
 int main(int argc, char **argv) {
   if (argc != 2) {
@@ -11,28 +12,9 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  char *file_name = argv[1];
-  FILE *file = fopen(file_name, "r"); // read mode
+  const char *file_name = argv[1];
 
-  if (file == NULL) {
-    printf("Failed to open file '%s'.\n", file_name);
-    return 1;
-  }
-
-  fseek(file, 0, SEEK_END);
-  long length = ftell(file);
-  fseek(file, 0, SEEK_SET);
-
-
-  SourceData src = (SourceData) {
-    .path = file_name,
-    .content = malloc(length+1),
-  };
-
-  fread(src.content, 1, length, file);
-  fclose(file);
-  src.content[length] = 0;
-  List *tokens = tokenize(&src);
+  List* tokens = preprocessFile(file_name).first_token;
 
   if (tokens == NULL) {
     printf("failed to tokenize sources\n");
@@ -73,7 +55,7 @@ int main(int argc, char **argv) {
   const char *out_file_name = "out.s";
   FILE *out_file = fopen(out_file_name, "w");
 
-  if (file == NULL) {
+  if (out_file == NULL) {
     printf("Failed to open result file '%s'.\n", out_file_name);
     return 1;
   }

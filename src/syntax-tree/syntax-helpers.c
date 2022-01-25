@@ -10,6 +10,10 @@
 List *chopToken(List *start_token, int token_id, const char *token_value, char **error) {
   *error = NULL;
   TokenData *token = (TokenData*) listGetValue(start_token);
+  if (token == NULL) {
+    *error = "Token is undefined";
+    return start_token;
+  }
   if (token_value == NULL) {
     if (token->token.id != token_id) {
       asprintf(error, "Unexpected token with id = %d, expect id = %d", token->token.id, token_id);

@@ -47,7 +47,7 @@ static bool hasResult(void *self, void *_chop_result, int index, const Array *ar
   return chop_result->token_end != NULL;
 }
 
-List* tokenize(const SourceData *src) {
+TokenizeResult tokenize(const SourceData *src) {
   List *result = NULL;
   List *last_token_result = NULL;
 
@@ -68,8 +68,7 @@ List* tokenize(const SourceData *src) {
       } else {
         printSourceError(src, "Unknow token", row, col);
       }
-      arrayFree(token_chop_results);
-      return NULL;
+      exit(1);
     }
 
     Token token = token_result->token;
@@ -100,5 +99,8 @@ List* tokenize(const SourceData *src) {
     token_start = token_end;
   }
 
-  return result;
+  return (TokenizeResult) {
+    .first_token = result,
+    .last_token = last_token_result,
+  };
 }

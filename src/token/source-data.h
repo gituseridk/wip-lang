@@ -3,7 +3,7 @@
 
 typedef struct {
   char *content;
-  char *path;
+  const char *path;
 } SourceData;
 
 #endif
