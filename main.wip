@@ -31,8 +31,6 @@ const processLine = (arr1: *int, arr2: *int, size: int) => {
     const middle = *(arr1 + i);
     const right = (i != size - 1) && *(arr1 + i + 1);
 
-    +
-
     *(arr2 + i) = calcCell(left, middle, right);
     ++i;
   }

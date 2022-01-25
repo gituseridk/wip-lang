@@ -131,7 +131,7 @@ List *parseExpression(List *start_token, SyntaxNode *result, char **error, bool 
       }
     }
   }
-  *error = "Failed to parse expression, unknown token";
+  *error = "unknown token";
 
   return current_token;
 }

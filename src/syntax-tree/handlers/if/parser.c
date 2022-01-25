@@ -4,6 +4,8 @@
 #include "syntax-tree/handlers/expression/parser.h"
 #include "syntax-tree/handlers/scope/parser.h"
 #include "syntax-tree/syntax-helpers.h"
+#include "utils/logger/log-src-error.h"
+
 #include "./parser.h"
 #include "./data.h"
 
@@ -27,18 +29,18 @@ List *parseIf(List *tokens, SyntaxNode *result, char **error) {
   SyntaxIfData *data = malloc(sizeof(SyntaxIfData));
   data->else_expression = NULL;
 
-  current_token = trimTokensLeft(current_token);
-  current_token = parseExpression(current_token, &(data->condition), error, false, 0);
+  List *condition_start_token = trimTokensLeft(current_token);
+  current_token = parseExpression(condition_start_token, &(data->condition), error, false, 0);
   if (*error != NULL) {
     free(data);
-    return current_token;
+    throwSourceError("failed to parse \"if\", expected condition", condition_start_token);
   }
 
   current_token = trimTokensLeft(current_token);
   current_token = parseScope(current_token, &(data->expression), error);
   if (*error != NULL) {
     free(data);
-    return current_token;
+    throwSourceError("failed to parse \"if\", expected scope", current_token);
   }
 
   result->data = data;
@@ -53,9 +55,12 @@ List *parseIf(List *tokens, SyntaxNode *result, char **error) {
   // patse "else" block
   data->else_expression = malloc(sizeof(SyntaxNode));
 
-  current_token = parseExpression(current_token, data->else_expression, error, true, 0);
+  List *else_start_token = trimTokensLeft(current_token);
+  current_token = parseExpression(else_start_token, data->else_expression, error, true, 0);
   if (*error != NULL) {
-    free(data);
+    char err[100];
+    sprintf(err, "failed to parse else expression: %s", *error);
+    throwSourceError(err, else_start_token);
     return current_token;
   }
   int else_expr_id = data->else_expression->handler->id;
@@ -64,8 +69,7 @@ List *parseIf(List *tokens, SyntaxNode *result, char **error) {
     else_expr_id != SYNTAX_IF &&
     else_expr_id != SYNTAX_SCOPE
   ) {
-    *error = "failed to parse else expression, expected \"scope\" or \"if\"";
-    free(data);
+    throwSourceError("failed to parse else expression, expected \"scope\" or \"if\"", else_start_token);
   }
 
   return current_token;
