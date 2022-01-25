@@ -6,7 +6,7 @@
 #include "./log-src-error.h"
 
 void printSourceError(const SourceData *src, const char *error, int row, int col) {
-  printf("Error at %d:%d\n", row, col);
+  printf("Error at %s:%d:%d\n", src->path, row, col);
   Array *lines = stringSplit(src->content, "\n", true);
   char **line = (char**) arrayAt(lines, row - 1);
  
