@@ -3,7 +3,8 @@
 
 #include "utils/list/list.h"
 #include "token/token-data.h"
+#include "config/config.h"
 
-TokenizeResult preprocessFile(const char *path);
+TokenizeResult preprocessFile(Config config);
 
 #endif

@@ -1,26 +1,46 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "syntax-tree/syntax-helpers.h"
+#include "token/tokens.h"
 #include "utils/logger/log-src-error.h"
 #include "utils/string/string.h"
 #include "utils/array/array.h"
-#include "token/tokens.h"
+#include "utils/map/map.h"
 
 #include "./preprocessor.h"
 
-static void includeFile(List *include_first_token, List *include_last_token) {
+typedef struct {
+  Map *includes;
+  Config config;
+} PreprocessorContext;
+
+typedef struct {
+  bool is_fully_processed;
+} IncludeData;
+
+static char* resolvePath(const char *dir, const char *file) {
+  char *root_dir_path = realpath(dir, NULL);
+  char *full_file_path;
+  asprintf(&full_file_path, "%s/%s", root_dir_path, file);
+  free(root_dir_path);
+  return full_file_path;
+}
+
+static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const char *path);
+
+static void includeFile(PreprocessorContext ctx, List *include_first_token, List *include_last_token) {
   TokenData *path_token_data = listGetValue(include_last_token);
   char *path;
   parseString(path_token_data->value, &path);
 
-  TokenizeResult result = preprocessFile(path); 
+  TokenizeResult result = preprocessFileWithContext(ctx, resolvePath(ctx.config.root_dir, path)); 
   listSetNext(listPrev(include_first_token), result.first_token);
   listSetPrev(listNext(include_last_token), result.last_token);
   
 }
 
-static void parseIncludes(List *first_token, List *last_token) {
+static void parseIncludes(PreprocessorContext ctx, List *first_token, List *last_token) {
   List *current_token = first_token;
 
   while (current_token != NULL) {
@@ -46,8 +66,7 @@ static void parseIncludes(List *first_token, List *last_token) {
         throwSourceError("unexpected token, expect file path", current_token);
       }
 
-      tokenDataPrint(listGetValue(current_token));
-      includeFile(include_start_token, current_token);
+      includeFile(ctx, include_start_token, current_token);
       current_token = after_path;
     }
 
@@ -55,7 +74,7 @@ static void parseIncludes(List *first_token, List *last_token) {
   }
 }
 
-TokenizeResult preprocessFile(const char *path) {
+static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const char *path) {
   FILE *file = fopen(path, "r");
 
   if (file == NULL) {
@@ -104,7 +123,16 @@ TokenizeResult preprocessFile(const char *path) {
   listSetPrev(token_end, result.last_token);
   result.last_token = token_end;
 
-  parseIncludes(result.first_token, result.last_token);
+  parseIncludes(ctx, result.first_token, result.last_token);
 
   return result;
+}
+
+TokenizeResult preprocessFile(Config config) {
+  PreprocessorContext ctx = (PreprocessorContext) {
+    .config = config,
+    .includes = createMap(sizeof(IncludeData)),
+  };
+
+  return preprocessFileWithContext(ctx, resolvePath(config.root_dir, config.entry_point));
 }

@@ -1,0 +1,37 @@
+const calcCell = (left: int, middle: int, right: int): int => {
+  if left {
+    if middle {
+      return !right;
+    }
+    return !!right;
+  }
+  return middle || right;
+};
+
+const processLine = (arr1: *int, arr2: *int, size: int) => {
+  var i = 0;
+  while i < size {
+    const left = (i != 0) && *(arr1 + i - 1);
+    const middle = *(arr1 + i);
+    const right = (i != size - 1) && *(arr1 + i + 1);
+
+    *(arr2 + i) = calcCell(left, middle, right);
+    ++i;
+  }
+};
+
+const drawLine = (arr: *int, size: int) => {
+  var i = 0;
+  while i - size {
+    const cell = *(arr + i);
+
+    if cell {
+      print("#");
+    } else {
+      print(" ");
+    }
+
+    ++i;
+  }
+  print("\n");
+};

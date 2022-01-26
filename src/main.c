@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#include "config/config.h"
 #include "expression-data/expression-data.h"
 #include "token/token-data.h"
 #include "syntax-tree/syntax-tree.h"
@@ -7,20 +8,16 @@
 #include "preprocessor/preprocessor.h"
 
 int main(int argc, char **argv) {
-  if (argc != 2) {
-    printf("wrong number of args, expected input file name\n");
-    exit(1);
-  }
+  Config config = readConfig(argc, argv);
 
-  const char *file_name = argv[1];
-
-  List* tokens = preprocessFile(file_name).first_token;
+  List* tokens = preprocessFile(config).first_token;
 
   if (tokens == NULL) {
     printf("failed to tokenize sources\n");
     return 1;
   }
 
+  #ifdef DEBUG_TOKENS
   printf("==tokens==\n");
   int i = 0;
   for (List *token = tokens; token != NULL; token = listNext(token)) {
@@ -28,15 +25,19 @@ int main(int argc, char **argv) {
     tokenDataPrint(listGetValue(token));
   }
   printf("==TOKENS==\n");
+  #endif
 
   SyntaxTree *tree = createSyntaxTree(tokens);
   if (tree == NULL) {
     printf("failed to parse syntax tree\n");
     return 1;
   }
+
+  #ifdef DEBUG_AST
   printf("===ast===\n");
   printSyntaxTree(tree);
   printf("===AST===\n");
+  #endif
 
   ExpressionData root_expression;
   root_expression.parent_scope = NULL;
@@ -50,7 +51,6 @@ int main(int argc, char **argv) {
     &global_offset,
     tree->root_node.handler->id
   );
-
 
   const char *out_file_name = "out.s";
   FILE *out_file = fopen(out_file_name, "w");
