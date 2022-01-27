@@ -13,6 +13,6 @@ Config readConfig(int argc, char **argv) {
 
   return (Config) {
     .root_dir = file_name,
-    .entry_point = "./main.wip",
+    .entry_point = "main.wip",
   };
 }

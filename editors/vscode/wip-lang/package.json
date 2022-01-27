@@ -4,7 +4,7 @@
   "description": "wip-lang syntax highlighting",
   "version": "0.0.1",
   "engines": {
-    "vscode": "1.63.0"
+    "vscode": "1.63.2"
   },
   "categories": [
     "Programming Languages"

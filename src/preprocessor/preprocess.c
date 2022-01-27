@@ -27,14 +27,38 @@ static char* resolvePath(const char *dir, const char *file) {
   return full_file_path;
 }
 
-static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const char *path);
+static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const char *path, char **error);
 
 static void includeFile(PreprocessorContext ctx, List *include_first_token, List *include_last_token) {
   TokenData *path_token_data = listGetValue(include_last_token);
   char *path;
   parseString(path_token_data->value, &path);
 
-  TokenizeResult result = preprocessFileWithContext(ctx, resolvePath(ctx.config.root_dir, path)); 
+  char *full_path = resolvePath(ctx.config.root_dir, path);
+
+  IncludeData *already_existed_include = (IncludeData*) mapGet(ctx.includes, full_path);
+  TokenizeResult result;
+
+  if (already_existed_include && already_existed_include->is_fully_processed) {
+    TokenData *toke = (TokenData*) listGetValue(include_first_token);
+    List *empty_token = createList(&((TokenData) {
+      .col = toke->col,
+      .row = toke->row,
+      .size = 1,
+      .src = toke->src,
+      .token = *(Token*) arrayAt(getTokens(), TOKEN_SEPARATOR_EXPRESSION),
+      .value = "\n",
+    }), sizeof(TokenData));
+    result.first_token = empty_token;
+    result.last_token = empty_token;
+  } else {
+    char *error = NULL;
+    result = preprocessFileWithContext(ctx, full_path, &error); 
+    if (error != NULL) {
+      throwSourceError(error, include_first_token);
+    }
+  }
+
   listSetNext(listPrev(include_first_token), result.first_token);
   listSetPrev(listNext(include_last_token), result.last_token);
   
@@ -74,13 +98,29 @@ static void parseIncludes(PreprocessorContext ctx, List *first_token, List *last
   }
 }
 
-static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const char *path) {
+static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const char *path, char **error) {
+  IncludeData *already_existed_include = (IncludeData*) mapGet(ctx.includes, path);
+
+  if (already_existed_include != NULL) {
+    *error = "include cycle detected";
+    return (TokenizeResult) {
+      .first_token = NULL,
+      .last_token = NULL,
+    };
+  }
+
+  mapSet(ctx.includes, path, &(IncludeData) {
+    .is_fully_processed = false,
+  });
+
   FILE *file = fopen(path, "r");
 
   if (file == NULL) {
-    // !TODO print information about include location
-    printf("Failed to open file '%s'.\n", path);
-    exit(1);
+    asprintf(error, "Failed to open file '%s'.\n", path);
+    return (TokenizeResult) {
+      .first_token = NULL,
+      .last_token = NULL,
+    };
   }
 
   fseek(file, 0, SEEK_END);
@@ -125,6 +165,8 @@ static TokenizeResult preprocessFileWithContext(PreprocessorContext ctx, const c
 
   parseIncludes(ctx, result.first_token, result.last_token);
 
+  ((IncludeData*) mapGet(ctx.includes, path))->is_fully_processed = true;
+
   return result;
 }
 
@@ -134,5 +176,12 @@ TokenizeResult preprocessFile(Config config) {
     .includes = createMap(sizeof(IncludeData)),
   };
 
-  return preprocessFileWithContext(ctx, resolvePath(config.root_dir, config.entry_point));
+  char *main_path = resolvePath(config.root_dir, config.entry_point);
+  char *error = NULL;
+  TokenizeResult result = preprocessFileWithContext(ctx, main_path, &error);
+  if (error != NULL) {
+    printf("Failed to parse file %s:\n\t%s\n", main_path, error);
+    exit(1);
+  }
+  return result;
 }
